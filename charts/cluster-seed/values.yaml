@@ -1,0 +1,29 @@
+nameOverride: ""
+fullnameOverride: ""
+namespaces:
+  - name: openshift-gitops
+subscriptions:
+  - name: openshift-gitops-operator
+    namespace: openshift-operators
+    channel: latest
+    config:
+      env:
+      - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
+        value: "true"
+    installPlanApproval: Automatic
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+
+operatorGroups:
+
+catalogSources: []
+  # - name: operatorhubio
+  #   sourceType: grpc
+  #   image: quay.io/operator-framework/upstream-community-operators:latest
+  #   displayName: Community Operators
+  #   publisher: OperatorHub.io
+applications:
+- name: day-one
+  gitUrl: https://github.com/PF-POC/day-1-gitops.git
+- name: day-two
+  gitUrl: https://github.com/PF-POC/day-2-gitops.git
