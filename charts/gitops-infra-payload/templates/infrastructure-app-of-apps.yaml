@@ -1,0 +1,118 @@
+{{ $defaults := .Values.defaults -}}
+---
+{{ range $infrastructure := .Values.infrastructure -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "{{ $defaults.name }}-{{ $infrastructure.name }}"
+  annotations:
+  {{- range $key, $value := $infrastructure.annotations }}
+    {{ $key }}: {{ $value | quote }}
+  {{- end }}
+    argocd.argoproj.io/sync-wave: {{ $infrastructure.syncWave | default $defaults.syncWave | quote }}
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    plugin:
+      name: argocd-vault-plugin-helm
+      env:
+      - name: AVP_K8S_ROLE
+        value: k8s-read-base-ocp4-dev
+      - name: AVP_TYPE
+        value: vault
+      - name: VAULT_ADDR
+        value: 'https://smp.np.fost.test'
+      - name: AVP_AUTH_TYPE
+        value: k8s
+      - name: AVP_VAULT_CACERT
+        value: /app/config/tls/cert.pem
+      - name: VAULT_SKIP_VERIFY
+        value: "true"
+      - name:  AVP_K8S_MOUNT_PATH
+        value: "auth/kubernetes/fostcorp/ocp4-dev"
+      - name: VAULT_NAMESPACE
+        value: ics-cont-fost
+      {{- if $infrastructure.values }}
+      - name: HELM_VALUES
+        value: |
+          {{ toYaml $infrastructure.values | nindent 10 }}
+      {{- end }}
+    repoURL: {{ $infrastructure.helmRepo | default $defaults.helmRepo | quote }}
+    targetRevision: "{{ $infrastructure.targetRevision }}"
+    path: {{ $infrastructure.path | default $defaults.path | quote }}
+    chart: "{{ $infrastructure.chart }}"
+  destination:
+    server: "{{ $defaults.server }}"
+    {{- if $infrastructure.namespace}}
+    namespace: "{{ $infrastructure.namespace  }}"
+    {{- end }}
+  syncPolicy:
+    automated: 
+      prune: false
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
+    - Validate=false 
+    - CreateNamespace=false
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s 
+        factor: 2 
+        maxDuration: 3m
+  ignoreDifferences:
+---
+{{ end }}
+---
+
+
+
+# {{- range .Values.applications }}
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: {{ .name }}
+#   namespace: openshift-gitops
+#   annotations:
+#   {{- range $key, $value := .annotations }}
+#     {{ $key }}: {{ $value | quote }}
+#   {{- end }}
+# spec:
+#   destination:
+#     namespace: {{ .namespace }}
+#     server: {{ .api }}
+#   project: {{ .argocdProject }}
+#   source:
+#     plugin:
+#       name: argocd-vault-plugin-helm
+#       env:
+#       - name: AVP_K8S_ROLE
+#         value: k8s-read-base-ocp4-dev
+#       - name: AVP_TYPE
+#         value: vault
+#       - name: VAULT_ADDR
+#         value: 'https://smp.np.fost.test'
+#       - name: AVP_AUTH_TYPE
+#         value: k8s
+#       - name: AVP_VAULT_CACERT
+#         value: /app/config/tls/cert.pem
+#       - name: VAULT_SKIP_VERIFY
+#         value: "true"
+#       - name:  AVP_K8S_MOUNT_PATH
+#         value: "auth/kubernetes/fostcorp/ocp4-dev"
+#       - name: VAULT_NAMESPACE
+#         value: ics-cont-fost
+#     path: {{ .path }}
+#     repoURL: {{ .repo }}
+#     targetRevision: {{ .targetRevision }}
+#   syncPolicy:
+#     automated:
+#       prune: false
+#       selfHeal: true
+#     syncOptions:
+#     - ApplyOutOfSyncOnly=true
+# {{- end }}
