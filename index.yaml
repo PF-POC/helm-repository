@@ -10,6 +10,13 @@ entries:
     version: 0.0.3
   cluster-seed:
   - apiVersion: v2
+    created: "2024-05-27T11:30:19.886893677Z"
+    digest: 11a010d7129574d4c3728ea94f319b34b16e781bc810e8d04a3d775bc0e4678d
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-2.1.9/cluster-seed-2.1.9.tgz
+    version: 2.1.9
+  - apiVersion: v2
     created: "2024-05-27T07:33:06.385851308Z"
     digest: 46c0570d7abf14fc8ac005c4b356c5a86ec55f63046762128b4f6347a5d1fb4c
     name: cluster-seed
@@ -54,6 +61,14 @@ entries:
     version: 0.0.3
   gitops-infra-payload:
   - apiVersion: v1
+    created: "2024-05-27T11:30:19.995927098Z"
+    description: Chart to generate argocd apps
+    digest: 7e966446e2eca636aedcab10f64e9a3fb37bc4cc19b7fdff782b50bf38ef82f3
+    name: gitops-infra-payload
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-1.0.0/gitops-infra-payload-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v1
     created: "2024-05-27T07:32:54.041263261Z"
     description: Chart to generate argocd apps
     digest: c3bcc9ab55fa4f6cff4fe5f09e686de2f69dc91a16a16ecf0631ebd185b8231b
@@ -70,4 +85,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-0.0.8/gitops-infra-payload-0.0.8.tgz
     version: 0.0.8
-generated: "2024-05-27T07:41:29.836075846Z"
+generated: "2024-05-27T11:30:19.995964367Z"
