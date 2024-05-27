@@ -2,6 +2,13 @@ apiVersion: v1
 entries:
   cluster-seed:
   - apiVersion: v2
+    created: "2024-05-27T07:33:06.385851308Z"
+    digest: 46c0570d7abf14fc8ac005c4b356c5a86ec55f63046762128b4f6347a5d1fb4c
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-2.1.8/cluster-seed-2.1.8.tgz
+    version: 2.1.8
+  - apiVersion: v2
     created: "2024-05-27T07:32:53.890585115Z"
     digest: fee910e4b3997c8715340e903b1f0e45c8a1eff09db345f1e710b01d4f2d1a54
     name: cluster-seed
@@ -55,4 +62,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-0.0.8/gitops-infra-payload-0.0.8.tgz
     version: 0.0.8
-generated: "2024-05-27T07:32:54.041282176Z"
+generated: "2024-05-27T07:33:06.385874892Z"
