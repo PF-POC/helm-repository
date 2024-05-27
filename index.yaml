@@ -1,5 +1,13 @@
 apiVersion: v1
 entries:
+  cluster-logging:
+  - apiVersion: v2
+    created: "2024-05-27T07:41:29.836058012Z"
+    digest: 516e958d4c3d847d58c38d99e7f7a31a855344a90ff167e95493029b65b8c902
+    name: cluster-logging
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-logging-0.0.3/cluster-logging-0.0.3.tgz
+    version: 0.0.3
   cluster-seed:
   - apiVersion: v2
     created: "2024-05-27T07:33:06.385851308Z"
@@ -62,4 +70,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-0.0.8/gitops-infra-payload-0.0.8.tgz
     version: 0.0.8
-generated: "2024-05-27T07:33:06.385874892Z"
+generated: "2024-05-27T07:41:29.836075846Z"
