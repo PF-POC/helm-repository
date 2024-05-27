@@ -61,6 +61,14 @@ entries:
     version: 0.0.3
   gitops-infra-payload:
   - apiVersion: v1
+    created: "2024-05-27T11:39:11.819213996Z"
+    description: Chart to generate argocd apps
+    digest: b46fddfe9fad288f0558916996221a5594dc552a28f8db16c7e67810198b8061
+    name: gitops-infra-payload
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-1.0.1/gitops-infra-payload-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v1
     created: "2024-05-27T11:30:19.995927098Z"
     description: Chart to generate argocd apps
     digest: 7e966446e2eca636aedcab10f64e9a3fb37bc4cc19b7fdff782b50bf38ef82f3
@@ -85,4 +93,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-0.0.8/gitops-infra-payload-0.0.8.tgz
     version: 0.0.8
-generated: "2024-05-27T11:30:19.995964367Z"
+generated: "2024-05-27T11:39:11.819252388Z"
