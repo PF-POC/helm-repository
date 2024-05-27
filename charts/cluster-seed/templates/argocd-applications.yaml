@@ -17,7 +17,7 @@ spec:
   project: default
   source:
     repoURL: "{{ $applications.gitUrl }}"
-    targetRevision: 0.0.1
+    targetRevision: main
     path: {{ $.Values.gitops_path }}
   syncPolicy:
     automated:
