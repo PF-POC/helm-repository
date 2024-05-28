@@ -1,20 +1,19 @@
 # defaults:
-#   helmRepo: "https://PF-POC.github.io/helm-charts/"
-#   path: /charts
-#   name: D1
+#   helmRepo: https://pf-poc.github.io/helm-repository
+#   path: ''
+#   name: day-one
 #   server: https://kubernetes.default.svc
 #   syncWave: 0
 
 # infrastructure:
-#   - name: efs
-#     namespace: efs
-#     repo: https://github.service.abc/ics/rosa-day-1.git
-#     chart: efs
-#     targetRevision: "0.0.1"
+#   - name: cluster-logging
+#     namespace: openshift-logging
+#     chart: cluster-logging
+#     targetRevision: "0.0.3"
+#     mount_path: "kv/data/vplugin/supersecret"
 #     annotations:
 #       sync: 56
 #     syncWave: 50
 #     values:
-#       paul: test
-
-
+#       splunkHecToken: bla
+#       splunURL: bla
