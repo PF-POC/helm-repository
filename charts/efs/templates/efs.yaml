@@ -52,3 +52,14 @@ parameters:
   gidRangeStart: "1000"
   gidRangeEnd: "2000"
   basePath: "/dynamic_provisioning"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-secret
+  annotations:
+    avp.kubernetes.io/path: "kv/data/vplugin/supersecret"
+type: Opaque
+stringData:
+  username: <username>
+  password: <password>

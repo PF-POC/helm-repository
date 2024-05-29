@@ -18,7 +18,7 @@ spec:
   project: default
   source:
     plugin:
-      # name: argocd-vault-plugin-helm
+      #name: argocd-vault-plugin-helm
       env:
       - name: AVP_K8S_ROLE
         value: vplugin
