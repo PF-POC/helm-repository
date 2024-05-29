@@ -53,6 +53,13 @@ entries:
     version: 2.1.4
   efs:
   - apiVersion: v2
+    created: "2024-05-29T03:41:56.746077109Z"
+    digest: b339a7106688b32aeaf831ace3cee52a19aaae63aacfc7111cab6c39254ab1c6
+    name: efs
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/efs-0.0.4/efs-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
     created: "2024-05-26T15:10:00.830624732Z"
     digest: bb8ad0733b3eb3aa635fc923548df7f02787f5a7912c2b6d5307fdb483ab1132
     name: efs
@@ -60,6 +67,14 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/efs-0.0.3/efs-0.0.3.tgz
     version: 0.0.3
   gitops-infra-payload:
+  - apiVersion: v1
+    created: "2024-05-29T03:41:56.955826425Z"
+    description: Chart to generate argocd apps
+    digest: 9004e8d072b4a239e1ecbb7407ba145d7e41b8aae8bbd119fb4d1f36548e8590
+    name: gitops-infra-payload
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-1.0.7/gitops-infra-payload-1.0.7.tgz
+    version: 1.0.7
   - apiVersion: v1
     created: "2024-05-28T10:20:15.679221979Z"
     description: Chart to generate argocd apps
@@ -133,4 +148,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-0.0.8/gitops-infra-payload-0.0.8.tgz
     version: 0.0.8
-generated: "2024-05-28T10:20:15.679289275Z"
+generated: "2024-05-29T03:41:56.955885757Z"
