@@ -90,6 +90,23 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-init-0.0.3/gitops-app-init-0.0.3.tgz
     version: 0.0.3
+  gitops-apps-config:
+  - apiVersion: v2
+    created: "2024-06-02T13:59:49.144109937Z"
+    digest: ab72938f4d7d41a1232106214eb89e7e9a3c014ff68b1bc34832dc6637df5723
+    name: gitops-apps-config
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-apps-config-1.0.0/gitops-apps-config-1.0.0.tgz
+    version: 1.0.0
+  gitops-argocd-init:
+  - apiVersion: v1
+    created: "2024-06-02T13:59:49.367251275Z"
+    description: Chart to generate argocd apps
+    digest: 61b86d86ff84315ec473543b49b1ce2eeba24dc900aa49bf9beb02ca5eb6c3cd
+    name: gitops-argocd-init
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-argocd-init-1.0.0/gitops-argocd-init-1.0.0.tgz
+    version: 1.0.0
   gitops-infra-payload:
   - apiVersion: v1
     created: "2024-06-02T04:11:57.025908439Z"
@@ -196,6 +213,24 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-0.0.8/gitops-infra-payload-0.0.8.tgz
     version: 0.0.8
+  gitops-payload:
+  - apiVersion: v1
+    created: "2024-06-02T13:59:49.556716506Z"
+    description: Chart to generate argocd apps
+    digest: e44a3a3fd9b5d16bf413df182132a9ef0ff29ea4de543b27b5f832933ffa919a
+    name: gitops-payload
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-payload-1.1.1/gitops-payload-1.1.1.tgz
+    version: 1.1.1
+  namespaces:
+  - apiVersion: v1
+    created: "2024-06-02T13:59:49.752851048Z"
+    description: Chart to generate argocd apps
+    digest: ee60864281c41282171badd2393a99e4697bc81d9ba0b6f4e13eb539bc420be4
+    name: namespaces
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/namespaces-1.0.1/namespaces-1.0.1.tgz
+    version: 1.0.1
   vault:
   - annotations:
       charts.openshift.io/name: HashiCorp Vault
@@ -224,4 +259,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-02T07:42:47.290798473Z"
+generated: "2024-06-02T13:59:49.753004855Z"
