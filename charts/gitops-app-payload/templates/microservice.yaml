@@ -1,0 +1,78 @@
+---
+{{ $team := .Values.team -}}
+---
+{{ $defaults := .Values.defaults -}}
+---
+{{ range $env := .Values.microenvironments -}}
+---
+{{ range $ns := $env.projects -}}
+---
+{{ range $app := $ns.microservices -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "{{ $team.name }}-{{ $team.tier }}-{{ $env.name }}-{{ $ns.name }}-{{ $app.name }}-3rd"
+  annotations:
+    argocd.argoproj.io/sync-wave: "200"
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: "{{ $team.name }}-{{ $team.tier }}-users"
+  source:
+    repoURL: "{{ $app.gitRepo }}"
+    targetRevision: "{{ $app.branch }}"
+    path: app
+    helm:
+      {{- if $app.values }}
+      values: |
+        {{- toYaml $app.values | nindent 8 }}
+      {{- end }}
+      parameters:
+        - name: "name"
+          value: "{{ $team.name }}"
+        - name: "tier"
+          value: "{{ $team.tier }}"
+        - name: "envName"
+          value: "{{ $env.name }}"
+        - name: "namespace"
+          value: "{{ $ns.name }}"
+        - name: "server"
+          value: "{{ $team.server }}"
+        - name: "project"
+          value: "{{ $team.name }}-{{ $team.tier }}-users"
+        - name: "helmRepo"
+          value: "{{ $app.helmRepo }}"
+        - name: "chartName"
+          value: "{{ $app.chartName }}"
+        - name: "chartVersion"
+          value: "{{ $app.chartVersion }}"
+  destination:
+    server: "{{ $team.server }}"
+    namespace: "openshift-gitops"
+  syncPolicy:
+    {{- if not $app.disableAutoSync }}
+    automated:
+      {{- if not $app.disableAutoSyncPrune }}
+      prune: true
+      {{- else }}
+      prune: false
+      {{- end }}
+    {{- end }}
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+---
+{{ end }}
+---
+{{ end }}
+---
+{{ end }}
+---

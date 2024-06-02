@@ -6,8 +6,8 @@ metadata:
     helm.sh/hook: post-install
   finalizers:
   - argoproj.io/finalizer
-  name: openshift-gitops-apps
-  namespace: openshift-gitops-apps
+  name: gitops-apps
+  namespace: gitops-apps
 spec:
   applicationInstanceLabelKey: argocd.argoproj.io/instance
   configManagementPlugins: |

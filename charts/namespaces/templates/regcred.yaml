@@ -1,0 +1,10 @@
+{{ range $ns := .Values.projects -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry-creds
+  namespace: "{{ $ns.name }}"
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: ewogICAgImF1dGhzIjogewogICAgICAgICJodHRwczovL3JlZ2lzdHJ5LmdpdGxhYi5jb20iOnsKICAgICAgICAgICAgInVzZXJuYW1lIjoicGFmb3N0ZXIiLAogICAgICAgICAgICAicGFzc3dvcmQiOiJnbHBhdC1yaHZyaUZWemdza3U3QlZzc3BjVCIsCiAgICAgICAgICAgICJlbWFpbCI6InBhZm9zdGVyQHJlZGhhdC5jb20iLAogICAgICAgICAgICAiYXV0aCI6ImNHRm1iM04wWlhJNloyeHdZWFF0Y21oMmNtbEdWbnBuYzJ0MU4wSldjM053WTFRPSIKICAgIAl9CiAgICB9Cn0K
+{{ end }}

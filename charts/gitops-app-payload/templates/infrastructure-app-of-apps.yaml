@@ -1,16 +1,16 @@
 {{ $defaults := .Values.defaults -}}
 ---
-{{ range $infrastructure := .Values.infrastructure -}}
+{{ range $applications := .Values.applications -}}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: "{{ $defaults.name }}-{{ $infrastructure.name }}"
+  name: "{{ $defaults.name }}-{{ $applications.name }}"
   annotations:
-  {{- range $key, $value := $infrastructure.annotations }}
+  {{- range $key, $value := $applications.annotations }}
     {{ $key }}: {{ $value | quote }}
   {{- end }}
-    argocd.argoproj.io/sync-wave: {{ $infrastructure.syncWave | default $defaults.syncWave | quote }}
+    argocd.argoproj.io/sync-wave: {{ $applications.syncWave | default $defaults.syncWave | quote }}
   namespace: openshift-gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -30,19 +30,19 @@ spec:
         value: {{ $infrastructure.AUTH_TYPE | default $defaults.AUTH_TYPE | quote }}
       - name: VAULT_SKIP_VERIFY
         value: {{ $infrastructure.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
-        {{- if $infrastructure.values }}
+        {{- if $applications.values }}
       - name: HELM_VALUES
         value: |
-          {{ toYaml $infrastructure.values | nindent 10 }}
+          {{ toYaml $applications.values | nindent 10 }}
         {{- end }}
-    repoURL: {{ $infrastructure.helmRepo | default $defaults.helmRepo | quote }}
-    targetRevision: "{{ $infrastructure.targetRevision }}"
-    path: {{ $infrastructure.path | default $defaults.path | quote }}
-    chart: "{{ $infrastructure.chart }}"
+    repoURL: {{ $applications.helmRepo | default $defaults.helmRepo | quote }}
+    targetRevision: "{{ $applications.targetRevision }}"
+    path: {{ $applications.path | default $defaults.path | quote }}
+    chart: "{{ $applications.chart }}"
   destination:
     server: "{{ $defaults.server }}"
-    {{- if $infrastructure.namespace}}
-    namespace: "{{ $infrastructure.namespace  }}"
+    {{- if $applications.namespace}}
+    namespace: "{{ $applications.namespace  }}"
     {{- end }}
   syncPolicy:
     automated: 

@@ -1,0 +1,77 @@
+---
+{{ $team := .Values.team }}
+---
+{{ $defaults := .Values.defaults -}}
+---
+{{ range $env := .Values.microenvironments -}}
+---
+{{ range $ns := $env.projects -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "{{ $team.name }}-{{ $team.tier }}-{{ $env.name }}-{{ $ns.name }}"
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: "{{ $team.name }}-{{ $team.tier }}-users"
+  source:
+    repoURL: "{{ $defaults.helmRepo }}"
+    targetRevision: "3.1.9"
+    chart: "projects"
+    path: ""
+    helm:
+      parameters:
+        - name: "name"
+          value: "{{ $team.name }}"
+        - name: "tier"
+          value: "{{ $team.tier }}"
+        - name: "server"
+          value: "{{ $team.server }}"
+        - name: "project"
+          value: "{{ $team.name }}-{{ $team.tier }}-users"
+      values: |
+        adGroup: "{{ $team.adGroup }}"
+        projects:
+          {{- if not $env.useProjectsNameOnly }}
+          - name: {{ $env.name}}-{{ $ns.name }}
+          {{- else }}
+          - name: {{ $ns.name }}
+          {{- end }}
+          {{- if $ns.labels }}
+            labels: |
+            {{- toYaml $ns.labels | trimPrefix "|" | indent 12 }}
+          {{- end }}
+          {{- if $env.ignoreResourceQuota }}
+            ignoreResourceQuota: true
+          {{- else }}
+            requests:
+              cpu: {{ $env.requests.cpu }}
+              memory: {{ $env.requests.memory }}
+            limits:
+              cpu: {{ $env.limits.cpu }}
+              memory: {{ $env.limits.memory }}
+          {{- end }}
+  destination:
+    server: "{{ $team.server }}"
+  syncPolicy:
+    automated:
+      prune: false
+    syncOptions:   
+      - Validate=false
+      - CreateNamespace=true 
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+---
+{{ end }}
+---
+{{ end }}
+---
+

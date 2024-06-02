@@ -1,4 +1,4 @@
-{{ range $applications := .Values.applications -}}
+{{ range $applications := .Values.argocd.applications -}}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -15,10 +15,19 @@ spec:
     namespace: openshift-gitops
     server: https://kubernetes.default.svc
   project: default
-  source:
-    repoURL: "{{ $applications.gitUrl }}"
-    targetRevision: main
-    path: {{ $.Values.gitops_path }}
+  sources:
+    - repoURL: {{ $applications.helmRepoUrl }}
+      chart: {{ $applications.chart }}
+      targetRevision: {{ $applications.targetRevision }}
+      path: /charts
+      helm:
+        valueFiles:
+        - $values/{{ $applications.gitPath }}
+        values: |
+          appTeam: {{ $applications.name }}
+    - repoURL: {{ $applications.gitRepoUrl }}
+      targetRevision: HEAD
+      ref: values
   syncPolicy:
     automated:
       prune: false
@@ -28,7 +37,7 @@ spec:
 ---
 {{- end }}
 
-# {{ range $applications := .Values.applications -}}
+# {{ range $applications := .Values.argocd.applications -}}
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
@@ -45,17 +54,10 @@ spec:
 #     namespace: openshift-gitops
 #     server: https://kubernetes.default.svc
 #   project: default
-#   sources:
-#     - repoURL: https://AB-POC.github.io/helm-charts/
-#       chart: gitops-infra-payload
-#       targetRevision: 0.0.2
-#       path: /charts
-#       helm:
-#         valueFiles:
-#         - $values/{{ $.Values.gitops_path }}
-#     - repoURL: {{ $applications.gitUrl }}
-#       targetRevision: HEAD
-#       ref: values
+#   source:
+#     repoURL: "{{ $applications.gitUrl }}"
+#     targetRevision: main
+#     path: {{ $.Values.gitops_path }}
 #   syncPolicy:
 #     automated:
 #       prune: false

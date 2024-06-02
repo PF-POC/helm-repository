@@ -1,0 +1,15 @@
+{{ range $ns := .Values.projects -}}
+{{- if not $ns.ignoreResourceQuota }}
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: mem-cpu-per-ns
+  namespace: "{{ $ns.name }}"
+spec:
+  hard:
+    requests.cpu: "{{ $ns.requests.cpu }}"
+    requests.memory: "{{ $ns.requests.memory }}"
+    limits.cpu: "{{ $ns.limits.cpu }}"
+    limits.memory: "{{ $ns.limits.memory }}"
+  {{- end }}
+{{ end -}}

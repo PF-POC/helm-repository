@@ -1,34 +1,16 @@
 nameOverride: ""
 fullnameOverride: ""
 namespaces:
-  - name: openshift-gitops
-subscriptions:
-  - name: openshift-gitops-operator
-    namespace: openshift-operators
-    channel: latest
-    config:
-      env:
-      - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
-        value: "true"
-    installPlanApproval: Automatic
-    source: redhat-operators
-    sourceNamespace: openshift-marketplace
-operatorGroups:
-catalogSources: []
-  # - name: operatorhubio
-  #   sourceType: grpc
-  #   image: quay.io/operator-framework/upstream-community-operators:latest
-  #   displayName: Community Operators
-  #   publisher: OperatorHub.io
+  - name: gitops-apps
 argocd:
   plugin:
     version: "1.17.0"
     AVP_K8S_ROLE: argocd
     AVP_TYPE: k8s
     VAULT_ADDR: 'http://vault.vault.svc:8200'
-    AVP_AUTH_TYPE: vault
+    AVP_AUTH_TYPE: 'http://vault.vault.svc:8200'
     VAULT_SKIP_VERIFY: "true"
-  initialRepositories: |
+  initialRepositories:
     - name: day-2
       url: https://github.com/PF-POC/day-1-gitops.git
       insecure: true
@@ -54,17 +36,17 @@ argocd:
       type: helm
       url: https://pf-poc.github.io/helm-repository
   applications:
-  - name: d1
+  - name: app-team-1
     annotations:
     helmRepoUrl: https://PF-POC.github.io/helm-charts
-    chart: gitops-infra-payload
-    targetRevision: 1.0.9
-    gitRepoUrl: https://github.com/PF-POC/day-1-gitops.git
-    gitPath: ''
-  - name: d2
+    chart: gitops-app-payload
+    targetRevision: 0.0.1
+    gitRepoUrl: https://PF-POC/app-team-1/
+    gitPath: init
+  - name: app-team-2
     annotations:
     helmRepoUrl: https://PF-POC.github.io/helm-charts
-    chart: gitops-infra-payload
-    targetRevision: 1.0.9
-    gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
-    gitPath: '' 
+    chart: gitops-app-payload
+    targetRevision: 0.0.1
+    gitRepoUrl: https://PF-POC/app-team-1/
+    gitPath: init
