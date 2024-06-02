@@ -66,6 +66,15 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/efs-0.0.3/efs-0.0.3.tgz
     version: 0.0.3
+  gitops-app-init:
+  - apiVersion: v1
+    created: "2024-06-02T04:15:43.351039704Z"
+    description: Chart to generate argocd apps
+    digest: 92a187a449ec9f2b754cbea3be374342da51f473537a34dd52304cdc49967989
+    name: gitops-app-init
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-init-0.0.3/gitops-app-init-0.0.3.tgz
+    version: 0.0.3
   gitops-infra-payload:
   - apiVersion: v1
     created: "2024-06-02T04:11:57.025908439Z"
@@ -200,4 +209,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-02T04:11:57.02603791Z"
+generated: "2024-06-02T04:15:43.351089978Z"
