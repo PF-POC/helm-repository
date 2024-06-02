@@ -90,6 +90,14 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-init-0.0.3/gitops-app-init-0.0.3.tgz
     version: 0.0.3
+  gitops-app-team-config:
+  - apiVersion: v2
+    created: "2024-06-02T23:07:33.964142961Z"
+    digest: 13bda1dab2c9d2306722b934fff51197cedc4c23b1da5206512a21aaf10e961a
+    name: gitops-app-team-config
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-team-config-1.0.2/gitops-app-team-config-1.0.2.tgz
+    version: 1.0.2
   gitops-apps-config:
   - apiVersion: v2
     created: "2024-06-02T13:59:49.144109937Z"
@@ -99,6 +107,14 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-apps-config-1.0.0/gitops-apps-config-1.0.0.tgz
     version: 1.0.0
   gitops-argocd-init:
+  - apiVersion: v1
+    created: "2024-06-02T23:07:34.15701539Z"
+    description: Chart to generate argocd apps
+    digest: 3c1e0b912a54c49ad4e4d1687cd3afdcbd64d1382cbcdc0eab9e6d369348fd3b
+    name: gitops-argocd-init
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-argocd-init-1.0.1/gitops-argocd-init-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v1
     created: "2024-06-02T13:59:49.367251275Z"
     description: Chart to generate argocd apps
@@ -275,4 +291,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-02T14:37:02.5628585Z"
+generated: "2024-06-02T23:07:34.157083571Z"
