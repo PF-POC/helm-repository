@@ -1,7 +1,9 @@
 ---
 {{ $team := .Values.team -}}
 ---
-{{ $repos := .Values.repositories -}}
+{{ $defaults := .Values.defaults -}}
+---
+{{ $repos := $defaults.repositories -}}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
@@ -11,7 +13,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: "{{ $team.name }}-{{ $team.tier }} users deployment apps"
+  description: "{{ $team.name }} users project"
   sourceRepos:
   {{- range $repos }}
     - {{ . | quote }}
@@ -21,16 +23,16 @@ spec:
       kind: '*'
   destinations:
     - namespace: '*'
-      server: "{{ $team.server }}"
+      server: "{{ $defaults.server }}"
     - namespace: "openshift-gitops"
       server: "https://kubernetes.default.svc"
   roles:
     - name: users
       description: "Application teams privilleges for project {{ $team.name }}-{{ $team.tier }}-users"
       policies:
-        - "p, proj:{{ $team.name }}-{{ $team.tier }}-users:users, applications, *, {{ $team.name }}-{{ $team.tier }}-users/*, allow"
+        - "p, proj:{{ $team.name }}-users:users, applications, *, {{ $team.name }}-{{ $team.tier }}-users/*, allow"
       groups:
-        - "{{ $team.adGroup }}"
+        - "{{ $defaults.adGroup }}"
     # - name: users-deny
     #   description: "Application teams privilleges for project `{{ $team.name }}-{{ $team.tier }}-users`"
     #   policies:

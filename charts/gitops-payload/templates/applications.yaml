@@ -1,0 +1,121 @@
+---
+{{ $teamName := .Values.teamName -}}
+---
+{{ $defaults := .Values.defaults -}}
+---
+{{ range $ns := .Values.namespaces -}}
+---
+{{ range $env := $ns.environments -}}
+---
+{{ range $app := $env.applications -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}-{{ $app.name }}"
+  annotations:
+    argocd.argoproj.io/sync-wave: "200"
+  namespace: "{{ $defaults.gitopsNamespace }}"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: "{{ $teamName }}-project"
+  ##############
+  ## HELM Source
+  ##############
+  {{- if eq $app.type "helm" }}
+  source:
+    {{- if eq $app.plugin "true" }}
+    plugin:
+      env:
+      - name: AVP_K8S_ROLE
+        value: {{ $app.AVP_K8S_ROLE | default $defaults.AVP_K8S_ROLE | quote }}
+      - name: AVP_TYPE
+        value: {{ $app.AVP_TYPE | default $defaults.AVP_TYPE | quote }}
+      - name: VAULT_ADDR
+        value: {{ $app.VAULT_ADDR | default $defaults.VAULT_ADDR | quote }}
+      - name: AVP_AUTH_TYPE
+        value: {{ $app.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE | quote }}
+      - name: VAULT_SKIP_VERIFY
+        value: {{ $app.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
+        {{- if $app.values }}
+      - name: HELM_VALUES
+        value: |
+          {{ toYaml $app.values | nindent 10 }}
+          namespace: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}"
+       {{- end }}
+    {{ else }}
+    helm:
+      {{- if $app.values }}
+      values: |
+        {{- toYaml $app.values | nindent 8 }}
+        namespace: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}"
+      {{- end }}
+    {{- end }}
+    repoURL: {{ $app.helmRepoUrl | default $defaults.helmRepoUrl | quote }}
+    targetRevision: {{ $app.targetRevision | default $defaults.targetRevision | quote }}
+    path: {{ $app.path | default $defaults.path | quote }}
+    chart: {{ $app.chart | default $defaults.chart | quote }}
+  {{- end }}
+  ##################
+  ## HELM GIT Source
+  ##################
+  {{- if eq $app.type "helm-git" }}
+  source:
+    repoURL: {{ $app.gitRepoUrl | default $defaults.gitRepoUrl | quote }}
+    targetRevision: "{{ $app.targetRevision }}"
+    path: {{ $app.path | default $defaults.path | quote }}
+    helm:
+      {{- if $app.values }}
+      values: |
+        {{- toYaml $app.values | nindent 8 }}
+      {{- end }}
+  {{- end }}
+  ####################
+  ## HELM Multi Source
+  ####################
+  {{- if eq $app.type "helm-multi-source" }}
+  sources:
+    - repoURL: {{ $app.helmRepoUrl }}
+      chart: {{ $app.chart }}
+      targetRevision: {{ $app.targetRevision }}
+      path: {{ $app.path }}
+      helm:
+        valueFiles:
+        - $values/{{ $app.gitPath }}
+        values: |
+          appTeam: $applications.name
+    - repoURL: {{ $app.gitRepoUrl }}
+      targetRevision: HEAD
+      ref: values
+  {{- end }}
+  ###################
+  ## KUSTOMIZE Source
+  ###################
+  ## TODO
+  destination:
+    server: "{{ $defaults.server }}"
+    {{- if $app.namespace}}
+    namespace: "{{ $app.namespace }}"
+    {{- end }}
+  syncPolicy:
+    automated: 
+      prune: false
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
+    - Validate=false 
+    - CreateNamespace=false
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s 
+        factor: 2 
+        maxDuration: 3m
+  ignoreDifferences:
+---
+{{ end }}
+---
+{{ end }}
+---
+{{ end }}
+---

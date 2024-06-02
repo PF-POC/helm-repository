@@ -1,8 +1,0 @@
-apiVersion: v1
-data:
-  .dockerconfigjson: eyJhdXRocyI6eyJxdWF5LmlvIjp7InVzZXJuYW1lIjoicmhfZWVfcGFmb3N0ZXIiLCJwYXNzd29yZCI6IkppbWJvOTU3OEBNYXJjQCIsImVtYWlsIjoicm9vdEBtYWlsLmNvbSIsImF1dGgiOiJjbWhmWldWZmNHRm1iM04wWlhJNlNtbHRZbTg1TlRjNFFFMWhjbU5BIn19fQ==
-kind: Secret
-metadata:
-  name: regcred
-  namespace: gitops-apps
-type: kubernetes.io/dockerconfigjson

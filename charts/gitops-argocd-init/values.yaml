@@ -37,17 +37,10 @@ argocd:
       type: helm
       url: https://pf-poc.github.io/helm-repository
   applications:
-  - name: app-team-1
+  - name: apps
     annotations:
     helmRepoUrl: https://PF-POC.github.io/helm-charts
-    chart: gitops-app-payload
-    targetRevision: 0.0.1
-    gitRepoUrl: https://PF-POC/app-team-1/
-    gitPath: init
-  - name: app-team-2
-    annotations:
-    helmRepoUrl: https://PF-POC.github.io/helm-charts
-    chart: gitops-app-payload
-    targetRevision: 0.0.1
-    gitRepoUrl: https://PF-POC/app-team-1/
-    gitPath: init
+    chart: gitops-apps-config
+    targetRevision: 1.0.0
+    gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
+    gitPath: ''

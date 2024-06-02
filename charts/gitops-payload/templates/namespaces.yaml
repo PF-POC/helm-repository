@@ -1,0 +1,68 @@
+{{ $teamName := .Values.teamName -}}
+---
+{{ $defaults := .Values.defaults -}}
+---
+{{ range $ns := .Values.namespaces -}}
+---
+{{ range $env := $ns.environments -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}-namespace"
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  namespace: {{ $defaults.gitopsNamespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: "{{ $teamName }}-project"
+  source:
+    repoURL: "{{ $defaults.helmRepoUrl }}"
+    targetRevision: "{{ $defaults.namespaceChartRevision }}"
+    chart: "{{ $defaults.namespaceChart }}"
+    path: "{{ $defaults.path }}"
+    helm:
+      values: |
+        adGroup: "{{ $defaults.adGroup }}"
+        projects:
+          - name: {{ $env.name}}-{{ $ns.name }}
+          {{- if $ns.labels }}
+            labels: |
+            {{- toYaml $ns.labels | trimPrefix "|" | indent 12 }}
+          {{- end }}
+          {{- if $ns.ignoreResourceQuota }}
+            ignoreResourceQuota: true
+          {{- else if $ns.ignoreResourceQuotaLimits }}
+            ignoreResourceQuotaLimits: true
+            requests:
+              cpu: {{ $ns.requests.cpu }}
+              memory: {{ $ns.requests.memory }}
+          {{- else }}
+            requests:
+              cpu: {{ $ns.requests.cpu }}
+              memory: {{ $ns.requests.memory }}
+            limits:
+              cpu: {{ $ns.limits.cpu }}
+              memory: {{ $ns.limits.memory }}
+          {{- end }}
+  destination:
+    server: "{{ $defaults.server }}"
+  syncPolicy:
+    automated:
+      prune: false
+    syncOptions:   
+      - Validate=false
+      - CreateNamespace=true 
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+---
+{{ end }}
+---
+{{ end }}
+---
+

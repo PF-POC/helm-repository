@@ -1,0 +1,255 @@
+teamName: PFA
+
+defaults:
+  gitopsNamespace: gitops-apps
+  adGroup: PFAUTHAD
+  helmRepoUrl: https://pf-poc.github.io/helm-repository
+  gitRepoUrl: ""
+  path: charts
+  server: https://kubernetes.default.svc
+  syncWave: 0
+  AVP_K8S_ROLE: argocd
+  AVP_TYPE: k8s
+  VAULT_ADDR: 'http://vault.vault.svc:8200'
+  AVP_AUTH_TYPE: 'http://vault.vault.svc:8200'
+  VAULT_SKIP_VERIFY: "true"
+  namespaceChart: namespaces
+  namespaceChartRevision: 1.0.1
+  repositories:
+    - https://pf-poc.github.io/helm-repository
+
+infrastructure:
+  - name: cluster-logging
+    namespace: openshift-logging
+    chart: cluster-logging
+    targetRevision: "0.0.3"
+    annotations:
+      sync: 56
+    syncWave: 50
+    values:
+      splunkHecToken: bla
+      splunURL: bla
+
+namespaces: # microenvironments
+  - name: ob
+    requests:
+      cpu: 30
+      memory: 22Gi
+    limits:
+      cpu: 30
+      memory: 22Gi
+    environments: 
+      - name: dev
+        labels: |
+          name: ob-dev
+          argocd.argoproj.io/managed-by: openshift-gitops
+        applications: # microservices
+          - name: adservice
+            type: "helm-git"
+            gitRepoUrl: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+            targetRevision: HEAD
+            path: app
+            values:
+              chartname: microservice-base
+              chartRevision: 1.0.0
+          - name: cluster-logging
+            type: "helm"
+            plugin: "true"
+            targetRevision: "0.0.3"
+            chart: cluster-logging
+            values:
+              splunkHecToken: bla
+              splunURL: bla
+      #    - name: checkoutservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: dev-app-checkoutservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: currencyservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: dev-app-currencyservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: emailservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: dev-app-emailservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: frontend
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: dev-app-frontend
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: loadgenerator
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: dev-app-loadgenerator
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: paymentservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: dev-app-paymentservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: productcatalogservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: dev-app-productcatalogservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: recommendationservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: dev-app-recommendationservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: shippingservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       branch: dev-app-shippingservice
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: redis
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       branch: dev-app-redis
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      # # - name: prd
+      #   labels: |
+      #     name: ob-prd
+      #     argocd.argoproj.io/managed-by: openshift-gitops
+      #   istioIngressGateway:
+      #     targetRevision: "3.0.3"
+      #     ingress_simple_gateways_enabled: true
+      #     ingress_simple_gateways_values:
+      #       - frontend-gateway: prod.frontend.apps.foster-aro-dev.australiaeast.aroapp.io|443|frontend-credential
+      #     mesh_policy: DISABLE
+      #   istioEgressGateway:
+      #     targetRevision: "3.0.7"
+      #     cp_namespace: ob-sm-cp
+      #     egress_passthrough_gateway_enabled: true
+      #     egress_passthrough_gateway_values:
+      #       - google-accounts: accounts.google.com|443
+      #       - google-metadata: metadata.google.internal|443
+      #     egress_wildcard_enabled: true
+      #     egress_wildcard_values:
+      #       - goodle-api: .googleapis.com|443
+      #   networkPolicies:
+      #     name: network-policies-kubernetes
+      #     targetRevision: 3.0.2
+      #     ingress:
+      #       - deny|true
+      #       - allow-ns-to-ns|same-namespace|name|'ob-prd'|security.istio.io/tlsMode|'istio'|5050&8080&3550&7070&7000&50051&6379&9555&5000&80
+      #       - allow-ns-to-ns|istio-gateway|name|'ob-sm-cp'|app|'istio-ingressgateway'|80&8080
+      #   microservices:
+      #     - name: adservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: prd-app-adservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: cartservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: prd-app-cartservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: checkoutservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: prd-app-checkoutservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: currencyservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: prd-app-currencyservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: emailservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: prd-app-emailservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: frontend
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: prd-app-frontend
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: loadgenerator
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: prd-app-loadgenerator
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: paymentservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: prd-app-paymentservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: productcatalogservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: prd-app-productcatalogservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: recommendationservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       branch: prd-app-recommendationservice
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: shippingservice
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       branch: prd-app-shippingservice
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+      #     - name: redis
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       branch: prd-app-redis
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       chartName: microservice-base
+      #       chartVersion: 3.1.7
+
+## DATA PLANE
+
+  # - name: db
+  #   requests:
+  #     cpu: 2
+  #     memory: 2Gi
+  #   limits:
+  #     cpu: 2
+  #     memory: 2Gi
+  #   projects:
+  #     - name: dev
+  #       labels: |
+  #         name: db-dev
+  #       microservices:
+  #         - name: mssql-payments
+  #           gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+  #           branch: dev-app-mssql
+  #           helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+  #           chartName: mssql-linux
+  #           chartVersion: 0.2.0
+      # - name: prd
+      #   labels: |
+      #     name: db-prd
+      #   microservices:
+      #     - name: mssql-payments
+      #       gitRepo: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+      #       branch: prd-app-mssql
+      #       helmRepo: "https://gitlab.com/api/v4/projects/37447132/packages/helm/stable"
+      #       chartName: mssql-linux
+      #       chartVersion: 0.2.0
+
+

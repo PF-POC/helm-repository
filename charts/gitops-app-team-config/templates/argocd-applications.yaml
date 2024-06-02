@@ -16,7 +16,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   sources:
-    - repoURL: {{ $applications.helmRepoURrl }}
+    - repoURL: {{ $applications.helmRepoUrl }}
       chart: {{ $applications.chart }}
       targetRevision: {{ $applications.targetRevision }}
       path: /charts

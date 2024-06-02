@@ -11,7 +11,7 @@ metadata:
     {{ $key }}: {{ $value | quote }}
   {{- end }}
     argocd.argoproj.io/sync-wave: {{ $infrastructure.syncWave | default $defaults.syncWave | quote }}
-  namespace: openshift-gitops
+  namespace: {{ $defaults.gitopsNamespace }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -27,7 +27,7 @@ spec:
       - name: VAULT_ADDR
         value: {{ $infrastructure.VAULT_ADDR | default $defaults.VAULT_ADDR | quote }}
       - name: AVP_AUTH_TYPE
-        value: {{ $infrastructure.AUTH_TYPE | default $defaults.AUTH_TYPE | quote }}
+        value: {{ $infrastructure.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE | quote }}
       - name: VAULT_SKIP_VERIFY
         value: {{ $infrastructure.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
         {{- if $infrastructure.values }}
@@ -42,7 +42,7 @@ spec:
   destination:
     server: "{{ $defaults.server }}"
     {{- if $infrastructure.namespace}}
-    namespace: "{{ $infrastructure.namespace  }}"
+    namespace: "{{ $infrastructure.gitopsNamespace }}"
     {{- end }}
   syncPolicy:
     automated: 
