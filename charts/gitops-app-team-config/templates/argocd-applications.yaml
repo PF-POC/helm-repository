@@ -19,12 +19,12 @@ spec:
     - repoURL: {{ $applications.helmRepoUrl }}
       chart: {{ $applications.chart }}
       targetRevision: {{ $applications.targetRevision }}
-      path: /charts
+      path: charts
       helm:
         valueFiles:
         - $values/{{ $applications.gitPath }}
         values: |
-          appTeam: $applications.name
+          teamName: {{ $applications.name }}
     - repoURL: {{ $applications.gitRepoUrl }}
       targetRevision: HEAD
       ref: values

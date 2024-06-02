@@ -1,9 +1,4 @@
----
-{{ $team := .Values.team -}}
----
-{{ $defaults := .Values.defaults -}}
----
-{{ $repos := $defaults.repositories -}}
+{{ $repos := $applications.repositories -}}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
@@ -13,7 +8,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: "{{ $team.name }} users project"
+  description: "{{ .Values.teamName }} users project"
   sourceRepos:
   {{- range $repos }}
     - {{ . | quote }}
@@ -22,27 +17,25 @@ spec:
     - group: '*'
       kind: '*'
   destinations:
-    - namespace: '*'
-      server: "{{ $defaults.server }}"
-    - namespace: "openshift-gitops"
+    - namespace: "gitops-apps"
       server: "https://kubernetes.default.svc"
   roles:
     - name: users
-      description: "Application teams privilleges for project {{ $team.name }}-{{ $team.tier }}-users"
+      description: "Application teams privilleges for project {{ .Values.teamName }}--users"
       policies:
-        - "p, proj:{{ $team.name }}-users:users, applications, *, {{ $team.name }}-{{ $team.tier }}-users/*, allow"
+        - "p, proj:{{ .Values.teamName }}-users:users, applications, *, {{ .Values.teamName }}-users/*, allow"
       groups:
-        - "{{ $defaults.adGroup }}"
+        - "{{ $applications.adGroup }}"
     # - name: users-deny
-    #   description: "Application teams privilleges for project `{{ $team.name }}-{{ $team.tier }}-users`"
+    #   description: "Application teams privilleges for project `{{ .Values.teamName }}--users`"
     #   policies:
-    #     - "p, proj:{{ $team.name }}-{{ $team.tier }}-users:users, applications, *, {{ $team.name }}-{{ $team.tier }}  , deny"
+    #     - "p, proj:{{ .Values.teamName }}-users:users, applications, *, {{ .Values.teamName}}, deny"
     #   groups:
-    #     - "{{ $team.adGroup }}"
+    #     - "{{ $defaults.adGroup }}"
     # - name: admin 
-    #   description: "admin privilleges for project `{{ $team.name }}-{{ $team.tier }}-users`"
+    #   description: "admin privilleges for project `{{ .Values.teamName }}-users`"
     #   policies:
-    #     - "p, proj:{{ $team.name }}-{{ $team.tier }}-users:admin, applications, *, {{ $team.name }}-{{ $team.tier }}-admin/*, allow"
-    #     - "p, proj:{{ $team.name }}-{{ $team.tier }}-users:admin, teams, get, {{ $team.name }}-{{ $team.tier }}-admin, allow"
+    #     - "p, proj:{{ .Values.teamName }}-users:admin, applications, *, {{ .Values.teamName}}-admin/*, allow"
+    #     - "p, proj:{{ .Values.teamName }}-users:admin, teams, get, {{ .Values.teamName }}--admin, allow"
     #   groups:
-    #     - "{{ $team.server }}"
+    #     - "{{ $defaults.server }}"
