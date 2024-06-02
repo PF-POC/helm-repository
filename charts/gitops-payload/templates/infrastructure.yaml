@@ -35,14 +35,14 @@ spec:
         value: |
           {{ toYaml $infrastructure.values | nindent 10 }}
         {{- end }}
-    repoURL: {{ $infrastructure.helmRepo | default $defaults.helmRepo | quote }}
+    repoURL: {{ $infrastructure.helmRepoUrl | default $defaults.helmRepoUrl| quote }}
     targetRevision: "{{ $infrastructure.targetRevision }}"
     path: {{ $infrastructure.path | default $defaults.path | quote }}
     chart: "{{ $infrastructure.chart }}"
   destination:
     server: "{{ $defaults.server }}"
     {{- if $infrastructure.namespace}}
-    namespace: "{{ $infrastructure.gitopsNamespace }}"
+    namespace: "{{ $infrastructure.namespace }}"
     {{- end }}
   syncPolicy:
     automated: 
