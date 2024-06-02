@@ -1,0 +1,11 @@
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: gitops-apps-console-link
+spec:
+  href: 'https://gitops-apps-server-gitops-apps.{{ .Values.domain }}'
+  location: ApplicationMenu
+  text: "Application Argo CD"
+  applicationMenu:
+    section: "OpenShift GitOps"
+    imageURL: https://via.placeholder.com/24

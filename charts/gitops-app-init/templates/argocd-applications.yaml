@@ -12,7 +12,7 @@ metadata:
   {{- end }}
 spec:
   destination:
-    namespace: openshift-gitops
+    namespace: gitops-apps
     server: https://kubernetes.default.svc
   project: default
   sources:
