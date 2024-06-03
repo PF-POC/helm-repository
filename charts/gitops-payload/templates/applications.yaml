@@ -19,7 +19,8 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: "{{ $teamName }}-project"
+  #project: "{{ $teamName }}-project"
+  project: default
   ##############
   ## HELM Source
   ##############
