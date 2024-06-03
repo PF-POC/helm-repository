@@ -259,6 +259,14 @@ entries:
     version: 0.0.8
   gitops-payload:
   - apiVersion: v1
+    created: "2024-06-03T13:37:58.797688681Z"
+    description: Chart to generate argocd apps
+    digest: 9c8b794ec3d48cf4512b04871c930b7afc6ab2ee41c0ccb04c1a5008b6f9a26d
+    name: gitops-payload
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-payload-1.2.0/gitops-payload-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v1
     created: "2024-06-03T10:14:27.70264408Z"
     description: Chart to generate argocd apps
     digest: 4e757706ba2f6fd2105bffb071189807d7da7830acfafa83a22c423db5a66e7d
@@ -373,4 +381,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-03T13:29:11.441492786Z"
+generated: "2024-06-03T13:37:58.797787837Z"
