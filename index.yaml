@@ -333,6 +333,13 @@ entries:
     version: 1.0.1
   test-app:
   - apiVersion: v2
+    created: "2024-06-03T13:44:25.85060014Z"
+    digest: 905e2ca07a80e5a1dacb8c026965f980a5096277aa1490bbb3ee540af6be3edf
+    name: test-app
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/test-app-1.0.4/test-app-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
     created: "2024-06-03T13:29:11.441374545Z"
     digest: ae549e2817bbfae9f61dc882e96eceb66e0e17c10a5b355faa8bc409fb454f97
     name: test-app
@@ -381,4 +388,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-03T13:37:58.797787837Z"
+generated: "2024-06-03T13:44:25.850712279Z"
