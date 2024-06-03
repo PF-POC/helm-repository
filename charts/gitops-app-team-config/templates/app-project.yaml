@@ -1,16 +1,16 @@
-{{ $repos := $applications.repositories -}}
+{{ range $applications := .Values.applications -}}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: "main-app-project"
+  name: {{ $applications.name }}-project"
   namespace: openshift-gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: "{{ .Values.teamName }} users project"
+  description: "{{ $applications.name }} users project"
   sourceRepos:
-  {{- range $repos }}
+  {{- range $applications.repositories }}
     - {{ . | quote }}
   {{- end }}
   clusterResourceWhitelist:
@@ -21,21 +21,9 @@ spec:
       server: "https://kubernetes.default.svc"
   roles:
     - name: users
-      description: "Application teams privilleges for project {{ .Values.teamName }}--users"
+      description: "Application teams privilleges for project {{ $applications.name }}--users"
       policies:
-        - "p, proj:{{ .Values.teamName }}-users:users, applications, *, {{ .Values.teamName }}-users/*, allow"
+        - "p, proj:{{ $applications.name}}-users:users, applications, *, {{ $applications.name}}-users/*, allow"
       groups:
         - "{{ $applications.adGroup }}"
-    # - name: users-deny
-    #   description: "Application teams privilleges for project `{{ .Values.teamName }}--users`"
-    #   policies:
-    #     - "p, proj:{{ .Values.teamName }}-users:users, applications, *, {{ .Values.teamName}}, deny"
-    #   groups:
-    #     - "{{ $defaults.adGroup }}"
-    # - name: admin 
-    #   description: "admin privilleges for project `{{ .Values.teamName }}-users`"
-    #   policies:
-    #     - "p, proj:{{ .Values.teamName }}-users:admin, applications, *, {{ .Values.teamName}}-admin/*, allow"
-    #     - "p, proj:{{ .Values.teamName }}-users:admin, teams, get, {{ .Values.teamName }}--admin, allow"
-    #   groups:
-    #     - "{{ $defaults.server }}"
+{{- end }}

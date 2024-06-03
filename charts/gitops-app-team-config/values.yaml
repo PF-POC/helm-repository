@@ -7,6 +7,7 @@ applications:
   gitRepoUrl: https://github.com/PF-POC/day-1-gitops.git
   gitPath: Clusters/non-prod/high-trust/rosa-pub-1
   adGroup: PFAUTHAD
-  repos: 
+  repositories: 
   - https://github.com/PF-POC/day-1-gitops.git
+  - https://github.com/PF-POC/day-2-gitops.git
   - https://PF-POC.github.io/helm-charts
