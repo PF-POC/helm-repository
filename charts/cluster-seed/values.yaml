@@ -57,14 +57,14 @@ argocd:
   - name: d1
     annotations:
     helmRepoUrl: https://PF-POC.github.io/helm-charts
-    chart: gitops-infra-payload
-    targetRevision: 1.0.9
+    chart: gitops-payload
+    targetRevision: 1.1.3
     gitRepoUrl: https://github.com/PF-POC/day-1-gitops.git
     gitPath: ''
   - name: d2
     annotations:
     helmRepoUrl: https://PF-POC.github.io/helm-charts
-    chart: gitops-infra-payload
-    targetRevision: 1.0.9
+    chart: gitops-payload
+    targetRevision: 1.1.3
     gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
     gitPath: '' 
