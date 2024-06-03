@@ -65,7 +65,7 @@ argocd:
     repositories: 
     - https://github.com/PF-POC/day-1-gitops.git
     - https://github.com/PF-POC/day-2-gitops.git
-    - https://PF-POC.github.io/helm-charts
+    - https://pf-poc.github.io/helm-repository
   - name: d2
     annotations:
     helmRepoUrl: https://pf-poc.github.io/helm-repository
@@ -77,4 +77,4 @@ argocd:
     repositories: 
     - https://github.com/PF-POC/day-1-gitops.git
     - https://github.com/PF-POC/day-2-gitops.git
-    - https://pf-poc.github.io/helm-charts
+    - https://pf-poc.github.io/helm-repository

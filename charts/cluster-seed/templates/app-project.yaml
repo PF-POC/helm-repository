@@ -19,12 +19,5 @@ spec:
   destinations:
     - namespace: "{{ $applications.name }}*"
       server: "https://kubernetes.default.svc"
-  roles:
-    - name: users
-      description: "Application teams privilleges for project {{ $applications.name }}--users"
-      policies:
-        - "p, proj:{{ $applications.name }}-users:users, applications, *, {{ $applications.name}}-users/*, allow"
-      groups:
-        - "{{ $applications.adGroup }}"
 ---
 {{- end }}

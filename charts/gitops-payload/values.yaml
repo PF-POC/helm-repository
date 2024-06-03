@@ -1,40 +1,42 @@
-# teamName: d2
+teamName: d2
 
-# defaults:
-#   gitopsNamespace: openshift-gitops
-#   helmRepoUrl: https://pf-poc.github.io/helm-repository
-#   path: charts
-#   name: d2
-#   server: https://kubernetes.default.svc
-#   syncWave: 0
-#   AVP_K8S_ROLE: argocd
-#   AVP_TYPE: vault
-#   VAULT_ADDR: 'http://vault.vault.svc:8200'
-#   AVP_AUTH_TYPE: k8s
-#   VAULT_SKIP_VERIFY: "true"
+defaults:
+  gitopsNamespace: openshift-gitops
+  helmRepoUrl: https://pf-poc.github.io/helm-repository
+  path: charts
+  name: d2
+  namespaceChart: namespaces
+  namespaceChartRevision: 0.0.4
+  server: https://kubernetes.default.svc
+  syncWave: 0
+  AVP_K8S_ROLE: argocd
+  AVP_TYPE: vault
+  VAULT_ADDR: 'http://vault.vault.svc:8200'
+  AVP_AUTH_TYPE: k8s
+  VAULT_SKIP_VERIFY: "true"
 
-# namespaces:
-#   - name: efs
-#     requests:
-#       cpu: 1
-#       memory: 1Gi
-#     limits:
-#       cpu: 1
-#       memory: 1Gi
-#     environments: 
-#       - name: dev
-#         labels: |
-#           name: efs-dev
-#           argocd.argoproj.io/managed-by: openshift-gitops
-#         applications:
-#           - name: efs
-#             type: "helm"
-#             plugin: "true"
-#             targetRevision: "0.0.4"
-#             chart: efs
-#             values:
-#               roleArn: placeholder_roleARN
-#               fileSystemId: placeholder_fileSystemId
+namespaces:
+  - name: efs
+    requests:
+      cpu: 1
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 1Gi
+    environments: 
+      - name: dev
+        labels: |
+          name: efs-dev
+          argocd.argoproj.io/managed-by: openshift-gitops
+        applications:
+          - name: efs
+            type: "helm"
+            plugin: "true"
+            targetRevision: "0.0.4"
+            chart: efs
+            values:
+              roleArn: placeholder_roleARN
+              fileSystemId: placeholder_fileSystemId
               
 # teamName: PFA
 
