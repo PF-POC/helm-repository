@@ -20,7 +20,7 @@ imagePullSecrets:
 - name: regcred
 metadata:
   name: vplugin
-  namespace: gitops-apps
+  namespace: openshift-gitops
 ---
 apiVersion: v1
 data:
