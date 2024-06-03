@@ -10,6 +10,13 @@ entries:
     version: 0.0.3
   cluster-seed:
   - apiVersion: v2
+    created: "2024-06-03T08:03:06.173483806Z"
+    digest: bd4dc8ad52a833796a8ea46b5b1a6ee368e3ded7e052f826155d7f30b5565cb4
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-3.0.5/cluster-seed-3.0.5.tgz
+    version: 3.0.5
+  - apiVersion: v2
     created: "2024-06-03T04:37:45.298562916Z"
     digest: 31f18bbe114fdad1bc6bead7c94a4a357e8b1be8c47b176c216ab3fffa963b01
     name: cluster-seed
@@ -245,6 +252,14 @@ entries:
     version: 0.0.8
   gitops-payload:
   - apiVersion: v1
+    created: "2024-06-03T08:03:06.293176858Z"
+    description: Chart to generate argocd apps
+    digest: 14065a75a321e555f496a83424d45d5f78e6a2880381bbda15da3e5c023995b7
+    name: gitops-payload
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-payload-1.1.7/gitops-payload-1.1.7.tgz
+    version: 1.1.7
+  - apiVersion: v1
     created: "2024-06-03T04:41:28.244602134Z"
     description: Chart to generate argocd apps
     digest: 0b87b77cc040d12a03247f9fe138741bed5a1f9305a9830962542eb0f30f2499
@@ -285,6 +300,14 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/namespaces-1.0.1/namespaces-1.0.1.tgz
     version: 1.0.1
+  test-app:
+  - apiVersion: v2
+    created: "2024-06-03T08:03:06.431606693Z"
+    digest: c4480246a6e6ce96dc5d62cc5dcfba3b017084affeb7f4003de4bdc287d3ea8f
+    name: test-app
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/test-app-1.0.1/test-app-1.0.1.tgz
+    version: 1.0.1
   vault:
   - annotations:
       charts.openshift.io/name: HashiCorp Vault
@@ -313,4 +336,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-03T04:41:28.244721007Z"
+generated: "2024-06-03T08:03:06.431705718Z"
