@@ -8,10 +8,10 @@ metadata:
   name: vault-configuration
   namespace: openshift-gitops
 stringData:
-  AVP_TYPE: $plugin.AVP_TYPE
-  AVP_AUTH_TYPE: $plugin.AVP_AUTH_TYPE
-  AVP_K8S_ROLE: $plugin.VP_K8S_ROLE
-  VAULT_ADDR: $plugin.AULT_ADDR
+  AVP_TYPE: {{ $plugin.AVP_TYPE }}
+  AVP_AUTH_TYPE: {{ $plugin.AVP_AUTH_TYPE }}
+  AVP_K8S_ROLE: {{ $plugin.AVP_K8S_ROLE }}
+  VAULT_ADDR: {{ $plugin.VAULT_ADDR }}
 type: Opaque
 ---
 apiVersion: v1
@@ -20,7 +20,7 @@ imagePullSecrets:
 - name: regcred
 metadata:
   name: vplugin
-  namespace: openshift-gitops
+  namespace: openshift-gitops 
 ---
 apiVersion: v1
 data:
