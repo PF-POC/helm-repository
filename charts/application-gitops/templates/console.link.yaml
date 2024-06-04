@@ -3,7 +3,7 @@ kind: ConsoleLink
 metadata:
   name: gitops-apps-console-link
 spec:
-  href: 'https://.{{ .Values.name }}-server-{{ .Values.name }}.{{ .Values.domain }}'
+  href: 'https://{{ .Values.name }}-server-{{ .Values.name }}.{{ .Values.domain }}'
   location: ApplicationMenu
   text: "Application Argo CD"
   applicationMenu:
