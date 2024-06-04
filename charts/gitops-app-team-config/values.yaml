@@ -1,13 +1,13 @@
-applications:
-- name: payments
-  annotations:
-  gitopsNamespace: application-gitops
-  helmRepoUrl: https://PF-POC.github.io/helm-charts
-  chart: gitops-payload
-  targetRevision: 1.2.3
-  gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
-  gitPath: Clusters/non-prod/high-trust/rosa-pub-1/applications.yaml
-  adGroup: PFAUTHAD
-  repos: 
-  - https://github.com/PF-POC/day-1-gitops.git
-  - https://PF-POC.github.io/helm-charts
+# applications:
+# - name: payments
+#   annotations:
+#   gitopsNamespace: application-gitops
+#   helmRepoUrl: https://PF-POC.github.io/helm-charts
+#   chart: gitops-payload
+#   targetRevision: 1.2.3
+#   gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
+#   gitPath: Clusters/non-prod/high-trust/rosa-pub-1/applications.yaml
+#   adGroup: PFAUTHAD
+#   repos: 
+#   - https://github.com/PF-POC/day-1-gitops.git
+#   - https://PF-POC.github.io/helm-charts
