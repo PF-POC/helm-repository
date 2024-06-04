@@ -1,53 +1,39 @@
-# teamName: d2
+teamName: PFA
 
-# defaults:
-#   gitopsNamespace: openshift-gitops
-#   helmRepoUrl: https://pf-poc.github.io/helm-repository
-#   path: charts
-#   name: d2
-#   namespaceChart: namespaces
-#   namespaceChartRevision: 0.0.4
-#   server: https://kubernetes.default.svc
-#   syncWave: 0
-#   AVP_K8S_ROLE: argocd
-#   AVP_TYPE: vault
-#   VAULT_ADDR: 'http://vault.vault.svc:8200'
-#   AVP_AUTH_TYPE: k8s
-#   VAULT_SKIP_VERIFY: "true"
-#   plugin: false
+defaults:
+  gitopsNamespace: d2-application-gitops
+  adGroup: PFAUTHAD
+  helmRepoUrl: https://pf-poc.github.io/helm-repository
+  gitRepoUrl: ""
+  path: charts
+  server: https://kubernetes.default.svc
+  syncWave: 0
+  namespaceChart: namespaces
+  namespaceChartRevision: 1.0.1
+  repositories:
+    - https://pf-poc.github.io/helm-repository
 
-# infrastructure:
-#   - name: cluster-logging
-#     namespace: openshift-logging
-#     chart: cluster-logging
-#     targetRevision: "0.0.3"
-#     annotations:
-#       sync: 56
-#     syncWave: 50
-#     values:
-#       splunkHecToken: bla
-#       splunURL: bla
 
-# namespaces:
-#   - name: efs
-#     requests:
-#       cpu: 1
-#       memory: 1Gi
-#     limits:
-#       cpu: 1
-#       memory: 1Gi
-#     environments: 
-#       - name: dev
-#         labels: |
-#           name: efs-dev
-#           argocd.argoproj.io/managed-by: openshift-gitops
-#         applications:
-#           - name: efs
-#             type: "helm"
-#             plugin: true
-#             targetRevision: "0.0.4"
-#             chart: efs
-#             values:
-#               roleArn: placeholder_roleARN
-#               fileSystemId: placeholder_fileSystemId
-           
+namespaces: 
+  - name: ob
+    requests:
+      cpu: 30
+      memory: 22Gi
+    limits:
+      cpu: 30
+      memory: 22Gi
+    environments: 
+      - name: dev
+        labels: |
+          name: ob-dev
+          argocd.argoproj.io/managed-by: openshift-gitops
+        applications: 
+          - name: adservice
+            type: "helm-git"
+            gitRepoUrl: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
+            targetRevision: HEAD
+            path: app
+            values:
+              chartname: microservice-base
+              chartRevision: 1.0.0
+              

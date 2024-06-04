@@ -4,7 +4,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: {{ $applications.name }}-project"
-  namespace: openshift-gitops
+  namespace: {{ $applications.gitopsNamespace }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -17,7 +17,7 @@ spec:
     - group: '*'
       kind: '*'
   destinations:
-    - namespace: "gitops-apps"
+    - namespace: {{ $applications.gitopsNamespace }}
       server: "https://kubernetes.default.svc"
   roles:
     - name: users

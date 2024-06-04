@@ -1,19 +1,31 @@
-kind: LDAPSyncConfig
-apiVersion: v1
-url: ldap://LDAP_SERVICE_IP:389
-rfc2307:
-    groupsQuery:
-        baseDN: "ou=groups,dc=example,dc=com"
-        scope: sub
-        derefAliases: never
-    groupUIDAttribute: dn
-    groupNameAttributes: [ cn ]
-    groupMembershipAttributes: [ member ]
-    usersQuery:
-        baseDN: "ou=users,dc=example,dc=com"
-        scope: sub
-        derefAliases: never
-    userUIDAttribute: dn 
-    userNameAttributes: [ mail ]
-    tolerateMemberNotFoundErrors: true 
-    tolerateMemberOutOfScopeErrors: true 
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test
+  namespace: d2-application-gitops
+  annotations:
+    helm.sh/hook: post-install
+spec:
+  destination:
+    namespace: d2-application-gitops
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - repoURL: https://pf-poc.github.io/helm-repository
+      chart: gitops-payload
+      targetRevision: 1.2.3
+      path: charts
+      helm:
+        valueFiles:
+        - $values/Cluster/non-prod/high-trust/rosa-pub-1/application-teams.yaml
+        values: |
+          appTeam: test
+    - repoURL: https://github.com/PF-POC/day-2-gitops.git
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
