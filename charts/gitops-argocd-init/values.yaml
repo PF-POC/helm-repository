@@ -1,52 +1,52 @@
-nameOverride: ""
-fullnameOverride: ""
-namespaces:
-  - name: application-gitops
-name: application-gitops
-gitopsNamespace: application-gitops
-domain: rosa.rosa-pub-1.0r8r.p3.openshiftapps.com
-argocd:
-  plugin:
-    version: "1.17.0"
-    AVP_K8S_ROLE: argocd
-    AVP_TYPE: k8s
-    VAULT_ADDR: 'http://vault.vault.svc:8200'
-    AVP_AUTH_TYPE: 'http://vault.vault.svc:8200'
-    VAULT_SKIP_VERIFY: "true"
-  initialRepositories: |
-    - name: day-2
-      url: https://github.com/PF-POC/day-1-gitops.git
-      insecure: true
-      usernameSecret:
-        name: repository-secret
-        key: username
-      passwordSecret:
-        name: repository-secret
-        key: password
-    - name: day-2
-      type: git
-      project: default
-      url: https://github.com/PF-POC/day-2-gitops.git
-      insecure: true
-      usernameSecret:
-        name: repository-secret
-        key: username
-      passwordSecret:
-        name: repository-secret
-        key: password   
-    - name: helm-charts
-      project: default
-      type: helm
-      url: https://pf-poc.github.io/helm-repository
-  applications:
-  - name: d2
-    annotations:
-    helmRepoUrl: https://pf-poc.github.io/helm-repository
-    chart: gitops-payload
-    targetRevision: 1.1.3
-    gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
-    gitPath: Cluster/non-prod/high-trust/rosa-pub-1/application-teams.yaml
-    repositories: 
-    - https://github.com/PF-POC/day-1-gitops.git
-    - https://github.com/PF-POC/day-2-gitops.git
-    - https://pf-poc.github.io/helm-repository
+# nameOverride: ""
+# fullnameOverride: ""
+# namespaces:
+#   - name: application-gitops
+# name: application-gitops
+# gitopsNamespace: application-gitops
+# domain: rosa.rosa-pub-1.0r8r.p3.openshiftapps.com
+# argocd:
+#   plugin:
+#     version: "1.17.0"
+#     AVP_K8S_ROLE: argocd
+#     AVP_TYPE: k8s
+#     VAULT_ADDR: 'http://vault.vault.svc:8200'
+#     AVP_AUTH_TYPE: 'http://vault.vault.svc:8200'
+#     VAULT_SKIP_VERIFY: "true"
+#   initialRepositories: |
+#     - name: day-2
+#       url: https://github.com/PF-POC/day-1-gitops.git
+#       insecure: true
+#       usernameSecret:
+#         name: repository-secret
+#         key: username
+#       passwordSecret:
+#         name: repository-secret
+#         key: password
+#     - name: day-2
+#       type: git
+#       project: default
+#       url: https://github.com/PF-POC/day-2-gitops.git
+#       insecure: true
+#       usernameSecret:
+#         name: repository-secret
+#         key: username
+#       passwordSecret:
+#         name: repository-secret
+#         key: password   
+#     - name: helm-charts
+#       project: default
+#       type: helm
+#       url: https://pf-poc.github.io/helm-repository
+#   applications:
+#   - name: d2
+#     annotations:
+#     helmRepoUrl: https://pf-poc.github.io/helm-repository
+#     chart: gitops-payload
+#     targetRevision: 1.1.3
+#     gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
+#     gitPath: Cluster/non-prod/high-trust/rosa-pub-1/application-teams.yaml
+#     repositories: 
+#     - https://github.com/PF-POC/day-1-gitops.git
+#     - https://github.com/PF-POC/day-2-gitops.git
+#     - https://pf-poc.github.io/helm-repository
