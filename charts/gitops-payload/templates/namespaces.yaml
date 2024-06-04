@@ -9,7 +9,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}-namespace"
+  name: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}-ns"
   annotations:
     argocd.argoproj.io/sync-wave: "1"
   namespace: {{ $defaults.gitopsNamespace }}
@@ -18,10 +18,44 @@ metadata:
 spec:
   project: "{{ $teamName }}-project"
   source:
-    repoURL: "{{ $defaults.helmRepoUrl }}"
-    targetRevision: "{{ $defaults.namespaceChartRevision }}"
-    chart: "{{ $defaults.namespaceChart }}"
-    path: "{{ $defaults.path }}"
+    {{- if or (eq $ns.plugin true) (eq $defaults.plugin true) }}
+    plugin:
+      env:
+      - name: AVP_K8S_ROLE
+        value: {{ $ns.AVP_K8S_ROLE | default $defaults.AVP_K8S_ROLE | quote }}
+      - name: AVP_TYPE
+        value: {{ $ns.AVP_TYPE | default $defaults.AVP_TYPE | quote }}
+      - name: VAULT_ADDR
+        value: {{ $ns.VAULT_ADDR | default $defaults.VAULT_ADDR | quote }}
+      - name: AVP_AUTH_TYPE
+        value: {{ $ns.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE | quote }}
+      - name: VAULT_SKIP_VERIFY
+        value: {{ $ns.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
+      - name: HELM_VALUES
+        value: |
+          adGroup: "{{ $defaults.adGroup }}"
+          projects:
+            - name: {{ $teamName }}-{{ $ns.name}}-{{ $env.name }}
+            {{- if $ns.labels }}
+              labels: |
+              {{- toYaml $ns.labels | trimPrefix "|" | indent 12 }}
+            {{- end }}
+            {{- if $ns.ignoreResourceQuota }}
+              ignoreResourceQuota: true
+            {{- else if $ns.ignoreResourceQuotaLimits }}
+              ignoreResourceQuotaLimits: true
+              requests:
+                cpu: {{ $ns.requests.cpu }}
+                memory: {{ $ns.requests.memory }}
+            {{- else }}
+              requests:
+                cpu: {{ $ns.requests.cpu }}
+                memory: {{ $ns.requests.memory }}
+              limits:
+                cpu: {{ $ns.limits.cpu }}
+                memory: {{ $ns.limits.memory }}
+            {{- end }}
+    {{ else }}
     helm:
       values: |
         adGroup: "{{ $defaults.adGroup }}"
@@ -46,6 +80,11 @@ spec:
               cpu: {{ $ns.limits.cpu }}
               memory: {{ $ns.limits.memory }}
           {{- end }}
+    {{- end }}
+    repoURL: "{{ $defaults.helmRepoUrl }}"
+    targetRevision: "{{ $defaults.namespaceChartRevision }}"
+    chart: "{{ $defaults.namespaceChart }}"
+    path: "{{ $defaults.path }}"
   destination:
     server: "{{ $defaults.server }}"
   syncPolicy:

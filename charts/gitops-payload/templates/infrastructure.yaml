@@ -1,47 +1,57 @@
+{{ $teamName := .Values.teamName -}}
+---
 {{ $defaults := .Values.defaults -}}
 ---
-{{ range $infrastructure := .Values.infrastructure -}}
+{{ range $infra := .Values.infra -}}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: "{{ $defaults.name }}-{{ $infrastructure.name }}"
+  name: "{{ $defaults.name }}-{{ $infra.name }}"
   annotations:
-  {{- range $key, $value := $infrastructure.annotations }}
+  {{- range $key, $value := $infra.annotations }}
     {{ $key }}: {{ $value | quote }}
   {{- end }}
-    argocd.argoproj.io/sync-wave: {{ $infrastructure.syncWave | default $defaults.syncWave | quote }}
+    argocd.argoproj.io/sync-wave: {{ $infra.syncWave | default $defaults.syncWave | quote }}
   namespace: {{ $defaults.gitopsNamespace }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: "{{ $teamName }}-project"
   source:
+    {{- if or (eq $infra.plugin true) (eq $defaults.plugin true) }}
     plugin:
       env:
       - name: AVP_K8S_ROLE
-        value: {{ $infrastructure.AVP_K8S_ROLE | default $defaults.AVP_K8S_ROLE | quote }}
+        value: {{ $infra.AVP_K8S_ROLE | default $defaults.AVP_K8S_ROLE | quote }}
       - name: AVP_TYPE
-        value: {{ $infrastructure.AVP_TYPE | default $defaults.AVP_TYPE | quote }}
+        value: {{ $infra.AVP_TYPE | default $defaults.AVP_TYPE | quote }}
       - name: VAULT_ADDR
-        value: {{ $infrastructure.VAULT_ADDR | default $defaults.VAULT_ADDR | quote }}
+        value: {{ $infra.VAULT_ADDR | default $defaults.VAULT_ADDR | quote }}
       - name: AVP_AUTH_TYPE
-        value: {{ $infrastructure.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE | quote }}
+        value: {{ $infra.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE | quote }}
       - name: VAULT_SKIP_VERIFY
-        value: {{ $infrastructure.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
-        {{- if $infrastructure.values }}
+        value: {{ $infra.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
+        {{- if $infra.values }}
       - name: HELM_VALUES
         value: |
-          {{ toYaml $infrastructure.values | nindent 10 }}
+          {{ toYaml $infra.values | nindent 10 }}
         {{- end }}
-    repoURL: {{ $infrastructure.helmRepoUrl | default $defaults.helmRepoUrl| quote }}
-    targetRevision: "{{ $infrastructure.targetRevision }}"
-    path: {{ $infrastructure.path | default $defaults.path | quote }}
-    chart: "{{ $infrastructure.chart }}"
+    {{ else }}
+    helm:
+      {{- if $infra.values }}
+      values: |
+        {{- toYaml $infra.values | nindent 8 }}
+      {{- end }}
+    {{- end }}
+    repoURL: {{ $infra.helmRepoUrl | default $defaults.helmRepoUrl| quote }}
+    targetRevision: "{{ $infra.targetRevision }}"
+    path: {{ $infra.path | default $defaults.path | quote }}
+    chart: "{{ $infra.chart }}"
   destination:
     server: "{{ $defaults.server }}"
-    {{- if $infrastructure.namespace}}
-    namespace: "{{ $infrastructure.namespace }}"
+    {{- if $infra.namespace}}
+    namespace: "{{ $infra.namespace }}"
     {{- end }}
   syncPolicy:
     automated: 

@@ -6,8 +6,8 @@ metadata:
     helm.sh/hook: post-install
   finalizers:
   - argoproj.io/finalizer
-  name: gitops-apps
-  namespace: gitops-apps
+  name: {{ .Values.name }}
+  namespace: {{ .Values.gitopsNamespace }}
 spec:
   applicationInstanceLabelKey: argocd.argoproj.io/instance
   controller:
@@ -66,58 +66,13 @@ spec:
         cpu: 250m
         memory: 128Mi
   repo:
-    initContainers:
-    - args:
-      - curl -Lo /custom-tools/argocd-vault-plugin https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v{{ .Values.argocd.plugin.version }}/argocd-vault-plugin_{{ .Values.argocd.plugin.version }}_linux_amd64
-        && chmod +x /custom-tools/argocd-vault-plugin
-      command:
-      - /bin/bash
-      - -c
-      image: registry.redhat.io/ubi9/ubi:latest
-      name: download-tools
-      resources: {}
-      volumeMounts:
-      - mountPath: /custom-tools
-        name: custom-tools
-    mountsatoken: true
     resources:
       limits:
-        cpu: "1"
+        cpu: '1'
         memory: 1Gi
       requests:
         cpu: 250m
         memory: 256Mi
-    serviceaccount: vplugin
-    sidecarContainers:
-    - command:
-      - /var/run/argocd/argocd-cmp-server
-      envFrom:
-      - secretRef:
-          name: vault-configuration
-      image: quay.io/gnunn/tools:latest
-      name: avp
-      resources: {}
-      securityContext:
-        runAsNonRoot: true
-      volumeMounts:
-      - mountPath: /var/run/argocd
-        name: var-files
-      - mountPath: /home/argocd/cmp-server/plugins
-        name: plugins
-      - mountPath: /tmp
-        name: tmp
-      - mountPath: /home/argocd/cmp-server/config/plugin.yaml
-        name: cmp-plugin
-        subPath: avp-helm.yaml
-      - mountPath: /usr/local/bin/argocd-vault-plugin
-        name: custom-tools
-        subPath: argocd-vault-plugin
-    volumes:
-    - configMap:
-        name: cmp-plugin
-      name: cmp-plugin
-    - emptyDir: {}
-      name: custom-tools
   resourceHealthChecks:
   - check: |
       hs = {}

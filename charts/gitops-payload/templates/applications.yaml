@@ -19,14 +19,13 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  #project: "{{ $teamName }}-project"
-  project: default
+  project: "{{ $teamName }}-project"
   ##############
   ## HELM Source
   ##############
   {{- if eq $app.type "helm" }}
   source:
-    {{- if eq $app.plugin "true" }}
+    {{- if or (eq $app.plugin true) (eq $defaults.plugin true) }}
     plugin:
       env:
       - name: AVP_K8S_ROLE
@@ -56,7 +55,7 @@ spec:
     repoURL: {{ $app.helmRepoUrl | default $defaults.helmRepoUrl | quote }}
     targetRevision: {{ $app.targetRevision | default $defaults.targetRevision | quote }}
     path: {{ $app.path | default $defaults.path | quote }}
-    chart: {{ $app.chart | default $defaults.chart | quote }}
+    chart: {{ $app.chart }}
   {{- end }}
   ##################
   ## HELM GIT Source

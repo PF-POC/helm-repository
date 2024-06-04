@@ -22,8 +22,12 @@ data:
             - "find . -name 'Chart.yaml' && find . -name 'values.yaml'"
       generate:
         command:
-          - bash
-          - "-c"
+          - "bash"
+          - "-o"
+          - "errexit" # exit on errors
+          - "-o"
+          - "pipefail" # set exit code to 1 when any command in a pipeline fails
+          - "-c" 
           - |
             helm template $ARGOCD_APP_NAME -n $ARGOCD_APP_NAMESPACE -f <(echo "$ARGOCD_ENV_HELM_VALUES") . |
             argocd-vault-plugin generate --verbose-sensitive-output -

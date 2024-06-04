@@ -4,7 +4,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ .name }}
-  namespace: openshift-gitops
+  namespace: {{ $.Values.gitopsNamespace }}
   annotations:
     helm.sh/hook: post-install
   {{- range $key, $value := $applications.annotations }}
