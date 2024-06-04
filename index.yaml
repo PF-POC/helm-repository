@@ -1,5 +1,14 @@
 apiVersion: v1
 entries:
+  application-gitops:
+  - apiVersion: v1
+    created: "2024-06-04T05:36:37.5350748Z"
+    description: Chart to generate argocd apps
+    digest: 5f5e0c2503a1629a78c3fdf001f867fc82198cf970d42832d886576bba8930a1
+    name: application-gitops
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/application-gitops-1.0.4/application-gitops-1.0.4.tgz
+    version: 1.0.4
   cluster-logging:
   - apiVersion: v2
     created: "2024-05-27T07:41:29.836058012Z"
@@ -119,6 +128,13 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-init-0.0.3/gitops-app-init-0.0.3.tgz
     version: 0.0.3
   gitops-app-team-config:
+  - apiVersion: v2
+    created: "2024-06-04T05:36:37.68256493Z"
+    digest: ca854c1036360a8f4ab95e9b96a1197b063061ff296f6f0e8010dbc02928dd84
+    name: gitops-app-team-config
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-team-config-1.0.3/gitops-app-team-config-1.0.3.tgz
+    version: 1.0.3
   - apiVersion: v2
     created: "2024-06-02T23:07:33.964142961Z"
     digest: 13bda1dab2c9d2306722b934fff51197cedc4c23b1da5206512a21aaf10e961a
@@ -259,6 +275,14 @@ entries:
     version: 0.0.8
   gitops-payload:
   - apiVersion: v1
+    created: "2024-06-04T05:36:37.836458243Z"
+    description: Chart to generate argocd apps
+    digest: 54dddfe04331bd1d54e8be66ae5e6bf6590cc79387d2d846e9fbad42cddd7d1e
+    name: gitops-payload
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-payload-1.2.3/gitops-payload-1.2.3.tgz
+    version: 1.2.3
+  - apiVersion: v1
     created: "2024-06-03T13:37:58.797688681Z"
     description: Chart to generate argocd apps
     digest: 9c8b794ec3d48cf4512b04871c930b7afc6ab2ee41c0ccb04c1a5008b6f9a26d
@@ -388,4 +412,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-03T13:44:25.850712279Z"
+generated: "2024-06-04T05:36:37.836610719Z"
