@@ -14,7 +14,7 @@ spec:
     clientCA:
       name: ""
     clientCertificatePolicy: ""
-  domain: {{ ingressSubdomain }}.{{ baseDomain }}
+  domain: "{{ .Values.ingressSubdomain }}.{{ .Values.baseDomain }}"
   endpointPublishingStrategy:
     loadBalancer:
       dnsManagementPolicy: Managed
