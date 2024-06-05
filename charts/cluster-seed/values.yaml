@@ -10,6 +10,8 @@ subscriptions:
       env:
       - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
         value: "true"
+      - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
+        value: d2-application-gitops
     installPlanApproval: Automatic
     source: redhat-operators
     sourceNamespace: openshift-marketplace
