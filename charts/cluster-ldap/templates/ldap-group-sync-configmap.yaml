@@ -3,12 +3,12 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ldap-group-sync
-  namespace: {{ namespace }}
+  namespace: {{ .Values.namespace }}
 data:
   sync.yaml: |
     kind: LDAPSyncConfig
     apiVersion: v1
-    url: "{{ ldapUrl }}"
+    url: "{{ .Values.ldapUrl }}"
     bindDN: "cn=Directory Manager"
     bindPassword:
       file: /etc/secrets/bindPassword
@@ -16,16 +16,16 @@ data:
     ca: /etc/ldap-ca/ca.crt
     rfc2307:
         groupsQuery:
-            baseDN: "ou=Groups,{{ searchDN }}"
+            baseDN: "ou=Groups,{{ .Values.searchDN }}"
             scope: sub
-            filter: "{{ groupFilter }}"
+            filter: "{{ .Values.groupFilter }}"
             derefAliases: never
             pageSize: 0
         groupUIDAttribute: cn
         groupNameAttributes: [ cn ]
         groupMembershipAttributes: [ uniqueMember ]
         usersQuery:
-            baseDN: "ou=People,{{ searchDN }}"
+            baseDN: "ou=People,{{ .Values.searchDN }}"
             scope: sub
             derefAliases: never
             pageSize: 0

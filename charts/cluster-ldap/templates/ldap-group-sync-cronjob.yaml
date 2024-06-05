@@ -3,9 +3,9 @@ kind: CronJob
 apiVersion: batch/v1
 metadata:
   name: ldap-group-sync
-  namespace: {{ namespace }}
+  namespace: {{ .Values.namespace }}
 spec:
-  schedule: "*/30 * * * *"
+  schedule: {{ .Values.cronSchedule }}
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:

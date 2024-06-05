@@ -22,7 +22,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: ldap-group-sync
-    namespace: ldap-sync
+    namespace: {{ .Values.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -32,5 +32,5 @@ kind: ServiceAccount
 apiVersion: v1
 metadata:
   name: ldap-group-syncer
-  namespace: {{ namespace }}
+  namespace: {{ .Values.namespace }}
 ---
