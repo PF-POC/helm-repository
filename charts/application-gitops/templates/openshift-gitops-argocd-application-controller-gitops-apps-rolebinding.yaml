@@ -15,5 +15,5 @@ roleRef:
   name: "openshift-gitops-argocd-application-controller-{{ .Values.name }}"
 subjects:
 - kind: ServiceAccount
-  name: openshift-gitops-argocd-application-controller
+  name: application-gitops-argocd-application-controller
   namespace: {{ .Values.gitopsNamespace }}
