@@ -3,27 +3,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: {{ $applications.name }}-project"
+  name: "{{ $applications.name }}-project"
   namespace: {{ $applications.gitopsNamespace }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   description: "{{ $applications.name }} users project"
   sourceRepos:
-  {{- range $applications.repositories }}
-    - {{ . | quote }}
-  {{- end }}
+  - '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
   destinations:
-    - namespace: {{ $applications.gitopsNamespace }}
-      server: "https://kubernetes.default.svc"
-  roles:
-    - name: users
-      description: "Application teams privilleges for project {{ $applications.name }}--users"
-      policies:
-        - "p, proj:{{ $applications.name}}-users:users, applications, *, {{ $applications.name}}-users/*, allow"
-      groups:
-        - "{{ $applications.adGroup }}"
+    - server: "https://kubernetes.default.svc"
 {{- end }}
