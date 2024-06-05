@@ -67,6 +67,13 @@ entries:
     version: 1.0.4
   cluster-ingress:
   - apiVersion: v2
+    created: "2024-06-05T23:20:31.615502592Z"
+    digest: 7c205d9b2b276ffd409643304ad5b3c3ec3cb49885e97368e047917995857f70
+    name: cluster-ingress
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-ingress-0.0.3/cluster-ingress-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
     created: "2024-06-05T05:35:43.814294786Z"
     digest: f6c86b250059fb73694788b35f4b078cb25c715657d8ef9f81a76f8f3aceace9
     name: cluster-ingress
@@ -82,6 +89,13 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/cluster-logging-0.0.3/cluster-logging-0.0.3.tgz
     version: 0.0.3
   cluster-seed:
+  - apiVersion: v2
+    created: "2024-06-05T23:20:31.750588461Z"
+    digest: b9b2bef43717a5725bd124a1ec23a09b557001dd5a2470dfcd7ebe66e6d58f8b
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-3.0.7/cluster-seed-3.0.7.tgz
+    version: 3.0.7
   - apiVersion: v2
     created: "2024-06-03T13:29:11.18090664Z"
     digest: 25f27b9ff368111c394eb1badeea9ac1d820b06435cacd3fbedd5b66efe3db44
@@ -534,4 +548,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-05T05:42:00.224995515Z"
+generated: "2024-06-05T23:20:31.750739403Z"
