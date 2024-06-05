@@ -1,41 +1,41 @@
-name: application-gitops
-gitopsNamespace: d2-application-gitops
-domain: apps.rosa.rosa-pub-1.0r8r.p3.openshiftapps.com
-argocd:
-  initialRepositories: |
-    - name: day-2
-      url: https://github.com/PF-POC/day-1-gitops.git
-      insecure: true
-      usernameSecret:
-        name: repository-secret
-        key: username
-      passwordSecret:
-        name: repository-secret
-        key: password
-    - name: day-2
-      type: git
-      project: default
-      url: https://github.com/PF-POC/day-2-gitops.git
-      insecure: true
-      usernameSecret:
-        name: repository-secret
-        key: username
-      passwordSecret:
-        name: repository-secret
-        key: password   
-    - name: helm-charts
-      project: default
-      type: helm
-      url: https://pf-poc.github.io/helm-repository
-  applications:
-  - name: test
-    annotations:
-    helmRepoUrl: https://pf-poc.github.io/helm-repository
-    chart: gitops-payload
-    targetRevision: 1.2.3
-    gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
-    gitPath: Cluster/non-prod/high-trust/rosa-pub-1/application-teams.yaml
-    repositories: 
-    - https://github.com/PF-POC/day-1-gitops.git
-    - https://github.com/PF-POC/day-2-gitops.git
-    - https://pf-poc.github.io/helm-repository
+# name: application-gitops
+# gitopsNamespace: d2-application-gitops
+# domain: apps.rosa.rosa-pub-1.0r8r.p3.openshiftapps.com
+# argocd:
+#   initialRepositories: |
+#     - name: day-2
+#       url: https://github.com/PF-POC/day-1-gitops.git
+#       insecure: true
+#       usernameSecret:
+#         name: repository-secret
+#         key: username
+#       passwordSecret:
+#         name: repository-secret
+#         key: password
+#     - name: day-2
+#       type: git
+#       project: default
+#       url: https://github.com/PF-POC/day-2-gitops.git
+#       insecure: true
+#       usernameSecret:
+#         name: repository-secret
+#         key: username
+#       passwordSecret:
+#         name: repository-secret
+#         key: password   
+#     - name: helm-charts
+#       project: default
+#       type: helm
+#       url: https://pf-poc.github.io/helm-repository
+#   applications:
+#   - name: test
+#     annotations:
+#     helmRepoUrl: https://pf-poc.github.io/helm-repository
+#     chart: gitops-payload
+#     targetRevision: 1.2.3
+#     gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
+#     gitPath: Cluster/non-prod/high-trust/rosa-pub-1/application-teams.yaml
+#     repositories: 
+#     - https://github.com/PF-POC/day-1-gitops.git
+#     - https://github.com/PF-POC/day-2-gitops.git
+#     - https://pf-poc.github.io/helm-repository
