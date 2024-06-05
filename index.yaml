@@ -80,6 +80,14 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/cluster-ingress-0.0.2/cluster-ingress-0.0.2.tgz
     version: 0.0.2
+  cluster-ldap:
+  - apiVersion: v2
+    created: "2024-06-05T23:41:00.19956272Z"
+    digest: b8d1c8b89ef77d4883475136c6267fd8dcd79e207a07262b4ce9d4c688030d91
+    name: cluster-ldap
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-ldap-0.0.1/cluster-ldap-0.0.1.tgz
+    version: 0.0.1
   cluster-logging:
   - apiVersion: v2
     created: "2024-05-27T07:41:29.836058012Z"
@@ -548,4 +556,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-05T23:20:31.750739403Z"
+generated: "2024-06-05T23:41:00.199734291Z"
