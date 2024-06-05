@@ -1,39 +1,31 @@
-teamName: PFA
+# teamName: main
 
-defaults:
-  gitopsNamespace: d2-application-gitops
-  adGroup: PFAUTHAD
-  helmRepoUrl: https://pf-poc.github.io/helm-repository
-  gitRepoUrl: ""
-  path: charts
-  server: https://kubernetes.default.svc
-  syncWave: 0
-  namespaceChart: namespaces
-  namespaceChartRevision: 1.0.1
-  repositories:
-    - https://pf-poc.github.io/helm-repository
+# defaults:
+#   gitopsNamespace: d2-application-gitops
+#   helmRepoUrl: https://pf-poc.github.io/helm-repository
+#   path: charts
+#   name: d2
+#   server: https://kubernetes.default.svc
+#   syncWave: 0
 
-
-namespaces: 
-  - name: ob
-    requests:
-      cpu: 30
-      memory: 22Gi
-    limits:
-      cpu: 30
-      memory: 22Gi
-    environments: 
-      - name: dev
-        labels: |
-          name: ob-dev
-          argocd.argoproj.io/managed-by: openshift-gitops
-        applications: 
-          - name: adservice
-            type: "helm-git"
-            gitRepoUrl: git@github.com:redhat-blackbelt-online-boutique/online-boutique-cd.git
-            targetRevision: HEAD
-            path: app
-            values:
-              chartname: microservice-base
-              chartRevision: 1.0.0
-              
+# infrastructure:
+#   - name: gitops-app-team-config
+#     chart: gitops-app-team-config
+#     targetRevision: "1.0.4"
+#     annotations:
+#       sync: 56
+#     syncWave: 50
+#     values:
+#       applications:
+#       - name: payments
+#         annotations:
+#         gitopsNamespace: application-gitops
+#         helmRepoUrl: https://PF-POC.github.io/helm-charts
+#         chart: gitops-payload
+#         targetRevision: 1.2.3
+#         gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
+#         gitPath: Clusters/non-prod/high-trust/rosa-pub-1/applications.yaml
+#         adGroup: PFAUTHAD
+#         repos: 
+#         - https://github.com/PF-POC/day-1-gitops.git
+#         - https://PF-POC.github.io/helm-charts
