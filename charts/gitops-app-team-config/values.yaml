@@ -4,7 +4,7 @@
 #   gitopsNamespace: application-gitops
 #   helmRepoUrl: https://PF-POC.github.io/helm-charts
 #   chart: gitops-payload
-#   targetRevision: 1.2.3
+#   targetRevision: 1.2.4
 #   gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
 #   gitPath: Clusters/non-prod/high-trust/rosa-pub-1/applications.yaml
 #   adGroup: PFAUTHAD

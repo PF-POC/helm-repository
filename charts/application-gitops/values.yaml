@@ -32,7 +32,7 @@
 #     annotations:
 #     helmRepoUrl: https://pf-poc.github.io/helm-repository
 #     chart: gitops-payload
-#     targetRevision: 1.2.3
+#     targetRevision: 1.2.4
 #     gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
 #     gitPath: Cluster/non-prod/high-trust/rosa-pub-1/application-teams.yaml
 #     repositories: 

@@ -13,7 +13,7 @@ spec:
   sources:
     - repoURL: https://pf-poc.github.io/helm-repository
       chart: gitops-payload
-      targetRevision: 1.2.3
+      targetRevision: 1.2.4
       path: charts
       helm:
         valueFiles:
