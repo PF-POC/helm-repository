@@ -1,0 +1,34 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ldap-group-sync
+  namespace: {{ namespace }}
+data:
+  sync.yaml: |
+    kind: LDAPSyncConfig
+    apiVersion: v1
+    url: "{{ ldapUrl }}"
+    bindDN: "cn=Directory Manager"
+    bindPassword:
+      file: /etc/secrets/bindPassword
+    insecure: false
+    ca: /etc/ldap-ca/ca.crt
+    rfc2307:
+        groupsQuery:
+            baseDN: "ou=Groups,{{ searchDN }}"
+            scope: sub
+            filter: "{{ groupFilter }}"
+            derefAliases: never
+            pageSize: 0
+        groupUIDAttribute: cn
+        groupNameAttributes: [ cn ]
+        groupMembershipAttributes: [ uniqueMember ]
+        usersQuery:
+            baseDN: "ou=People,{{ searchDN }}"
+            scope: sub
+            derefAliases: never
+            pageSize: 0
+        userUIDAttribute: dn
+        userNameAttributes: [ mail ]
+---
