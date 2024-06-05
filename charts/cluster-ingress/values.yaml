@@ -1,0 +1,2 @@
+baseDomain: placeholer_baseDomain # <- value derived from $(oc get dnses cluster -ojsonpath="{.spec.baseDomain}")
+ingressSubdomain: placeholer_ingressSubdomain # <- foo

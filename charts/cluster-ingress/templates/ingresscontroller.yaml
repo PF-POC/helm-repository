@@ -1,0 +1,38 @@
+apiVersion: operator.openshift.io/v1
+kind: IngressController
+metadata:
+  annotations:
+    ingress.operator.openshift.io/auto-delete-load-balancer: "true"
+  finalizers:
+  - ingresscontroller.operator.openshift.io/finalizer-ingresscontroller
+  labels:
+    hypershift.openshift.io/managed: "true"
+  name: {{ .Values.ingressSubdomain }}
+  namespace: openshift-ingress-operator
+spec:
+  clientTLS:
+    clientCA:
+      name: ""
+    clientCertificatePolicy: ""
+  domain: {{ ingressSubdomain }}.{{ baseDomain }}
+  endpointPublishingStrategy:
+    loadBalancer:
+      dnsManagementPolicy: Managed
+      providerParameters:
+        aws:
+          networkLoadBalancer: {}
+          type: NLB
+        type: AWS
+      scope: Internal
+    type: LoadBalancerService
+  httpCompression: {}
+  httpEmptyRequestsPolicy: Respond
+  httpErrorCodePages:
+    name: ""
+  replicas: 2
+  tuningOptions:
+    reloadInterval: 0s
+  unsupportedConfigOverrides: null
+  namespaceSelector:
+    matchLabels:
+      ingress: {{ .Values.ingressSubdomain }}
