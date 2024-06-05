@@ -185,6 +185,13 @@ entries:
     version: 0.0.3
   gitops-app-team-config:
   - apiVersion: v2
+    created: "2024-06-05T05:05:25.833144734Z"
+    digest: 04df4e4da74dc55046a7de9dc7fbc3e4a779edc0b5517cdb1db3edd23d9da8a7
+    name: gitops-app-team-config
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-team-config-1.0.8/gitops-app-team-config-1.0.8.tgz
+    version: 1.0.8
+  - apiVersion: v2
     created: "2024-06-05T04:53:49.546813647Z"
     digest: 42ae2929a584682cbbca36d7417c61e04c0f122eaebad5f4ede57af7775264a5
     name: gitops-app-team-config
@@ -505,4 +512,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-05T04:53:49.546948972Z"
+generated: "2024-06-05T05:05:25.833283703Z"
