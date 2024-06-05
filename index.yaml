@@ -65,6 +65,14 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/application-gitops-1.0.4/application-gitops-1.0.4.tgz
     version: 1.0.4
+  cluster-ingress:
+  - apiVersion: v2
+    created: "2024-06-05T05:35:43.814294786Z"
+    digest: f6c86b250059fb73694788b35f4b078cb25c715657d8ef9f81a76f8f3aceace9
+    name: cluster-ingress
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-ingress-0.0.2/cluster-ingress-0.0.2.tgz
+    version: 0.0.2
   cluster-logging:
   - apiVersion: v2
     created: "2024-05-27T07:41:29.836058012Z"
@@ -184,6 +192,13 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-init-0.0.3/gitops-app-init-0.0.3.tgz
     version: 0.0.3
   gitops-app-team-config:
+  - apiVersion: v2
+    created: "2024-06-05T05:35:43.944071967Z"
+    digest: 41dfd9c993ad1ed62c3f5dae0e87a934ad6b84f7d9089c450f94b1219833cb07
+    name: gitops-app-team-config
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-team-config-1.0.9/gitops-app-team-config-1.0.9.tgz
+    version: 1.0.9
   - apiVersion: v2
     created: "2024-06-05T05:05:25.833144734Z"
     digest: 04df4e4da74dc55046a7de9dc7fbc3e4a779edc0b5517cdb1db3edd23d9da8a7
@@ -512,4 +527,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-05T05:05:25.833283703Z"
+generated: "2024-06-05T05:35:43.944387758Z"
