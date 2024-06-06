@@ -1,0 +1,37 @@
+apiVersion: v2
+name: compliance-operator-full-stack
+description: Master chart to deploy and configure the Compliance Operator
+version: 1.0.29
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+dependencies:
+  - name: helper-operator
+    version: ~1.0.21
+    repository: https://charts.stderr.at/
+  - name: helper-status-checker
+    version: ~4.0.0
+    repository: https://charts.stderr.at/
+    condition: helper-status-checker.enabled
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
+sources:
+  - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+keywords:
+  - security
+  - compliance
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: fixed
+      description: Signing Chart
+    - kind: added
+      description: README.md
+    - kind: added
+      description: updated to helper-status-checker v4
