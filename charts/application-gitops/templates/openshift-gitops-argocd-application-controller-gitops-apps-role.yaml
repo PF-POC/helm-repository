@@ -21,6 +21,7 @@ rules:
   - update
   - create
   - patch
+  - delete
 - nonResourceURLs:
   - '*'
   verbs:
