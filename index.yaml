@@ -538,6 +538,80 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-payload-1.1.1/gitops-payload-1.1.1.tgz
     version: 1.1.1
+  helper-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added Job that will enable Console Plugins if they are defined.
+        - kind: added
+          description: Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README
+        - kind: fixed
+          description: Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-06-06T01:00:41.537805972Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators.
+    digest: e2cfd8621bea1b14c3b693f9646832fc531c06d5ae548a64afbabd7ca40aa7ed
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    - operator
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/helper-operator-1.0.26/helper-operator-1.0.26.tgz
+    version: 1.0.26
+  helper-status-checker:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
+        - kind: added
+          description: added new option subscriptionName in case the subscription name is different to the operator name
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-06-06T01:00:41.665733635Z"
+    description: A helper Chart that creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments.
+    digest: 5102a29a9d5dfa1cbe697016beba99c828e724ea7cf45dbcde9c595e441c9962
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/helper-status-checker-4.0.7/helper-status-checker-4.0.7.tgz
+    version: 4.0.7
   namespaces:
   - apiVersion: v1
     created: "2024-06-05T01:29:34.171686527Z"
@@ -612,4 +686,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-06T01:00:26.834093834Z"
+generated: "2024-06-06T01:00:41.665914883Z"
