@@ -19,27 +19,3 @@ spec:
       server: '*'
 ---
 {{- end }}
-
-# {{ range $applications := .Values.argocd.applications -}}
-# ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: AppProject
-# metadata:
-#   name: "{{ $applications.name }}-project"
-#   namespace: openshift-gitops
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   description: "{{ $applications.name }} users project"
-#   sourceRepos:
-#   {{- range $applications.repositories }}
-#     - {{ . | quote }}
-#   {{- end }}
-#   clusterResourceWhitelist:
-#     - group: '*'
-#       kind: '*'
-#   destinations:
-#     - namespace: "{{ $applications.name }}*"
-#       server: "https://kubernetes.default.svc"
-# ---
-# {{- end }}
