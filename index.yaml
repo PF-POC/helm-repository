@@ -90,6 +90,13 @@ entries:
     version: 0.0.1
   cluster-logging:
   - apiVersion: v2
+    created: "2024-06-06T00:28:22.487429559Z"
+    digest: f14bdce8f2b7fe5f274933f2964cd3f7080fc2862a6b2f42405bac64b76ad574
+    name: cluster-logging
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-logging-0.0.5/cluster-logging-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
     created: "2024-06-06T00:12:33.833553499Z"
     digest: 01af387f1c99c260136a7c38c75067ca502d78194ba9e377481e479ea1627789
     name: cluster-logging
@@ -563,4 +570,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-06T00:12:33.833641614Z"
+generated: "2024-06-06T00:28:22.487542251Z"
