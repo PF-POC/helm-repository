@@ -1,10 +1,10 @@
 apiVersion: logging.openshift.io/v1
-  kind: ClusterLogging
-  metadata:
-    name: instance
-    namespace: openshift-logging
-  spec:
-    collection:
-      logs:
-         type: vector
-    managementState: Managed
+kind: ClusterLogging
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  collection:
+    logs:
+        type: vector
+  managementState: Managed
