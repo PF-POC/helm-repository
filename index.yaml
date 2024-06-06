@@ -195,6 +195,48 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-2.1.4/cluster-seed-2.1.4.tgz
     version: 2.1.4
+  compliance-operator-full-stack:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: README.md
+        - kind: added
+          description: updated to helper-status-checker v4
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-06-06T01:00:26.833952439Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 66230fa7dfcad1eb1e01a3b3d3aea4aaf398baae5b28771d6b62dc6d0c3be447
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+    keywords:
+    - security
+    - compliance
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: compliance-operator-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/compliance-operator-full-stack-1.0.29/compliance-operator-full-stack-1.0.29.tgz
+    version: 1.0.29
   efs:
   - apiVersion: v2
     created: "2024-05-29T03:41:56.746077109Z"
@@ -570,4 +612,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-06T00:28:22.487542251Z"
+generated: "2024-06-06T01:00:26.834093834Z"
