@@ -1,29 +1,31 @@
-apiVersion: logging.openshift.io/v1
-kind: ClusterLogForwarder
-metadata:
-  name: instance
-  namespace: openshift-logging 
-spec:
-  outputs:
-    - name: splunk-receiver 
-      secret:
-        name: vector-splunk-secret 
-      type: splunk 
-      url: {{ .Values.splunURL}}
-  pipelines: 
-    - inputRefs:
-        - application
-        - infrastructure
-        - audit
-      name: 
-      outputRefs:
-        - splunk-receiver
+  apiVersion: "logging.openshift.io/v1"
+  kind: ClusterLogForwarder
+  metadata:
+    name: instance
+    namespace: openshift-logging
+  spec:
+    outputs:
+      - name: cw
+        type: cloudwatch
+        cloudwatch:
+          groupBy: namespaceName
+          groupPrefix: "rosa-{{ .Values.rosaClusterName }}"
+          region: {{ .Values.region }}
+        secret:
+          name: cloudwatch-credentials
+    pipelines:
+      - name: to-cloudwatch
+        inputRefs:
+          - infrastructure
+          - audit
+          - application
+        outputRefs:
+          - cw
 ---
-apiVersion: v1
-data:
-  hecToken: {{ .Values.splunkHecToken}}
-kind: Secret
-metadata:
-  name: vector-splunk-secret
-  namespace: openshift-logging
-type: Opaque
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    name: cloudwatch-credentials
+    namespace: openshift-logging
+  stringData:
+    role_arn: {{ .Values.roleArn }}

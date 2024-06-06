@@ -1,0 +1,9 @@
+RoleArn: placeholder
+rosaClusterName:
+region:
+subscriptions:
+  - name: cluster-logging
+    namespace: openshift-logging
+    installPlanApproval: Automatic
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
