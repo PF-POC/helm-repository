@@ -1,3 +1,3 @@
-name: efs
+name: cluster-efs
 version: 0.0.4
 apiVersion: v2
