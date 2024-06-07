@@ -15,7 +15,7 @@ metadata:
     argocd.argoproj.io/sync-wave: {{ $infra.syncWave | default $defaults.syncWave | quote }}
   namespace: {{ $defaults.gitopsNamespace }}
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - null
 spec:
   project: "{{ $teamName }}-project"
   source:

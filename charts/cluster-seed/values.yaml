@@ -2,26 +2,37 @@ nameOverride: ""
 fullnameOverride: ""
 namespaces:
   - name: openshift-gitops
-subscriptions:
-  - name: openshift-gitops-operator
-    namespace: openshift-operators
-    channel: latest
-    config:
-      env:
-      - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
-        value: "true"
-      - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
-        value: d2-application-gitops,openshift-gitops
-    installPlanApproval: Automatic
-    source: redhat-operators
-    sourceNamespace: openshift-marketplace
-operatorGroups:
-catalogSources: []
-  # - name: operatorhubio
-  #   sourceType: grpc
-  #   image: quay.io/operator-framework/upstream-community-operators:latest
-  #   displayName: Community Operators
-  #   publisher: OperatorHub.io
+# dependency chart helper-operator
+helper-operator:
+  operators:
+    openshift-gitops-operator:
+      enabled: false
+      syncwave: '0'
+      namespace:
+        name: openshift-operators
+        create: false
+      subscription:
+        channel: latest
+        approval: Automatic
+        operatorName: openshift-gitops-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+        config:
+          env:
+          - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
+            value: "true"
+          - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
+            value: d2-application-gitops,openshift-gitops
+# dependency chart helper-status-checker
+helper-status-checker:
+  enabled: true
+  checks:
+    - operatorName: openshift-gitops-operator
+      namespace:
+        name: openshift-operators
+      syncwave: 3
+      serviceAccount:
+        name: "openshift-operators-install-check"
 argocd:
   plugin:
     version: "1.17.0"

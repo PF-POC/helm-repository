@@ -1,3 +1,11 @@
 name: cluster-logging
-version: 0.0.7
+version: 0.0.8
 apiVersion: v2
+dependencies:
+  - name: helper-operator
+    version: ~1.0.21
+    repository: https://charts.stderr.at/
+  - name: helper-status-checker
+    version: ~4.0.0
+    repository: https://charts.stderr.at/
+    condition: helper-status-checker.enabled
