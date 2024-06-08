@@ -71,7 +71,7 @@ argocd:
     annotations:
     helmRepoUrl: https://pf-poc.github.io/helm-repository
     chart: gitops-payload
-    targetRevision: 1.1.4
+    targetRevision: 1.2.6
     gitRepoUrl: https://github.com/PF-POC/day-1-gitops.git
     gitPath: ''
     adGroup: PFAUTHAD
@@ -83,7 +83,7 @@ argocd:
     annotations:
     helmRepoUrl: https://pf-poc.github.io/helm-repository
     chart: gitops-payload
-    targetRevision: 1.1.4
+    targetRevision: 1.2.6
     gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
     gitPath: ''
     adGroup: PFAUTHAD
