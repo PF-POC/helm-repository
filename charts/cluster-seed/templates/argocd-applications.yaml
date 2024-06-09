@@ -6,6 +6,7 @@ metadata:
   name: {{ .name }}
   namespace: openshift-gitops
   annotations:
+    argocd.argoproj.io/sync-wave: '3'
     # helm.sh/hook: post-install
   {{- range $key, $value := $applications.annotations }}
     {{ $key }}: {{ $value | quote }}
