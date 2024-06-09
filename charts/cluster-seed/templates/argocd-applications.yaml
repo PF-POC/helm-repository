@@ -6,7 +6,7 @@ metadata:
   name: {{ .name }}
   namespace: openshift-gitops
   annotations:
-    helm.sh/hook: post-install
+    # helm.sh/hook: post-install
   {{- range $key, $value := $applications.annotations }}
     {{ $key }}: {{ $value | quote }}
   {{- end }}
