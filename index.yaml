@@ -173,6 +173,21 @@ entries:
     version: 0.0.3
   cluster-seed:
   - apiVersion: v2
+    created: "2024-06-09T08:11:01.524009316Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    digest: 6df9e8d1e6e1fe82ef56d0430f766c170577e26c9b66f940cd118dde437af6fe
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-3.1.6/cluster-seed-3.1.6.tgz
+    version: 3.1.6
+  - apiVersion: v2
     created: "2024-06-09T08:06:57.220825002Z"
     dependencies:
     - name: helper-operator
@@ -966,4 +981,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-09T08:06:57.221000318Z"
+generated: "2024-06-09T08:11:01.524167782Z"
