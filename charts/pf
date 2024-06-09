@@ -1,0 +1,663 @@
+---
+# Source: cluster-seed/charts/helper-status-checker/templates/serviceAccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: "openshift-operators-install-check"
+  namespace: "openshift-operators"
+  labels:
+    helm.sh/chart: helper-status-checker-4.0.7
+    app.kubernetes.io/name: helper-status-checker
+    app.kubernetes.io/instance: cluster-seed
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: "3"
+---
+# Source: cluster-seed/templates/default-vault-plugin-config.yaml
+apiVersion: v1
+kind: ServiceAccount
+imagePullSecrets:
+- name: regcred
+metadata:
+  name: vplugin
+  namespace: openshift-gitops
+---
+# Source: cluster-seed/templates/default-vault-plugin-config.yaml
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJxdWF5LmlvIjp7InVzZXJuYW1lIjoicmhfZWVfcGFmb3N0ZXIiLCJwYXNzd29yZCI6IkppbWJvOTU3OEBNYXJjQCIsImVtYWlsIjoicm9vdEBtYWlsLmNvbSIsImF1dGgiOiJjbWhmWldWZmNHRm1iM04wWlhJNlNtbHRZbTg1TlRjNFFFMWhjbU5BIn19fQ==
+kind: Secret
+metadata:
+  name: regcred
+  namespace: openshift-gitops
+type: kubernetes.io/dockerconfigjson
+---
+# Source: cluster-seed/templates/repository-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: repository-secret
+  namespace: openshift-gitops
+data:
+  password: Z2l0aHViX3BhdF8xMUFaUlNGUEEwclNRQUxiRDdKZmlZX3N2SHJCVDBmUEhnVXRpa1lPcDhxZUk4ZmRVUjZlcVNHT29tTG9ONFBJblFCTlNZNFpYSW82aFZ0MEVLCg==
+  username: aGVsbQo=
+---
+# Source: cluster-seed/charts/helper-status-checker/templates/clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: "3"
+  name: openshift-operators-install-check-openshift-operators
+  namespace: "openshift-operators"
+  labels:
+    helm.sh/chart: helper-status-checker-4.0.7
+    app.kubernetes.io/name: helper-status-checker
+    app.kubernetes.io/instance: cluster-seed
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups:
+      - operators.coreos.com
+    resources:
+      - clusterserviceversions
+      - installplans
+      - subscription
+    verbs:
+      - get
+      - list
+      - patch
+---
+# Source: cluster-seed/templates/openshift-gitops-argocd-application-controller-custom-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    argocds.argoproj.io/name: openshift-gitops
+    argocds.argoproj.io/namespace: openshift-gitops
+  labels:
+    app.kubernetes.io/managed-by: openshift-gitops
+    app.kubernetes.io/name: openshift-gitops
+    app.kubernetes.io/part-of: argocd
+  name: openshift-gitops-argocd-application-controller-custom
+rules:
+- apiGroups:
+  - '*'
+  resources:
+  - '*'
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - create
+  - patch
+- nonResourceURLs:
+  - '*'
+  verbs:
+  - get
+  - list
+---
+# Source: cluster-seed/charts/helper-status-checker/templates/clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: openshift-operators-install-check-openshift-operators
+  namespace: "openshift-operators"
+  labels:
+    helm.sh/chart: helper-status-checker-4.0.7
+    app.kubernetes.io/name: helper-status-checker
+    app.kubernetes.io/instance: cluster-seed
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: "3"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: openshift-operators-install-check-openshift-operators
+subjects:
+  - kind: ServiceAccount
+    name: "openshift-operators-install-check"
+    namespace: "openshift-operators"
+---
+# Source: cluster-seed/templates/clusterrolebindings.role-tokenreview-binding.yaml
+# This file is required for enabling access for the Service Account user in the vault 
+# namespace to read out of all namespaces on the cluster.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: role-tokenreview-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+  - kind: ServiceAccount
+    name: vplugin
+    namespace: openshift-gitops
+---
+# Source: cluster-seed/templates/openshift-gitops-argocd-application-controller-custom-rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  annotations:
+    argocds.argoproj.io/name: openshift-gitops
+    argocds.argoproj.io/namespace: openshift-gitops
+  labels:
+    app.kubernetes.io/managed-by: openshift-gitops
+    app.kubernetes.io/name: argocd-application-controller
+    app.kubernetes.io/part-of: argocd
+  name: openshift-gitops-argocd-application-controller-custom 
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: openshift-gitops-argocd-application-controller-custom
+subjects:
+- kind: ServiceAccount
+  name: openshift-gitops-argocd-application-controller
+  namespace: openshift-gitops
+---
+# Source: cluster-seed/charts/helper-status-checker/templates/check_if_operator_is_ready.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: check-operator-status
+  namespace: "openshift-operators"
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    helm.sh/chart: helper-status-checker-4.0.7
+    app.kubernetes.io/name: helper-status-checker
+    app.kubernetes.io/instance: cluster-seed
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ttlSecondsAfterFinished: 120
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli
+          command:
+            - /bin/bash
+            - -c
+            - |
+             #!/usr/bin/env bash
+             sleep_timer=20
+             max_timer=20
+             counter=0
+             status=0
+
+             echo "Starting operator status checker"
+             operator=openshift-gitops-operator
+             printf "\nWaiting for operator %s to appear\n" "$i";
+
+             # Wait until operator appears
+             SLEEPER_TMP=0
+             get_exact_name=`oc get clusterserviceversion -n openshift-operators | grep $operator | awk -F" " '{print $1}'`
+             until [ "$get_exact_name" != "" ]; do
+               # do not wait forever
+               let "counter=counter+1"
+               echo "Attempt $counter of $max_timer"
+
+               if [[ $counter -eq $max_timer ]]
+               then
+                 echo "Giving up. Operator does not appear as clusterserviceversion"
+                 exit 3
+               fi
+
+               echo "Operator not yet found... Give Operator $sleep_timer seconds to create the Deployment"
+               while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
+                 echo -n "."
+                 sleep 1
+                 SLEEPER_TMP=$(($SLEEPER_TMP+1))
+               done
+               get_exact_name=`oc get clusterserviceversion -n openshift-operators | grep $operator | awk -F" " '{print $1}'`
+             done
+
+             # Get exact name of the operator
+             counter=0
+             SLEEPER_TMP=0
+             get_status=`oc get clusterserviceversion -n openshift-operators $get_exact_name -o jsonpath={.status.phase}`
+             until [ "$get_status" != "" ]; do
+               # do not wait forever
+               let "counter=counter+1"
+               echo "Attempt $counter of $max_timer"
+
+               if [[ $counter -eq $max_timer ]]
+               then
+                 echo "Giving up. Operator installation failed"
+                 exit 3
+               fi
+
+               echo "Operator not yet ready ... Waiting $sleep_timer seconds"
+
+               while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
+                 echo -n "."
+                 sleep 1
+                 SLEEPER_TMP=$(($SLEEPER_TMP+1))
+               done
+               get_status=`oc get clusterserviceversion -n openshift-operators $get_exact_name -o jsonpath={.status.phase}`
+             done
+
+             echo "Checking status of $get_exact_name. Current status: $get_status"
+
+             # Wait until operator is ready
+             counter=0
+             SLEEPER_TMP=0
+             until [ "$get_status" == "Succeeded" ]; do
+             let "counter=counter+1"
+               echo "Attempt $counter of $max_timer"
+
+               if [[ $counter -eq $max_timer ]]
+               then
+                 echo "Giving up. Operator installation failed"
+                 exit 3
+               fi
+
+               echo "Operator deployment is ongoing. Current status: $get_status"
+               #sleep $sleep_timer
+
+               while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
+                 echo -n "."
+                 sleep 1
+                 SLEEPER_TMP=$(($SLEEPER_TMP+1))
+               done
+
+               if [ "$get_status" == "Succeeded" ];
+               then
+                 status=$?
+               fi
+               get_status=`oc get clusterserviceversion -n openshift-operators $get_exact_name -o jsonpath={.status.phase}`
+             done
+
+             oc get clusterserviceversion -n openshift-operators $get_exact_name
+
+             echo "Falling to sleep"
+            
+             SLEEPER_TMP=0
+
+             while [[ $SLEEPER_TMP -le "10" ]]; do
+                 echo -n "."
+                 sleep 1
+                 SLEEPER_TMP=$(($SLEEPER_TMP+1))
+             done
+
+             printf "\nStatus: $status\n"
+             if [ $status -eq 0 ]; then
+                  echo "Operator seems to be ready"
+             else
+                  echo "ERROR: Operator is not ready"
+                  exit 1
+             fi
+          name: check-operator
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      serviceAccountName: openshift-operators-install-check
+---
+# Source: cluster-seed/templates/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-1"
+  name: "openshift-gitops"
+  labels:
+---
+# Source: cluster-seed/templates/default-vault-plugin-config.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    helm.sh/hook: post-install
+  name: vault-configuration
+  namespace: openshift-gitops
+stringData:
+  AVP_TYPE: vault
+  AVP_AUTH_TYPE: k8s
+  AVP_K8S_ROLE: argocd
+  VAULT_ADDR: http://vault.vault.svc:8200
+type: Opaque
+---
+# Source: cluster-seed/templates/cmp-plugin.yaml
+apiVersion: v1
+data:
+  avp-helm.yaml: |
+    ---
+    apiVersion: argoproj.io/v1alpha1
+    kind: ConfigManagementPlugin
+    metadata:
+      name: argocd-vault-plugin-helm
+    spec:
+      allowConcurrency: true
+      init:
+        command:
+          - sh
+          - "-c"
+          - |
+            export HELM_CACHE_HOME=/tmp/helm/cache && export HELM_CONFIG_HOME=/tmp/helm/config && export HELM_DATA_HOME=/tmp/helm/data && helm dependency update
+      discover:
+        find:
+          command:
+            - sh
+            - "-c"
+            - "find . -name 'Chart.yaml' && find . -name 'values.yaml'"
+      generate:
+        command:
+          - "bash"
+          - "-o"
+          - "errexit" # exit on errors
+          - "-o"
+          - "pipefail" # set exit code to 1 when any command in a pipeline fails
+          - "-c" 
+          - |
+            helm template $ARGOCD_APP_NAME -n $ARGOCD_APP_NAMESPACE -f <(echo "$ARGOCD_ENV_HELM_VALUES") . |
+            argocd-vault-plugin generate --verbose-sensitive-output -
+      lockRepo: false
+kind: ConfigMap
+metadata:
+  annotations:
+    helm.sh/hook: post-install
+  name: cmp-plugin
+  namespace: openshift-gitops
+---
+# Source: cluster-seed/templates/app-project.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  annotations:
+    helm.sh/hook: post-install
+  name: "d1-project"
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: "d1 users project"
+  sourceRepos:
+    - '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: '*'
+      server: '*'
+---
+# Source: cluster-seed/templates/app-project.yaml
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  annotations:
+    helm.sh/hook: post-install
+  name: "d2-project"
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: "d2 users project"
+  sourceRepos:
+    - '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: '*'
+      server: '*'
+---
+# Source: cluster-seed/templates/argocd-applications.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: d1
+  namespace: openshift-gitops
+  annotations:
+    helm.sh/hook: post-install
+spec:
+  destination:
+    namespace: openshift-gitops
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - repoURL: https://pf-poc.github.io/helm-repository
+      chart: gitops-payload
+      targetRevision: 1.2.6
+      path: /charts
+      helm:
+        valueFiles:
+        - $values/
+        values: |
+          appTeam: d1
+    - repoURL: https://github.com/PF-POC/day-1-gitops.git
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
+---
+# Source: cluster-seed/templates/argocd-applications.yaml
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: d2
+  namespace: openshift-gitops
+  annotations:
+    helm.sh/hook: post-install
+spec:
+  destination:
+    namespace: openshift-gitops
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - repoURL: https://pf-poc.github.io/helm-repository
+      chart: gitops-payload
+      targetRevision: 1.2.6
+      path: /charts
+      helm:
+        valueFiles:
+        - $values/
+        values: |
+          appTeam: d2
+    - repoURL: https://github.com/PF-POC/day-2-gitops.git
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
+---
+# Source: cluster-seed/templates/argocd-crd.yaml
+apiVersion: argoproj.io/v1beta1
+kind: ArgoCD
+metadata:
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    helm.sh/hook: post-install
+  finalizers:
+  - argoproj.io/finalizer
+  name: openshift-gitops
+  namespace: openshift-gitops
+spec:
+  applicationInstanceLabelKey: argocd.argoproj.io/instance
+  controller:
+    processors: {}
+    resources:
+      limits:
+        cpu: "4"
+        memory: 4Gi
+      requests:
+        cpu: 500m
+        memory: 2Gi
+    sharding: {}
+  grafana:
+    enabled: false
+    ingress:
+      enabled: false
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+    route:
+      enabled: false
+  ha:
+    enabled: false
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  initialRepositories:
+  
+    "- name: day-2\n  url: https://github.com/PF-POC/day-1-gitops.git\n  insecure: true\n
+      \ usernameSecret:\n    name: repository-secret\n    key: username\n  passwordSecret:\n
+      \   name: repository-secret\n    key: password\n- name: day-2\n  type: git\n  project:
+      default\n  url: https://github.com/PF-POC/day-2-gitops.git\n  insecure: true\n  usernameSecret:\n
+      \   name: repository-secret\n    key: username\n  passwordSecret:\n    name: repository-secret\n
+      \   key: password   \n- name: helm-charts\n  project: default\n  type: helm\n  url:
+      https://pf-poc.github.io/helm-repository\n"
+  initialSSHKnownHosts: {}
+  monitoring:
+    enabled: false
+  notifications:
+    enabled: false
+  prometheus:
+    enabled: false
+    ingress:
+      enabled: false
+    route:
+      enabled: false
+  rbac:
+    defaultPolicy: role:admin
+  redis:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  repo:
+    initContainers:
+    - args:
+      - curl -Lo /custom-tools/argocd-vault-plugin https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v1.17.0/argocd-vault-plugin_1.17.0_linux_amd64
+        && chmod +x /custom-tools/argocd-vault-plugin
+      command:
+      - /bin/bash
+      - -c
+      image: registry.redhat.io/ubi9/ubi:latest
+      name: download-tools
+      resources: {}
+      volumeMounts:
+      - mountPath: /custom-tools
+        name: custom-tools
+    mountsatoken: true
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    serviceaccount: vplugin
+    sidecarContainers:
+    - command:
+      - /var/run/argocd/argocd-cmp-server
+      envFrom:
+      - secretRef:
+          name: vault-configuration
+      image: quay.io/gnunn/tools:latest
+      name: avp
+      resources: {}
+      securityContext:
+        runAsNonRoot: true
+      volumeMounts:
+      - mountPath: /var/run/argocd
+        name: var-files
+      - mountPath: /home/argocd/cmp-server/plugins
+        name: plugins
+      - mountPath: /tmp
+        name: tmp
+      - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+        name: cmp-plugin
+        subPath: avp-helm.yaml
+      - mountPath: /usr/local/bin/argocd-vault-plugin
+        name: custom-tools
+        subPath: argocd-vault-plugin
+    volumes:
+    - configMap:
+        name: cmp-plugin
+      name: cmp-plugin
+    - emptyDir: {}
+      name: custom-tools
+  resourceHealthChecks:
+  - check: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.phase ~= nil then
+          if obj.status.phase == "Pending" then
+            hs.status = "Healthy"
+            hs.message = obj.status.phase
+            return hs
+          elseif obj.status.phase == "Bound" then
+            hs.status = "Healthy"
+            hs.message = obj.status.phase
+            return hs
+          end
+        end
+      end
+      hs.status = "Progressing"
+      hs.message = "Waiting for PVC"
+      return hs
+    kind: PersistentVolumeClaim
+  server:
+    autoscale:
+      enabled: false
+    grpc:
+      ingress:
+        enabled: false
+    ingress:
+      enabled: false
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 125m
+        memory: 128Mi
+    route:
+      enabled: true
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: reencrypt
+    service:
+      type: ""
+  sso:
+    dex:
+      openShiftOAuth: true
+      resources:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 250m
+          memory: 128Mi
+    provider: dex
+  tls:
+    ca: {}
