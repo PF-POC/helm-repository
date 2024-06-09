@@ -6,10 +6,12 @@ namespaces:
 helper-operator:
   operators:
     openshift-gitops-operator:
-      enabled: false
+      enabled: true
       syncwave: '0'
       namespace:
         name: openshift-operators
+        create: false
+      operatorgroup:
         create: false
       subscription:
         channel: latest

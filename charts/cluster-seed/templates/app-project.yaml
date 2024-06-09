@@ -4,7 +4,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: '3'
+    helm.sh/hook: post-install
   name: "{{ $applications.name }}-project"
   namespace: openshift-gitops
   finalizers:
