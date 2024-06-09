@@ -62,7 +62,6 @@ argocd:
     chart: gitops-payload
     targetRevision: 1.2.6
     gitRepoUrl: https://github.com/PF-POC/day-1-gitops.git
-    gitPath: ''
     adGroup: PFAUTHAD
     repositories: 
     - https://github.com/PF-POC/day-1-gitops.git
@@ -74,7 +73,6 @@ argocd:
     chart: gitops-payload
     targetRevision: 1.2.6
     gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
-    gitPath: ''
     adGroup: PFAUTHAD
     repositories: 
     - https://github.com/PF-POC/day-1-gitops.git

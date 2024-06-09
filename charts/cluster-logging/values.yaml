@@ -24,6 +24,8 @@ helper-operator:
             value: "true"
           - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
             value: d2-application-gitops,openshift-gitops
+      operatorgroup:
+        enabled: false
 # dependency chart helper-status-checker
 helper-status-checker:
   enabled: true
