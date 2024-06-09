@@ -129,6 +129,21 @@ entries:
     version: 0.0.1
   cluster-logging:
   - apiVersion: v2
+    created: "2024-06-09T23:42:32.146830373Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    digest: 989750df3db3906a3191b2951b3ba48d4095b18c9ee6573f6d8698d86f5e9872
+    name: cluster-logging
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-logging-0.1.2/cluster-logging-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2024-06-09T08:47:54.877947595Z"
     dependencies:
     - name: helper-operator
@@ -202,6 +217,21 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/cluster-logging-0.0.3/cluster-logging-0.0.3.tgz
     version: 0.0.3
   cluster-seed:
+  - apiVersion: v2
+    created: "2024-06-09T23:42:32.361431105Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    digest: 859394829bbda49ce0cbef37227859c2a69187c744dc792b57eb42ccd89ffeb6
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-3.2.1/cluster-seed-3.2.1.tgz
+    version: 3.2.1
   - apiVersion: v2
     created: "2024-06-09T22:12:26.917367251Z"
     dependencies:
@@ -1071,4 +1101,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-09T22:12:26.917576703Z"
+generated: "2024-06-09T23:42:32.361759954Z"
