@@ -129,6 +129,21 @@ entries:
     version: 0.0.1
   cluster-logging:
   - apiVersion: v2
+    created: "2024-06-10T00:26:38.610540046Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    digest: 342c71cce51fd13c1746b92adf72b3e880c5d8288fae255336f2b63220fa4385
+    name: cluster-logging
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-logging-0.1.5/cluster-logging-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
     created: "2024-06-10T00:18:29.594693699Z"
     dependencies:
     - name: helper-operator
@@ -1138,4 +1153,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-10T00:18:29.594863436Z"
+generated: "2024-06-10T00:26:38.610709332Z"
