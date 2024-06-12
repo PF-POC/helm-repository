@@ -19,7 +19,7 @@ helper-operator:
         source: redhat-operators
         sourceNamespace: openshift-marketplace
       operatorgroup:
-        enabled: true
+        create: true
 # dependency chart helper-status-checker
 helper-status-checker:
   enabled: true
