@@ -714,6 +714,14 @@ entries:
     version: 1.0.2
   gitops-application-argocd:
   - apiVersion: v1
+    created: "2024-06-14T08:07:48.357758072Z"
+    description: Chart to generate argocd apps
+    digest: 772dc4a47514f7ee913404ec86ffdf55b22bd7440b91b3b76c2eb5661db8d426
+    name: gitops-application-argocd
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-argocd-1.1.9/gitops-application-argocd-1.1.9.tgz
+    version: 1.1.9
+  - apiVersion: v1
     created: "2024-06-14T07:09:45.867715049Z"
     description: Chart to generate argocd apps
     digest: 7ee9226a3286674599cdefa5071a03bd0d80db0cbb94bcd86deeaad4abdc8434
@@ -729,7 +737,22 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-1.1.1/gitops-application-linker-1.1.1.tgz
     version: 1.1.1
+  gitops-application-linker-app:
+  - apiVersion: v2
+    created: "2024-06-14T08:07:48.472277299Z"
+    digest: 156562b7bf2bb80d5e8ddf5119ff09a30babdb372b848fb042c3fee65c4e543e
+    name: gitops-application-linker-app
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-app-1.1.2/gitops-application-linker-app-1.1.2.tgz
+    version: 1.1.2
   gitops-application-linker-team:
+  - apiVersion: v2
+    created: "2024-06-14T08:07:48.622897483Z"
+    digest: e6439af6ba023182bd87799cd9d551f5e7440922465ca459d82ad9fac745c7ba
+    name: gitops-application-linker-team
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-team-1.1.2/gitops-application-linker-team-1.1.2.tgz
+    version: 1.1.2
   - apiVersion: v2
     created: "2024-06-14T07:09:46.19322554Z"
     digest: d80289972ae5d67df1f839edb75c4980469f3b1bbe51136afab7ac31040e1512
@@ -1193,4 +1216,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-14T07:09:46.193429702Z"
+generated: "2024-06-14T08:07:48.623104858Z"
