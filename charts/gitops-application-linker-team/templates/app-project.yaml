@@ -1,0 +1,38 @@
+{{ range $applicationTeams := .Values.applicationTeams -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: "{{ $applicationTeams.name }}-project"
+  namespace: {{ $applicationTeams.gitopsNamespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: "{{ $applicationTeams.name }} users project"
+  sourceRepos: 
+  {{ toYaml $applicationTeams.appProject.repos | nindent 2 }}
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: Namespace
+  {{- if $applicationTeams.appProject.clusterResourceWhitelist }}
+  {{ toYaml $applicationTeams.appProject.clusterResourceWhitelist | nindent 2 }}
+  {{- end }}
+  destinations:
+  - namespace: "{{ $applicationTeams.name }}*"
+    server: '*'
+  {{- if $applicationTeams.appProject.destinations }}
+  {{ toYaml $applicationTeams.appProject.destinations | nindent 2 }}
+  {{- end }}
+  roles:
+  - name: 
+    description: Application privliges to my-project
+    policies:
+    - p, proj:my-project:read-only, applications, *, "{{ $applicationTeams.name }}-project"/*, allow
+    groups:
+    - "{{ $applicationTeams.adGroup }}*"
+  {{- if $applicationTeams.appProject.roles }}
+  {{ toYaml $applicationTeams.appProject.roles | nindent 2 }}
+  {{- end }}
+{{- end }}
+
+

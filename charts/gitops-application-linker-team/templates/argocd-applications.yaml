@@ -1,0 +1,38 @@
+{{ range $applicationTeams := .Values.applicationTeams -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $applicationTeams.name }}
+  namespace: {{ $applicationTeams.gitopsNamespace }}
+  annotations:
+    helm.sh/hook: post-install
+  {{- range $key, $value := $applicationTeams.annotations }}
+    {{ $key }}: {{ $value | quote }}
+  {{- end }}
+spec:
+  destination:
+    namespace: {{ $applicationTeams.gitopsNamespace }}
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - repoURL: {{ $applicationTeams.helmRepoUrl }}
+      chart: {{ $applicationTeams.chart }}
+      targetRevision: {{ $applicationTeams.targetRevision }}
+      path: charts
+      helm:
+        valueFiles:
+        - $values/{{ $applicationTeams.gitPath }}
+        values: |
+          teamName: {{ $applicationTeams.name }}
+    - repoURL: {{ $applicationTeams.gitRepoUrl }}
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
+---
+{{- end }}
