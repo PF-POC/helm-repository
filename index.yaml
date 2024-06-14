@@ -712,6 +712,31 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-team-config-1.0.2/gitops-app-team-config-1.0.2.tgz
     version: 1.0.2
+  gitops-application-argocd:
+  - apiVersion: v1
+    created: "2024-06-14T07:09:45.867715049Z"
+    description: Chart to generate argocd apps
+    digest: 7ee9226a3286674599cdefa5071a03bd0d80db0cbb94bcd86deeaad4abdc8434
+    name: gitops-application-argocd
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-argocd-1.1.8/gitops-application-argocd-1.1.8.tgz
+    version: 1.1.8
+  gitops-application-linker:
+  - apiVersion: v2
+    created: "2024-06-14T07:09:46.017054177Z"
+    digest: 7f5b6e9578ec75e1c248b788f844f1b6f4f7bc31da4e9da659de06b90279d324
+    name: gitops-application-linker
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-1.1.1/gitops-application-linker-1.1.1.tgz
+    version: 1.1.1
+  gitops-application-linker-team:
+  - apiVersion: v2
+    created: "2024-06-14T07:09:46.19322554Z"
+    digest: d80289972ae5d67df1f839edb75c4980469f3b1bbe51136afab7ac31040e1512
+    name: gitops-application-linker-team
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-team-1.1.1/gitops-application-linker-team-1.1.1.tgz
+    version: 1.1.1
   gitops-apps-config:
   - apiVersion: v2
     created: "2024-06-02T13:59:49.144109937Z"
@@ -1168,4 +1193,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-12T05:04:18.147824972Z"
+generated: "2024-06-14T07:09:46.193429702Z"
