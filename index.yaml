@@ -285,6 +285,13 @@ entries:
     version: 0.0.3
   cluster-seed:
   - apiVersion: v2
+    created: "2024-06-14T10:22:24.571618527Z"
+    digest: 999b4fbcd3ae2beed86239802e54bfcdc8957f63df9b2316d83aaea7fc345744
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-3.2.4/cluster-seed-3.2.4.tgz
+    version: 3.2.4
+  - apiVersion: v2
     created: "2024-06-09T23:51:36.328632695Z"
     digest: 22e3f004c485eeb73d7b9e9b697701021a467aaf4de7b55ce06d716507459f3a
     name: cluster-seed
@@ -1238,4 +1245,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-14T10:17:05.320820306Z"
+generated: "2024-06-14T10:22:24.571894825Z"
