@@ -7,7 +7,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: "{{ $defaults.name }}-{{ $infra.name }}"
+  name: "{{ $teamName }}-{{ $infra.name }}"
   annotations:
   {{- range $key, $value := $infra.annotations }}
     {{ $key }}: {{ $value | quote }}

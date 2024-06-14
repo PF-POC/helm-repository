@@ -24,7 +24,7 @@ spec:
         valueFiles:
         - $values/{{ $applicationTeams.gitPath }}
         values: |
-          teamName: {{ $applicationTeams.name }}
+          teamName: {{ $applicationTeams.teamName }}
     - repoURL: {{ $applicationTeams.gitRepoUrl }}
       targetRevision: HEAD
       ref: values
