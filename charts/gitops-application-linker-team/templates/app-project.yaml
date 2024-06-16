@@ -27,7 +27,7 @@ spec:
   {{- if $applicationTeams.appProject.roles }}
   {{ toYaml $applicationTeams.appProject.roles | nindent 2 }}
   {{- else }}
-  - name: 
+  - name: 'all-app-actions'
     description: Application privliges to my-project
     policies:
     - p, proj:my-project:read-only, applications, *, "{{ $applicationTeams.name }}-project"/*, allow
