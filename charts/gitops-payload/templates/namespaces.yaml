@@ -87,6 +87,7 @@ spec:
     path: "{{ $defaults.path }}"
   destination:
     server: "{{ $defaults.server }}"
+    namespace: "{{ $defaults.gitopsNamespace }}"
   syncPolicy:
     automated:
       prune: false
