@@ -4,13 +4,14 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: {{ $applicationTeams.teamName }}-team
-  {{- if $ns.annotations }}
+  {{- if $applicationTeams.annotations }}
   annotations:
-    {{- toYaml $ns.annotations | trimPrefix "|" | indent 2 }}
+    {{- toYaml $applicationTeams.annotations | trimPrefix "|" | indent 2 }}
   {{ end }}
   labels:
-  {{- if $ns.labels }}
-    {{- toYaml $ns.labels | trimPrefix "|" | indent 2 }}
+  {{- if $applicationTeams.labels }}
+    {{- toYaml $applicationTeams.labels | trimPrefix "|" | indent 2 }}
   {{ end }}
-{{ end -}}
+---
+{{- end }}
 
