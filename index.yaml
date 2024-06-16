@@ -285,6 +285,13 @@ entries:
     version: 0.0.3
   cluster-seed:
   - apiVersion: v2
+    created: "2024-06-16T07:42:15.136882803Z"
+    digest: e05f44140e888f302096ac712894c03c6a5e699fc60390b6b027d97a9979e2c3
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-3.2.6/cluster-seed-3.2.6.tgz
+    version: 3.2.6
+  - apiVersion: v2
     created: "2024-06-16T06:40:16.733466393Z"
     digest: f3e7778a58fcbec252a2e3f0c84e73491b17368303b171e81f385ff83c72311f
     name: cluster-seed
@@ -767,6 +774,13 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-app-1.1.2/gitops-application-linker-app-1.1.2.tgz
     version: 1.1.2
   gitops-application-linker-team:
+  - apiVersion: v2
+    created: "2024-06-16T07:42:15.283934717Z"
+    digest: ff802a14b2ad39dc8cd7bfbb493e16368867dbb8df647f24f38d4110f8ad19e8
+    name: gitops-application-linker-team
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-team-1.1.6/gitops-application-linker-team-1.1.6.tgz
+    version: 1.1.6
   - apiVersion: v2
     created: "2024-06-16T06:44:36.199025085Z"
     digest: ed50f23649ffe3b22252c1530e17c27a7acd3c27dd10930f3f44d7956349a925
@@ -1274,4 +1288,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-16T06:44:36.199370357Z"
+generated: "2024-06-16T07:42:15.284342518Z"
