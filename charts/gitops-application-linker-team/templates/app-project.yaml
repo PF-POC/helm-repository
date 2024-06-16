@@ -4,10 +4,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: "{{ $applicationTeams.teamName }}-project"
-  namespace: {{ $applicationTeams.gitopsNamespace }}
+  namespace: d2-application-gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
+  sourceNamespaces:
+  - "{{ $applicationTeams.teamName }}-team"
   description: "{{ $applicationTeams.teamName }} users project"
   sourceRepos: 
   {{ toYaml $applicationTeams.appProject.repos | nindent 2 }}
