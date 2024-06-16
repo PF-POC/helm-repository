@@ -3,7 +3,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $applicationTeams.name }}
+  name: {{ $applicationTeams.teamName }}-team
   namespace: {{ $applicationTeams.gitopsNamespace }}
   annotations:
     helm.sh/hook: post-install
