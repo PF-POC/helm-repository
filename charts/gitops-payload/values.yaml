@@ -1,44 +1,31 @@
-#################################################################
-# teamName is irrelvant here it is overwritten by the name passed 
-# to the team gitops-application-linker-team in infrastructure file.
-#################################################################
-teamName: payments
-#################################################################
-# default Values for gitops-payload helm chart
-#################################################################
-defaults:
-  # argcod application defaults
-  finalizers: resources-finalizer.argocd.argoproj.io # set to null to block cascade deletes on applications.
-  syncWave: 0
-  server: https://kubernetes.default.svc
-  gitopsNamespace: d2-application-gitops # always d2-application-gitops unless in the d1\d2 infrastructure filel.
-  # Helm defaults
-  helmRepoUrl: https://pf-poc.github.io/helm-repository
-  path: charts
-  # namespaces chart defaults
-  namespaceChart: namespaces
-  namespaceChartRevision: 1.0.2
-  # Vault plugin defaults. always set to false in application gitops.
-  plugin: false
-#################################################################
-# INFRASTRUCTURE Charts to be deployed.
-#################################################################
-infrastructure:
-  # gitops-application-linker-app creates files for application teams to create their namespaces and app workloads.
-  - name: gitops-application-linker-app
-    chart: gitops-application-linker-app
-    targetRevision: 1.1.2
-    namespace: payments-team
-    annotations:
-    syncWave: 50
-    values:
-      applications:
-      - name: open-banking
-        teamName: payments
-        annotations:
-        gitopsNamespace: d2-application-gitops
-        helmRepoUrl: https://pf-poc.github.io/helm-repository
-        chart: gitops-payload
-        targetRevision: 1.2.7
-        gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
-        gitPath: Cluster/non-prod/high-trust/rosa-pub-1/open-banking.yaml
+# teamName: main
+
+# defaults:
+#   gitopsNamespace: d2-application-gitops
+#   helmRepoUrl: https://pf-poc.github.io/helm-repository
+#   path: charts
+#   name: d2
+#   server: https://kubernetes.default.svc
+#   syncWave: 0
+
+# infrastructure:
+#   - name: gitops-app-team-config
+#     chart: gitops-app-team-config
+#     targetRevision: "1.0.4"
+#     annotations:
+#       sync: 56
+#     syncWave: 50
+#     values:
+#       applications:
+#       - name: payments
+#         annotations:
+#         gitopsNamespace: application-gitops
+#         helmRepoUrl: https://PF-POC.github.io/helm-charts
+#         chart: gitops-payload
+#         targetRevision: 1.2.3
+#         gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
+#         gitPath: Clusters/non-prod/high-trust/rosa-pub-1/applications.yaml
+#         adGroup: PFAUTHAD
+#         repos: 
+#         - https://github.com/PF-POC/day-1-gitops.git
+#         - https://PF-POC.github.io/helm-charts
