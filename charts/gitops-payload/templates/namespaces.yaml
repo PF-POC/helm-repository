@@ -11,7 +11,7 @@ kind: Application
 metadata:
   name: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}-ns"
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "-1"
   namespace: {{ $defaults.gitopsNamespace }}
   finalizers:
     - {{ $defaults.finalizers | default "null" | quote }}
@@ -82,7 +82,7 @@ spec:
           {{- end }}
     {{- end }}
     repoURL: {{ $defaults.helmRepoUrl }}
-    targetRevision: {{ $defaults.namespaceChartRevision }}
+    targetRevision: '{{ $defaults.namespaceChartRevision }}'
     chart: {{ $defaults.namespaceChart }}
     path: {{ $defaults.path }}
   destination:

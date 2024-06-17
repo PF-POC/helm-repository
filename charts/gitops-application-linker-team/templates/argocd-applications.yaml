@@ -6,10 +6,7 @@ metadata:
   name: {{ $applicationTeams.teamName }}
   namespace: {{ $applicationTeams.teamName }}-team
   annotations:
-    helm.sh/hook: post-install
-  {{- range $key, $value := $applicationTeams.annotations }}
-    {{ $key }}: {{ $value | quote }}
-  {{- end }}
+    argocd.argoproj.io/sync-wave: {{ $app.syncWave | default $defaults.syncWave | quote }}
 spec:
   destination:
     namespace: {{ $applicationTeams.teamName }}-team
@@ -18,7 +15,7 @@ spec:
   sources:
     - repoURL: {{ $applicationTeams.helmRepoUrl }}
       chart: {{ $applicationTeams.chart }}
-      targetRevision: {{ $applicationTeams.targetRevision }}
+      targetRevision: '{{ $applicationTeams.targetRevision }}'
       path: charts
       helm:
         valueFiles:

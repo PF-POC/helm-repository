@@ -1,31 +1,150 @@
-# teamName: main
-
+# #################################################################
+# # teamName used for argocd applicaiton names and namespace names.
+# #################################################################
+# teamName: d2
+# #################################################################
+# # default Values for gitops-payload helm chart
+# #################################################################
 # defaults:
-#   gitopsNamespace: d2-application-gitops
+#   # argcod application defaults
+#   finalizers: resources-finalizer.argocd.argoproj.io
+#   syncWave: '0'
+#   server: https://kubernetes.default.svc
+#   gitopsNamespace: openshift-gitops
+#   # Helm defaults
 #   helmRepoUrl: https://pf-poc.github.io/helm-repository
 #   path: charts
-#   name: d2
-#   server: https://kubernetes.default.svc
-#   syncWave: 0
-
+#   # namespaces chart defaults
+#   namespaceChart: namespaces
+#   namespaceChartRevision: 1.0.3
+#   # Vault plugin defaults.
+#   plugin: true
+#   AVP_K8S_ROLE: "argocd"
+#   AVP_TYPE: "vault"
+#   VAULT_ADDR: "http://vault.vault.svc:8200"
+#   AVP_AUTH_TYPE: "k8s"
+#   VAULT_SKIP_VERIFY: "true"
+# #################################################################
+# # INFRASTRUCTURE Charts to be deployed.
+# #################################################################
 # infrastructure:
-#   - name: gitops-app-team-config
-#     chart: gitops-app-team-config
-#     targetRevision: "1.0.4"
+#   # Cluster EFS chart can be applied after terraform EFS copmpleted.
+#   - name: cluster-efs
+#     chart: cluster-efs
+#     targetRevision: 0.0.6
+#     namespace: openshift-cluster-csi-drivers
 #     annotations:
-#       sync: 56
-#     syncWave: 50
 #     values:
-#       applications:
-#       - name: payments
+#       roleArn: arn:aws:iam::808082629126:role/rosa-pub-1-rosa-cloudwatch-role-iam
+#       fileSystemId: placeholder_fileSystemId
+#   # Gitops application team file creation. Each applicationTeam creates a 'gitPath' argocd applicaiton.
+#   - name: gitops-application-linker-team
+#     namespace: d2-application-gitops
+#     chart: gitops-application-linker-team
+#     targetRevision: '1.2.6'
+#     values:
+#       applicationTeams:
+#       - teamName: payments
+#         gitopsNamespace: payments-team
 #         annotations:
-#         gitopsNamespace: application-gitops
-#         helmRepoUrl: https://PF-POC.github.io/helm-charts
+#         helmRepoUrl: https://pf-poc.github.io/helm-repository
 #         chart: gitops-payload
-#         targetRevision: 1.2.3
+#         targetRevision: '1.3.1'
 #         gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
-#         gitPath: Clusters/non-prod/high-trust/rosa-pub-1/applications.yaml
-#         adGroup: PFAUTHAD
-#         repos: 
-#         - https://github.com/PF-POC/day-1-gitops.git
-#         - https://PF-POC.github.io/helm-charts
+#         gitPath: Cluster/non-prod/high-trust/rosa-pub-1/payments-team.yaml
+#         appProject:
+#           adGroup: PFAUTHAD
+#           repos: 
+#           - 'https://github.com/PF-POC/day-2-gitops.git'
+#           - 'https://PF-POC.github.io/helm-charts'
+#           - 'https://pf-poc.github.io/helm-repository'
+#           - '*'
+
+# #################################################################
+# # NAMESPACE CREATION and APPLICATION deployments within.
+# #################################################################
+# namespaces:
+#   # Dummy app created in namespaces d2-app1-dev and d2-app1-nonprod
+#   - name: app1
+#     requests:
+#       cpu: 1
+#       memory: 1Gi
+#     limits:
+#       cpu: 1
+#       memory: 1Gi
+#     environments: 
+#       - name: dev
+#         labels: |
+#           name: test-dev
+#           argocd.argoproj.io/managed-by: openshift-gitops
+#         applications:
+#           - name: test-app
+#             type: "helm"
+#             namespace: openshift-gitops
+#             plugin: true
+#             targetRevision: 1.0.4
+#             chart: test-app
+#             values:
+#               roleArn: placeholder_roleARN
+#               fileSystemId: placeholder_fileSystemId
+#       - name: nonprod
+#         labels: |
+#           name: test-dev
+#           argocd.argoproj.io/managed-by: openshift-gitops
+#         applications:
+#           - name: test-app
+#             type: "helm"
+#             namespace: openshift-gitops
+#             plugin: true
+#             targetRevision: 1.0.4
+#             chart: test-app
+#             values:
+#               roleArn: placeholder_roleARN
+#               fileSystemId: placeholder_fileSystemId
+#   # Instantiate an application argocd on the cluster - gitops-application-linker-team depends
+#   # on this application being deployed.
+#   - name: application
+#     ignoreResourceQuota: true
+#     environments: 
+#       - name: gitops
+#         labels: |
+#           name: application-gitops
+#           argocd.argoproj.io/managed-by: openshift-gitops
+#         applications:
+#           - name: argocd
+#             type: "helm"
+#             plugin: true
+#             targetRevision: 1.3.0
+#             chart: gitops-application-argocd
+#             namespace: d2-application-gitops
+#             values:
+#               name: application-gitops
+#               gitopsNamespace: d2-application-gitops
+#               domain: apps.rosa.rosa-pub-1.0r8r.p3.openshiftapps.com
+#               argocd:
+#                 initialRepositories: |
+#                   - name: day-1
+#                     url: https://github.com/PF-POC/day-1-gitops.git
+#                     insecure: true
+#                     usernameSecret:
+#                       name: repository-secret
+#                       key: username
+#                     passwordSecret:
+#                       name: repository-secret
+#                       key: password
+#                   - name: day-2
+#                     type: git
+#                     project: default
+#                     url: https://github.com/PF-POC/day-2-gitops.git
+#                     insecure: true
+#                     usernameSecret:
+#                       name: repository-secret
+#                       key: username
+#                     passwordSecret:
+#                       name: repository-secret
+#                       key: password   
+#                   - name: helm-charts
+#                     project: default
+#                     type: helm
+#                     url: https://pf-poc.github.io/helm-repository
+

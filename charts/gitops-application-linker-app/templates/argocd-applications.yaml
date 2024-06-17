@@ -6,9 +6,7 @@ metadata:
   name: {{ $applications.name }}
   namespace: {{ $applications.teamName }}-team
   annotations:
-  {{- range $key, $value := $applications.annotations }}
-    {{ $key }}: {{ $value | quote }}
-  {{- end }}
+    argocd.argoproj.io/sync-wave: {{ $app.syncWave | default $defaults.syncWave | quote }}
 spec:
   destination:
     namespace: {{ $applications.teamName }}-team
@@ -17,7 +15,7 @@ spec:
   sources:
     - repoURL: {{ $applications.helmRepoUrl }}
       chart: {{ $applications.chart }}
-      targetRevision: {{ $applications.targetRevision }}
+      targetRevision: '{{ $applications.targetRevision }}'
       path: charts
       helm:
         valueFiles:

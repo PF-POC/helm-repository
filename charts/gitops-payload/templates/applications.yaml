@@ -14,7 +14,7 @@ kind: Application
 metadata:
   name: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}-{{ $app.name }}"
   annotations:
-    argocd.argoproj.io/sync-wave: "200"
+    argocd.argoproj.io/sync-wave: {{ $app.syncWave | default $defaults.syncWave | quote }}
   namespace: {{ $defaults.gitopsNamespace }}
   finalizers:
     - {{ $defaults.finalizers | default "null" }}
@@ -53,7 +53,7 @@ spec:
       {{- end }}
     {{- end }}
     repoURL: {{ $app.helmRepoUrl | default $defaults.helmRepoUrl }}
-    targetRevision: {{ $app.targetRevision | default $defaults.targetRevision }}
+    targetRevision: {{ $app.targetRevision }}
     path: {{ $app.path | default $defaults.path }}
     chart: {{ $app.chart }}
   {{- end }}
@@ -76,9 +76,9 @@ spec:
   ####################
   {{- if eq $app.type "helm-multi-source" }}
   sources:
-    - repoURL: {{ $app.helmRepoUrl }}
+    - repoURL: {{ $app.helmRepoUrl | default $defaults.helmRepoUrl }}
       chart: {{ $app.chart }}
-      targetRevision: {{ $app.targetRevision }}
+      targetRevision: '{{ $app.targetRevision }}'
       path: {{ $app.path }}
       helm:
         valueFiles:
