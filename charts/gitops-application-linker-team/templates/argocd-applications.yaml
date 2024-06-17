@@ -3,8 +3,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $applicationTeams.teamName }}-team
-  namespace: {{ $applicationTeams.gitopsNamespace }}
+  name: {{ $applicationTeams.teamName }}
+  namespace: {{ $applicationTeams.teamName }}-team
   annotations:
     helm.sh/hook: post-install
   {{- range $key, $value := $applicationTeams.annotations }}
@@ -12,9 +12,9 @@ metadata:
   {{- end }}
 spec:
   destination:
-    namespace: {{ $applicationTeams.gitopsNamespace }}
+    namespace: {{ $applicationTeams.teamName }}-team
     server: https://kubernetes.default.svc
-  project: default
+  project: {{ $applicationTeams.teamName }}-project
   sources:
     - repoURL: {{ $applicationTeams.helmRepoUrl }}
       chart: {{ $applicationTeams.chart }}
