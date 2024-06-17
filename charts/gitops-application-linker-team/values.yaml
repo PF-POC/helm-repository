@@ -1,15 +1,15 @@
-applicationTeams:
-- teamName: payments
-  gitopsNamespace: payments-team
-  annotations:
-  helmRepoUrl: https://pf-poc.github.io/helm-repository
-  chart: gitops-payload
-  targetRevision: 1.2.8
-  gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
-  gitPath: Cluster/non-prod/high-trust/rosa-pub-1/payments-team.yaml
-  appProject:
-    adGroup: PFAUTHAD
-    repos: 
-    - https://github.com/PF-POC/day-1-gitops.git
-    - https://PF-POC.github.io/helm-charts
-    - https://pf-poc.github.io/helm-repository
+# applicationTeams:
+# - teamName: payments
+#   gitopsNamespace: payments-team
+#   annotations:
+#   helmRepoUrl: https://pf-poc.github.io/helm-repository
+#   chart: gitops-payload
+#   targetRevision: 1.2.8
+#   gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
+#   gitPath: Cluster/non-prod/high-trust/rosa-pub-1/payments-team.yaml
+#   appProject:
+#     adGroup: PFAUTHAD
+#     repos: 
+#     - https://github.com/PF-POC/day-1-gitops.git
+#     - https://PF-POC.github.io/helm-charts
+#     - https://pf-poc.github.io/helm-repository
