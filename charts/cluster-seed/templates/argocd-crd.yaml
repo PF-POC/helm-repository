@@ -58,7 +58,10 @@ spec:
     route:
       enabled: false
   rbac:
-    defaultPolicy: role:admin
+     defaultPolicy: ""
+     policy: |
+       g, cluster-admins, role:admin
+     scopes: '[groups]'
   redis:
     resources:
       limits:
