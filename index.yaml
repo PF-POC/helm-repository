@@ -807,6 +807,13 @@ entries:
     version: 1.1.1
   gitops-application-linker-app:
   - apiVersion: v2
+    created: "2024-06-17T04:24:22.845337892Z"
+    digest: 8b5a5502b4581756aa5cfabdc68b813ed5ba514b924902a69c9c7411eba27c7b
+    name: gitops-application-linker-app
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-app-1.1.6/gitops-application-linker-app-1.1.6.tgz
+    version: 1.1.6
+  - apiVersion: v2
     created: "2024-06-17T04:05:33.427051902Z"
     digest: 1b86ff741d2929e05a261d6b18aac3ae09664b8ffc72ddd8016fb34d03acc3ea
     name: gitops-application-linker-app
@@ -828,6 +835,13 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-app-1.1.2/gitops-application-linker-app-1.1.2.tgz
     version: 1.1.2
   gitops-application-linker-team:
+  - apiVersion: v2
+    created: "2024-06-17T04:24:23.015407712Z"
+    digest: b1962cb910446e4be19216000afe44cddb9594869acfc707da840c7514a96adf
+    name: gitops-application-linker-team
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-team-1.2.6/gitops-application-linker-team-1.2.6.tgz
+    version: 1.2.6
   - apiVersion: v2
     created: "2024-06-17T02:34:04.489140165Z"
     digest: 46cb2161cda88b3d37f70c328f935d821f576675d7a6f0129dffff9d621c486a
@@ -1406,4 +1420,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-17T04:05:33.427365146Z"
+generated: "2024-06-17T04:24:23.015850305Z"
