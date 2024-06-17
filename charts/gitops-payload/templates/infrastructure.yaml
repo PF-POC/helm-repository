@@ -44,7 +44,7 @@ spec:
         {{- toYaml $infra.values | nindent 8 }}
       {{- end }}
     {{- end }}
-    repoURL: {{ $infra.helmRepoUrl | default $defaults.helmRepoUrl| quote }}
+    repoURL: {{ $infra.helmRepoUrl | default $defaults.helmRepoUrl }}
     targetRevision: "{{ $infra.targetRevision }}"
     path: {{ $infra.path | default $defaults.path | quote }}
     chart: "{{ $infra.chart }}"

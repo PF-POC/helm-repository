@@ -52,7 +52,7 @@ spec:
         namespace: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}"
       {{- end }}
     {{- end }}
-    repoURL: {{ $app.helmRepoUrl | default $defaults.helmRepoUrl | quote }}
+    repoURL: {{ $app.helmRepoUrl | default $defaults.helmRepoUrl }}
     targetRevision: {{ $app.targetRevision | default $defaults.targetRevision | quote }}
     path: {{ $app.path | default $defaults.path | quote }}
     chart: {{ $app.chart }}

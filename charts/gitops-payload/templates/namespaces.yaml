@@ -81,7 +81,7 @@ spec:
               memory: {{ $ns.limits.memory }}
           {{- end }}
     {{- end }}
-    repoURL: "{{ $defaults.helmRepoUrl }}"
+    repoURL: {{ $defaults.helmRepoUrl }}
     targetRevision: "{{ $defaults.namespaceChartRevision }}"
     chart: "{{ $defaults.namespaceChart }}"
     path: "{{ $defaults.path }}"
