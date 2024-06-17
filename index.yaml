@@ -807,6 +807,13 @@ entries:
     version: 1.1.1
   gitops-application-linker-app:
   - apiVersion: v2
+    created: "2024-06-17T10:58:18.618250579Z"
+    digest: b5ba88f5361be027b4431d2c6e4ce70551c43600870027b11b9ccb64f30b98a5
+    name: gitops-application-linker-app
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-app-1.1.8/gitops-application-linker-app-1.1.8.tgz
+    version: 1.1.8
+  - apiVersion: v2
     created: "2024-06-17T07:32:07.756105322Z"
     digest: 5338c08d1213e43f4041a0cdaff777a7bc542932ca753a360aeacda2e5044261
     name: gitops-application-linker-app
@@ -842,6 +849,13 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-app-1.1.2/gitops-application-linker-app-1.1.2.tgz
     version: 1.1.2
   gitops-application-linker-team:
+  - apiVersion: v2
+    created: "2024-06-17T10:58:18.793847632Z"
+    digest: 586a1feb02567abdc14679a510b02faa790c1ad341028dd139b15b75e906c925
+    name: gitops-application-linker-team
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-team-1.2.7/gitops-application-linker-team-1.2.7.tgz
+    version: 1.2.7
   - apiVersion: v2
     created: "2024-06-17T04:24:23.015407712Z"
     digest: b1962cb910446e4be19216000afe44cddb9594869acfc707da840c7514a96adf
@@ -1079,6 +1093,14 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-0.0.8/gitops-infra-payload-0.0.8.tgz
     version: 0.0.8
   gitops-payload:
+  - apiVersion: v1
+    created: "2024-06-17T10:58:18.938293026Z"
+    description: Chart to generate argocd apps
+    digest: d79d839694af54df9af7386345c9d783d8c1b6ebee0d0990584da22b54e56c5b
+    name: gitops-payload
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-payload-1.3.2/gitops-payload-1.3.2.tgz
+    version: 1.3.2
   - apiVersion: v1
     created: "2024-06-17T08:44:05.623133796Z"
     description: Chart to generate argocd apps
@@ -1443,4 +1465,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-17T08:44:05.623604707Z"
+generated: "2024-06-17T10:58:18.938589683Z"
