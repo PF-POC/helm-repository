@@ -34,7 +34,7 @@ spec:
     policies:
     - p, proj:{{ $applicationTeams.teamName }}-project:all-app-actions, applications, *, {{ $applicationTeams.teamName }}-project/*, allow
     groups:
-    - "{{ $applicationTeams.appProject.adGroup }}*"
+    - {{ $applicationTeams.appProject.adGroup }}
   {{- end }}
 {{- end }}
 

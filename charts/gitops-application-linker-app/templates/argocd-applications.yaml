@@ -4,7 +4,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ $applications.name }}
-  namespace: {{ $applications.teamName }}
+  namespace: {{ $applications.teamName }}-team
   annotations:
     helm.sh/hook: post-install
   {{- range $key, $value := $applications.annotations }}
