@@ -6,7 +6,6 @@ metadata:
   name: {{ $applications.name }}
   namespace: {{ $applications.teamName }}-team
   annotations:
-    helm.sh/hook: post-install
   {{- range $key, $value := $applications.annotations }}
     {{ $key }}: {{ $value | quote }}
   {{- end }}
