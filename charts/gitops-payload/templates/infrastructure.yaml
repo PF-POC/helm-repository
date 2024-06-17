@@ -12,10 +12,10 @@ metadata:
   {{- range $key, $value := $infra.annotations }}
     {{ $key }}: {{ $value | quote }}
   {{- end }}
-    argocd.argoproj.io/sync-wave: {{ $infra.syncWave | default $defaults.syncWave | quote }}
+    argocd.argoproj.io/sync-wave: {{ $infra.syncWave | default $defaults.syncWave }}
   namespace: {{ $defaults.gitopsNamespace }}
   finalizers:
-    - {{ $defaults.finalizers | default "null" | quote }}
+    - {{ $defaults.finalizers | default "null" }}
 spec:
   project: "{{ $teamName }}-project"
   source:
@@ -23,15 +23,15 @@ spec:
     plugin:
       env:
       - name: AVP_K8S_ROLE
-        value: {{ $infra.AVP_K8S_ROLE | default $defaults.AVP_K8S_ROLE | quote }}
+        value: {{ $infra.AVP_K8S_ROLE | default $defaults.AVP_K8S_ROLE }}
       - name: AVP_TYPE
-        value: {{ $infra.AVP_TYPE | default $defaults.AVP_TYPE | quote }}
+        value: {{ $infra.AVP_TYPE | default $defaults.AVP_TYPE }}
       - name: VAULT_ADDR
-        value: {{ $infra.VAULT_ADDR | default $defaults.VAULT_ADDR | quote }}
+        value: {{ $infra.VAULT_ADDR | default $defaults.VAULT_ADDR }}
       - name: AVP_AUTH_TYPE
-        value: {{ $infra.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE | quote }}
+        value: {{ $infra.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE }}
       - name: VAULT_SKIP_VERIFY
-        value: {{ $infra.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
+        value: {{ $infra.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY }}
         {{- if $infra.values }}
       - name: HELM_VALUES
         value: |
@@ -45,13 +45,13 @@ spec:
       {{- end }}
     {{- end }}
     repoURL: {{ $infra.helmRepoUrl | default $defaults.helmRepoUrl }}
-    targetRevision: "{{ $infra.targetRevision }}"
-    path: {{ $infra.path | default $defaults.path | quote }}
-    chart: "{{ $infra.chart }}"
+    targetRevision: {{ $infra.targetRevision }}
+    path: {{ $infra.path | default $defaults.path }}
+    chart: {{ $infra.chart }}
   destination:
-    server: "{{ $defaults.server }}"
+    server: {{ $defaults.server }}
     {{- if $infra.namespace}}
-    namespace: "{{ $infra.namespace }}"
+    namespace: {{ $infra.namespace }}
     {{- end }}
   syncPolicy:
     automated: 

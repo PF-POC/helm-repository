@@ -15,9 +15,9 @@ metadata:
   name: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}-{{ $app.name }}"
   annotations:
     argocd.argoproj.io/sync-wave: "200"
-  namespace: "{{ $defaults.gitopsNamespace }}"
+  namespace: {{ $defaults.gitopsNamespace }}
   finalizers:
-    - {{ $defaults.finalizers | default "null" | quote }}
+    - {{ $defaults.finalizers | default "null" }}
 spec:
   project: "{{ $teamName }}-project"
   ##############
@@ -29,15 +29,15 @@ spec:
     plugin:
       env:
       - name: AVP_K8S_ROLE
-        value: {{ $app.AVP_K8S_ROLE | default $defaults.AVP_K8S_ROLE | quote }}
+        value: {{ $app.AVP_K8S_ROLE | default $defaults.AVP_K8S_ROLE }}
       - name: AVP_TYPE
-        value: {{ $app.AVP_TYPE | default $defaults.AVP_TYPE | quote }}
+        value: {{ $app.AVP_TYPE | default $defaults.AVP_TYPE }}
       - name: VAULT_ADDR
-        value: {{ $app.VAULT_ADDR | default $defaults.VAULT_ADDR | quote }}
+        value: {{ $app.VAULT_ADDR | default $defaults.VAULT_ADDR }}
       - name: AVP_AUTH_TYPE
-        value: {{ $app.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE | quote }}
+        value: {{ $app.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE }}
       - name: VAULT_SKIP_VERIFY
-        value: {{ $app.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
+        value: {{ $app.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY }}
         {{- if $app.values }}
       - name: HELM_VALUES
         value: |
@@ -53,8 +53,8 @@ spec:
       {{- end }}
     {{- end }}
     repoURL: {{ $app.helmRepoUrl | default $defaults.helmRepoUrl }}
-    targetRevision: {{ $app.targetRevision | default $defaults.targetRevision | quote }}
-    path: {{ $app.path | default $defaults.path | quote }}
+    targetRevision: {{ $app.targetRevision | default $defaults.targetRevision }}
+    path: {{ $app.path | default $defaults.path }}
     chart: {{ $app.chart }}
   {{- end }}
   ##################
@@ -62,9 +62,9 @@ spec:
   ##################
   {{- if eq $app.type "helm-git" }}
   source:
-    repoURL: {{ $app.gitRepoUrl | default $defaults.gitRepoUrl | quote }}
-    targetRevision: "{{ $app.targetRevision }}"
-    path: {{ $app.path | default $defaults.path | quote }}
+    repoURL: {{ $app.gitRepoUrl | default $defaults.gitRepoUrl }}
+    targetRevision: {{ $app.targetRevision }}
+    path: {{ $app.path | default $defaults.path }}
     helm:
       {{- if $app.values }}
       values: |

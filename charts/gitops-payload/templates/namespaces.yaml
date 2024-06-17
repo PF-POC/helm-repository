@@ -22,15 +22,15 @@ spec:
     plugin:
       env:
       - name: AVP_K8S_ROLE
-        value: {{ $ns.AVP_K8S_ROLE | default $defaults.AVP_K8S_ROLE | quote }}
+        value: {{ $ns.AVP_K8S_ROLE | default $defaults.AVP_K8S_ROLE }}
       - name: AVP_TYPE
-        value: {{ $ns.AVP_TYPE | default $defaults.AVP_TYPE | quote }}
+        value: {{ $ns.AVP_TYPE | default $defaults.AVP_TYPE }}
       - name: VAULT_ADDR
-        value: {{ $ns.VAULT_ADDR | default $defaults.VAULT_ADDR | quote }}
+        value: {{ $ns.VAULT_ADDR | default $defaults.VAULT_ADDR }}
       - name: AVP_AUTH_TYPE
-        value: {{ $ns.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE | quote }}
+        value: {{ $ns.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE }}
       - name: VAULT_SKIP_VERIFY
-        value: {{ $ns.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
+        value: {{ $ns.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY }}
       - name: HELM_VALUES
         value: |
           adGroup: "{{ $defaults.adGroup }}"
@@ -82,12 +82,12 @@ spec:
           {{- end }}
     {{- end }}
     repoURL: {{ $defaults.helmRepoUrl }}
-    targetRevision: "{{ $defaults.namespaceChartRevision }}"
-    chart: "{{ $defaults.namespaceChart }}"
-    path: "{{ $defaults.path }}"
+    targetRevision: {{ $defaults.namespaceChartRevision }}
+    chart: {{ $defaults.namespaceChart }}
+    path: {{ $defaults.path }}
   destination:
-    server: "{{ $defaults.server }}"
-    namespace: "{{ $defaults.gitopsNamespace }}"
+    server: {{ $defaults.server }}
+    namespace: {{ $defaults.gitopsNamespace }}
   syncPolicy:
     automated:
       prune: false
