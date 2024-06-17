@@ -6,7 +6,7 @@ metadata:
   name: {{ $applicationTeams.teamName }}
   namespace: {{ $applicationTeams.teamName }}-team
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $applicationTeams.syncWave | default $defaults.syncWave | quote }}
+    argocd.argoproj.io/sync-wave: {{ $applicationTeams.syncWave | default 0 | quote }}
 spec:
   destination:
     namespace: {{ $applicationTeams.teamName }}-team
