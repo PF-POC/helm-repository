@@ -32,7 +32,7 @@ spec:
   - name: 'all-app-actions'
     description: Application privliges to my-project
     policies:
-    - p, proj:my-project:read-only, applications, *, "{{ $applicationTeams.name }}-project"/*, allow
+    - p, proj:{{ $applicationTeams.teamName }}-project:all-app-actions, applications, *, "{{ $applicationTeams.teamName }}-project"/*, allow
     groups:
     - "{{ $applicationTeams.appProject.adGroup }}*"
   {{- end }}
