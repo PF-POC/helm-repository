@@ -30,7 +30,7 @@ spec:
       - name: AVP_AUTH_TYPE
         value: {{ $ns.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE }}
       - name: VAULT_SKIP_VERIFY
-        value: {{ $ns.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY }}
+        value: {{ $ns.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
       - name: HELM_VALUES
         value: |
           adGroup: "{{ $defaults.adGroup }}"

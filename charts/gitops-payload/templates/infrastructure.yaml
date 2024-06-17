@@ -28,7 +28,7 @@ spec:
       - name: AVP_AUTH_TYPE
         value: {{ $infra.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE }}
       - name: VAULT_SKIP_VERIFY
-        value: {{ $infra.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY }}
+        value: {{ $infra.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
         {{- if $infra.values }}
       - name: HELM_VALUES
         value: |
