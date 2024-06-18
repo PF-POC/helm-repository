@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rhds-ini
+  namespace: {{ .Values.namespace }}
+data:
+  rhds.ini: |-
+    [general]
+    full_machine_name = ${hostname}
+    strict_host_checking = False
+    start = False
+
+    [slapd]
+    instance_name = ${hostname}
+    port = {{ .Values.ldapPort }}
+    root_password = {{ .Values.ldapBindPassword }}
+    secure_port = {{ .Values.ldapsPort }}
+    self_sign_cert = True
+
+    [backend-userroot]
+    create_suffix_entry = True
+    suffix = {{ .Values.ldapSuffix }}
