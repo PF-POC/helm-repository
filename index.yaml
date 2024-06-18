@@ -128,6 +128,13 @@ entries:
     version: 0.0.2
   cluster-ldap:
   - apiVersion: v2
+    created: "2024-06-18T06:58:28.85346836Z"
+    digest: eeeeade4635d70d8b8974d759ddd3de26f03549bf86fd2a34447789d27b924a1
+    name: cluster-ldap
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-ldap-0.0.4/cluster-ldap-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
     created: "2024-06-18T01:51:37.710716906Z"
     digest: 639f6d9c8e5f45808b622a48c980f20d0c34e9c01253fe5256ef430253c3eece
     name: cluster-ldap
@@ -1186,6 +1193,13 @@ entries:
     version: 0.0.8
   gitops-linker-app:
   - apiVersion: v2
+    created: "2024-06-18T06:58:29.022622241Z"
+    digest: ea497341ac1ea79f4b321ad7e3f15ec64ddf1c80b94b8c7d72f7e1046ee2f8c1
+    name: gitops-linker-app
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-linker-app-1.2.5/gitops-linker-app-1.2.5.tgz
+    version: 1.2.5
+  - apiVersion: v2
     created: "2024-06-18T06:22:55.962532018Z"
     digest: b9cc87fda743fa5ed97e2b3e094a0168a2cb26b0ebb5ba49a20ebe43723836dc
     name: gitops-linker-app
@@ -1597,4 +1611,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-18T06:22:55.962875479Z"
+generated: "2024-06-18T06:58:29.022970779Z"
