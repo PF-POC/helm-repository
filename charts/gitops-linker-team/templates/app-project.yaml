@@ -1,3 +1,5 @@
+{{ $defaults := .Values.defaults -}}
+---
 {{ range $applicationTeams := .Values.applicationTeams -}}
 ---
 apiVersion: argoproj.io/v1alpha1
