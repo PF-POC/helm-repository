@@ -1215,6 +1215,13 @@ entries:
     version: 1.2.3
   gitops-linker-team:
   - apiVersion: v2
+    created: "2024-06-18T07:54:11.672439917Z"
+    digest: eb8097cda9424cf04c40a709346ae020b094acf8ecc5fd1bbff865e35688ed21
+    name: gitops-linker-team
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-linker-team-1.3.6/gitops-linker-team-1.3.6.tgz
+    version: 1.3.6
+  - apiVersion: v2
     created: "2024-06-18T07:41:06.896008006Z"
     digest: 3c01de6527003f47eac7f089597ae92398ad1fbb1136e474d70953e4f7006cfe
     name: gitops-linker-team
@@ -1626,4 +1633,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-18T07:41:06.896410221Z"
+generated: "2024-06-18T07:54:11.672689945Z"
