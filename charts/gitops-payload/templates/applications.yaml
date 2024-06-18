@@ -14,10 +14,10 @@ kind: Application
 metadata:
   name: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}-{{ $app.name }}"
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $app.syncWave | default $defaults.syncWave | quote }}
+    argocd.argoproj.io/sync-wave: {{ $app.syncWave | default 0| quote }}
   namespace: {{ $defaults.gitopsNamespace }}
   finalizers:
-    - {{ $defaults.finalizers | default "null" }}
+    - {{ $defaults.finalizers | default "null" | quote }}
 spec:
   project: "{{ $teamName }}-project"
   ##############
@@ -94,7 +94,7 @@ spec:
   ###################
   ## TODO
   destination:
-    server: "{{ $defaults.server }}"
+    server: https://kubernetes.default.svc
     {{- if $app.namespace}}
     namespace: "{{ $app.namespace }}"
     {{- end }}

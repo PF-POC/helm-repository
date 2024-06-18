@@ -9,7 +9,7 @@ kind: Application
 metadata:
   name: "{{ $teamName }}-{{ $infra.name }}"
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $infra.syncWave | default $defaults.syncWave | quote }}
+    argocd.argoproj.io/sync-wave: {{ $infra.syncWave | default 0 | quote }}
   namespace: {{ $defaults.gitopsNamespace }}
   finalizers:
     - {{ $defaults.finalizers | default "null" }}
@@ -46,7 +46,7 @@ spec:
     path: {{ $infra.path | default $defaults.path }}
     chart: {{ $infra.chart }}
   destination:
-    server: {{ $defaults.server }}
+    server: https://kubernetes.default.svc
     {{- if $infra.namespace}}
     namespace: {{ $infra.namespace }}
     {{- end }}

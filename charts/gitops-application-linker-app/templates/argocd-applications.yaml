@@ -8,9 +8,6 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ $applications.syncWave | default 0 | quote }}
 spec:
-  destination:
-    namespace: {{ $applications.teamName }}-team
-    server: https://kubernetes.default.svc
   project: {{ $applications.teamName }}-project
   sources:
     - repoURL: {{ $applications.helmRepoUrl }}
@@ -25,6 +22,9 @@ spec:
     - repoURL: {{ $applications.gitRepoUrl }}
       targetRevision: HEAD
       ref: values
+  destination:
+    namespace: {{ $applications.teamName }}-team
+    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       prune: false

@@ -86,7 +86,7 @@ spec:
     chart: {{ $defaults.namespaceChart }}
     path: {{ $defaults.path }}
   destination:
-    server: {{ $defaults.server }}
+    server: https://kubernetes.default.svc
     namespace: {{ $defaults.gitopsNamespace }}
   syncPolicy:
     automated:
