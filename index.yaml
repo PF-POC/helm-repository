@@ -1184,6 +1184,14 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-0.0.8/gitops-infra-payload-0.0.8.tgz
     version: 0.0.8
+  gitops-linker-app:
+  - apiVersion: v2
+    created: "2024-06-18T06:22:55.962532018Z"
+    digest: b9cc87fda743fa5ed97e2b3e094a0168a2cb26b0ebb5ba49a20ebe43723836dc
+    name: gitops-linker-app
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-linker-app-1.2.3/gitops-linker-app-1.2.3.tgz
+    version: 1.2.3
   gitops-payload:
   - apiVersion: v1
     created: "2024-06-18T06:17:33.454169327Z"
@@ -1589,4 +1597,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-18T06:17:33.454549082Z"
+generated: "2024-06-18T06:22:55.962875479Z"
