@@ -1,3 +1,5 @@
+{{ $defaults := .Values.defaults -}}
+---
 {{ range $applicationTeams := .Values.applicationTeams -}}
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -10,10 +12,10 @@ metadata:
 spec:
   project: {{ $applicationTeams.teamName }}-project
   sources:
-    - repoURL: {{ $applicationTeams.helmRepoUrl }}
-      chart: {{ $applicationTeams.chart }}
-      targetRevision: '{{ $applicationTeams.targetRevision }}'
-      path: charts
+    - repoURL: {{ $applicationTeams.helmRepoUrl | default $defaults.helmRepoUrl }}
+      chart: {{ $applicationTeams.chart | default $defaults.chart }}
+      targetRevision: {{ $applicationTeams.targetRevision | default $defaults.targetRevision }}
+      path: {{ $applicationTeams.path | default $defaults.path }}
       helm:
         valueFiles:
         - $values/{{ $applicationTeams.gitPath }}
