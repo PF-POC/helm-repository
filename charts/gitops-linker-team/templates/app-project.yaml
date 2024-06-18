@@ -23,7 +23,7 @@ spec:
   {{- end }}
   destinations:
   - namespace: "{{ $applicationTeams.teamName }}*"
-    server: '*'
+    server: 'https://kubernetes.default.svc'
   {{- if $applicationTeams.appProject.destinations }}
   {{ toYaml $applicationTeams.appProject.destinations | nindent 2 }}
   {{- end }}
