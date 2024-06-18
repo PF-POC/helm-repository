@@ -128,6 +128,20 @@ entries:
     version: 0.0.2
   cluster-ldap:
   - apiVersion: v2
+    created: "2024-06-18T01:51:37.710716906Z"
+    digest: 639f6d9c8e5f45808b622a48c980f20d0c34e9c01253fe5256ef430253c3eece
+    name: cluster-ldap
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-ldap-0.0.3/cluster-ldap-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
+    created: "2024-06-18T01:51:37.563205546Z"
+    digest: f48f3b9a36c8a562aaa6e7b58387904a285ffbb174676fdaaecd622450b08f4c
+    name: cluster-ldap
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-ldap-0.0.2/cluster-ldap-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     created: "2024-06-05T23:41:00.19956272Z"
     digest: b8d1c8b89ef77d4883475136c6267fd8dcd79e207a07262b4ce9d4c688030d91
     name: cluster-ldap
@@ -829,6 +843,13 @@ entries:
     version: 1.1.1
   gitops-application-linker-app:
   - apiVersion: v2
+    created: "2024-06-18T01:51:37.986728769Z"
+    digest: 15e733a799309dbd47a05ae0a915cb6e5b33093e51faaf91ab52dfac2d55fea0
+    name: gitops-application-linker-app
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-app-1.2.3/gitops-application-linker-app-1.2.3.tgz
+    version: 1.2.3
+  - apiVersion: v2
     created: "2024-06-17T11:19:17.524195745Z"
     digest: ef9c1fb88d6f72c95e4b3ffc0ce219170b500a4ae7ad3c84fb5f7b49bd29fc52
     name: gitops-application-linker-app
@@ -885,6 +906,13 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-app-1.1.2/gitops-application-linker-app-1.1.2.tgz
     version: 1.1.2
   gitops-application-linker-team:
+  - apiVersion: v2
+    created: "2024-06-18T01:51:38.113900842Z"
+    digest: 6f9ab2f62de6d5dcba464d8b748773d90dae16fc229afdca7f81700ee539a948
+    name: gitops-application-linker-team
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-linker-team-1.3.2/gitops-application-linker-team-1.3.2.tgz
+    version: 1.3.2
   - apiVersion: v2
     created: "2024-06-17T11:19:17.697061186Z"
     digest: 680a75fc5981104acc646455d0da5a0d683381f89d806a2f5edc7c41b279c46a
@@ -1143,6 +1171,14 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-infra-payload-0.0.8/gitops-infra-payload-0.0.8.tgz
     version: 0.0.8
   gitops-payload:
+  - apiVersion: v1
+    created: "2024-06-18T01:51:38.270467021Z"
+    description: Chart to generate argocd apps
+    digest: 8fe7c3e851a92fcd4e6e8f5648588896d4a4d8d78e470e4f1bf0740c7537b332
+    name: gitops-payload
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-payload-1.3.6/gitops-payload-1.3.6.tgz
+    version: 1.3.6
   - apiVersion: v1
     created: "2024-06-17T12:32:49.35756781Z"
     description: Chart to generate argocd apps
@@ -1523,4 +1559,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-17T12:42:37.721747418Z"
+generated: "2024-06-18T01:51:38.271159122Z"
