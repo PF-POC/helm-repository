@@ -95,9 +95,7 @@ spec:
   ## TODO
   destination:
     server: https://kubernetes.default.svc
-    {{- if $app.namespace}}
-    namespace: "{{ $app.namespace }}"
-    {{- end }}
+    namespace: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}"
   syncPolicy:
     automated: 
       prune: false
