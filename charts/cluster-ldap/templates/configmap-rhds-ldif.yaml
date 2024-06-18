@@ -1,0 +1,209 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rhds-ldif
+  namespace: {{ .Values.namespace }}
+data:
+  01-OUs.ldif: |-
+    dn: ou=People,{{ .Values.ldapSuffix }}
+    objectclass: top
+    objectclass: organizationalUnit
+    ou: People
+    description: Organizational unit for People
+
+    dn: ou=Groups,{{ .Values.ldapSuffix }}
+    objectclass: top
+    objectclass: organizationalUnit
+    ou: Groups
+    description: Organizational unit for Groups
+
+  02-users.ldif: |-
+    dn: uid=clusteradmin,ou=People,{{ .Values.ldapSuffix }}
+    uid: clusteradmin
+    givenName: clusteradmin
+    objectClass: top
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetorgperson
+    sn: clusteradmin
+    cn: clusteradmin
+    mail: clusteradmin@example.com
+    
+    dn: uid=app1-user1,ou=People,{{ .Values.ldapSuffix }}
+    uid: app1-user1
+    givenName: App1-User1
+    objectClass: top
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetorgperson
+    sn: app1User1
+    cn: app1-user1
+    mail: app1-user1@example.com
+    
+    dn: uid=app1-user2,ou=People,{{ .Values.ldapSuffix }}
+    uid: app1-user2
+    givenName: App1-User2
+    objectClass: top
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetorgperson
+    sn: app1User2
+    cn: app1-user2
+    mail: app1-user2@example.com
+    
+    dn: uid=app1-admin1,ou=People,{{ .Values.ldapSuffix }}
+    uid: app1-admin1
+    givenName: App1-Admin1
+    objectClass: top
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetorgperson
+    sn: app1Admin1
+    cn: app1-admin1
+    mail: app1-admin1@example.com
+    
+    dn: uid=app1-admin2,ou=People,{{ .Values.ldapSuffix }}
+    uid: app1-admin2
+    givenName: App1-Admin2
+    objectClass: top
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetorgperson
+    sn: app1Admin2
+    cn: app1-admin2
+    mail: app1-admin2@example.com
+    
+    dn: uid=app2-user1,ou=People,{{ .Values.ldapSuffix }}
+    uid: app2-user1
+    givenName: App2-User1
+    objectClass: top
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetorgperson
+    sn: app2User1
+    cn: app2-user1
+    mail: app2-user1@example.com
+    
+    dn: uid=app2-user2,ou=People,{{ .Values.ldapSuffix }}
+    uid: app2-user2
+    givenName: App2-User2
+    objectClass: top
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetorgperson
+    sn: app2User2
+    cn: app2-user2
+    mail: app2-user2@example.com
+    
+    dn: uid=app2-admin1,ou=People,{{ .Values.ldapSuffix }}
+    uid: app2-admin1
+    givenName: App2-Admin1
+    objectClass: top
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetorgperson
+    sn: app2Admin1
+    cn: app2-admin1
+    mail: app2-admin1@example.com
+    
+    dn: uid=app2-admin2,ou=People,{{ .Values.ldapSuffix }}
+    uid: app2-admin2
+    givenName: App2-Admin2
+    objectClass: top
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetorgperson
+    sn: app2Admin2
+    cn: app2-admin2
+    mail: app2-admin2@example.com
+
+  03-groups.ldif: |-
+    dn: cn=clusteradmins,ou=Groups,{{ .Values.ldapSuffix }}
+    changetype: add
+    objectClass: top
+    objectClass: groupOfUniqueNames
+    cn: clusteradmins
+    description: clusteradmin group
+    uniqueMember: uid=clusteradmin,ou=People,{{ .Values.ldapSuffix }}
+    
+    dn: cn=app1-users,ou=Groups,{{ .Values.ldapSuffix }}
+    changetype: add
+    objectClass: top
+    objectClass: groupOfUniqueNames
+    cn: app1-users
+    description: app1-users group
+    uniqueMember: uid=app1-user1,ou=People,{{ .Values.ldapSuffix }}
+    uniqueMember: uid=app1-user2,ou=People,{{ .Values.ldapSuffix }}
+    
+    dn: cn=app2-users,ou=Groups,{{ .Values.ldapSuffix }}
+    changetype: add
+    objectClass: top
+    objectClass: groupOfUniqueNames
+    cn: app2-users
+    description: app2-users group
+    uniqueMember: uid=app2-user1,ou=People,{{ .Values.ldapSuffix }}
+    uniqueMember: uid=app2-user2,ou=People,{{ .Values.ldapSuffix }}
+    
+    dn: cn=app1-admins,ou=Groups,{{ .Values.ldapSuffix }}
+    changetype: add
+    objectClass: top
+    objectClass: groupOfUniqueNames
+    cn: app1-admins
+    description: app1-admins group
+    uniqueMember: uid=app1-admin1,ou=People,{{ .Values.ldapSuffix }}
+    uniqueMember: uid=app1-admin2,ou=People,{{ .Values.ldapSuffix }}
+    
+    dn: cn=app2-admins,ou=Groups,{{ .Values.ldapSuffix }}
+    changetype: add
+    objectClass: top
+    objectClass: groupOfUniqueNames
+    cn: app2-admins
+    description: app2-admins group
+    uniqueMember: uid=app2-admin1,ou=People,{{ .Values.ldapSuffix }}
+    uniqueMember: uid=app2-admin2,ou=People,{{ .Values.ldapSuffix }}
+
+  04-passwords.ldif: |-
+    dn: uid=clusteradmin,ou=People,{{ .Values.ldapSuffix }}
+    changetype: modify
+    replace: userPassword
+    userPassword: {{ .Values.ldapUsersPassword }}
+    
+    dn: uid=app1-user1,ou=People,{{ .Values.ldapSuffix }}
+    changetype: modify
+    replace: userPassword
+    userPassword: {{ .Values.ldapUsersPassword }}
+    
+    dn: uid=app1-user2,ou=People,{{ .Values.ldapSuffix }}
+    changetype: modify
+    replace: userPassword
+    userPassword: {{ .Values.ldapUsersPassword }}
+    
+    dn: uid=app1-admin1,ou=People,{{ .Values.ldapSuffix }}
+    changetype: modify
+    replace: userPassword
+    userPassword: {{ .Values.ldapUsersPassword }}
+    
+    dn: uid=app1-admin2,ou=People,{{ .Values.ldapSuffix }}
+    changetype: modify
+    replace: userPassword
+    userPassword: {{ .Values.ldapUsersPassword }}
+    
+    dn: uid=app2-user1,ou=People,{{ .Values.ldapSuffix }}
+    changetype: modify
+    replace: userPassword
+    userPassword: {{ .Values.ldapUsersPassword }}
+    
+    dn: uid=app2-user2,ou=People,{{ .Values.ldapSuffix }}
+    changetype: modify
+    replace: userPassword
+    userPassword: {{ .Values.ldapUsersPassword }}
+    
+    dn: uid=app2-admin1,ou=People,{{ .Values.ldapSuffix }}
+    changetype: modify
+    replace: userPassword
+    userPassword: {{ .Values.ldapUsersPassword }}
+    
+    dn: uid=app2-admin2,ou=People,{{ .Values.ldapSuffix }}
+    changetype: modify
+    replace: userPassword
+    userPassword: {{ .Values.ldapUsersPassword }}

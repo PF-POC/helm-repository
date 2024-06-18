@@ -1,0 +1,8 @@
+namespace: placeholer-namespace # ldap-sync
+ldapUrl: placeholder-ldapUrl # ldaps://ldapserver.example.com:636
+ldapCert: placeholder-ldapCert # PEM Encoded certificate(s)
+bindDN: placeholder-bindDN # cn=Directory Manager
+searchDN: placeholder-searchDN # dc=dev,dc=anz,dc=example,dc=com
+groupFilter: placeholder-groupFilter # (objectClass=groupOfUniqueNames)
+bindPassword: placeholder-bindPassword # string
+cronSchedule: placeholder-cronSchedule # */30 * * * *

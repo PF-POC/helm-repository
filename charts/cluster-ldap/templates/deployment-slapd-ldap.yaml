@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: slapd-ldap
+spec:
+  selector:
+    matchLabels:
+      app: slapd-ldap
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: slapd-ldap
+    spec:
+       containers:
+        - name: ldap
+          command: ["/bin/bash", "/tmp/rhds/init/entrypoint.sh"]
+          envFrom:
+          - secretRef:
+            name: rhds-vars
+          env:
+          - name: pod_ip
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          args:
+            [ "while true; do sleep 10;done" ]
+          image: ghcr.io/pf-poc/rhds:v0.1
+          imagePullPolicy: Always
+          #imagePullSecret: ghcr-docker-cfg
+          ports:
+          - name: ldap
+            containerPort: {{ .Values.ldapPort }}
+            protocol: TCP
+          - name: ldaps
+            containerPort: {{ .Values.ldapsPort }}
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1
+              memory: 1Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          volumeMounts:
+            - name: rhds-workspace
+              mountPath: /tmp/rhds
+              readOnly: false
+            - name: rhds-ini
+              mountPath: /tmp/rhds/config
+              readOnly: true
+            - name: rhds-init
+              mountPath: /tmp/rhds/init
+              readOnly: true
+            - name: rhds-ldif
+              mountPath: /tmp/rhds/ldif
+              readOnly: true
+        volumes:
+          - name: rhds-ini
+            configMap:
+              name: rhds-ini
+          - name: rhds-init
+            configMap:
+              name: rhds-init
+              defaultMode: 0775
+          - name: rhds-ldif
+            configMap:
+              name: rhds-ldif
+          - name: rhds-workspace
+            ephemeral:
+              volumeClaimTemplate:
+                metadata:
+                  labels:
+                    app: ldap
+                spec:
+                  accessModes: [ "ReadWriteOnce" ]
+                  storageClassName: "gp3-csi"
+                  resources:
+                    requests:
+                      storage: 1Gi
+        dnsPolicy: ClusterFirst
+        enableServiceLinks: true
+        restartPolicy: Always
+        serviceAccount: slapd-ldap
+        serviceAccountName: slapd-ldap
