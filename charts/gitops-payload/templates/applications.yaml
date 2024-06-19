@@ -94,8 +94,8 @@ spec:
   ###################
   ## TODO
   destination:
-    server: https://kubernetes.default.svc
-    namespace: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}"
+    server: 'https://kubernetes.default.svc'
+    namespace: '{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}'
   syncPolicy:
     automated: 
       prune: false
