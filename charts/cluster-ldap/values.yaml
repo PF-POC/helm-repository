@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-namespace: ldap-slapd # ldap-sync
->>>>>>> ea41cbe4fc576aa2fa66e88c0cc4c196466e090c
 ldapUrl: placeholder-ldapUrl # ldaps://ldapserver.example.com:636
 ldapCert: placeholder-ldapCert # PEM Encoded certificate(s)
 bindDN: "cn=Directory Manager"
