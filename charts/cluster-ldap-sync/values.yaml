@@ -1,5 +1,4 @@
-namespace: ldap-sync
-ldapUrl: ldap://ldap.slapd-ldap.svc.cluster.local:389
+ldapUrl: ldap://ldap.ldap-slapd.svc.cluster.local:389
 insecure: "true"
 #ldapCert: placeholder-ldapCert # PEM Encoded certificate(s)
 bindDN: cn=Directory Manager
