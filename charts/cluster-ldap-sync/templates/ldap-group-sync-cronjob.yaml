@@ -5,7 +5,7 @@ metadata:
   name: ldap-group-sync
   namespace: {{ .Values.namespace }}
 spec:
-  schedule: {{ .Values.cronSchedule }}
+  schedule: {{ .Values.cronSchedule |quote }}
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -26,9 +26,11 @@ spec:
             - name: "ldap-bind-secret"
               secret:
                 secretName: "ldap-bind-secret"
-            {{ if eq .Values.insecure "false" }}- name: "ldap-ca"
+            {{ if eq .Values.insecure "false" }}
+            - name: "ldap-ca"
               configMap:
-                name: "ldap-ca"{{ end }}
+                name: "ldap-ca"
+            {{ end }}
           containers:
             - name: ldap-sync
               resources:
@@ -46,8 +48,10 @@ spec:
                   name: "ldap-sync-volume"
                 - mountPath: "/etc/secrets"
                   name: "ldap-bind-secret"
-                {{ if eq .Values.insecure "false" }}- mountPath: "/etc/ldap-ca"
-                  name: "ldap-ca"{{ end }}
+                {{ if eq .Values.insecure "false" }}
+                - mountPath: "/etc/ldap-ca"
+                  name: "ldap-ca"
+                {{ end }}
               securityContext:
                 allowPrivilegeEscalation: false
                 capabilities:

@@ -31,6 +31,6 @@ roleRef:
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  name: ldap-group-syncer
+  name: ldap-group-sync
   namespace: {{ .Values.namespace }}
 ---
