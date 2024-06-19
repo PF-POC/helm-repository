@@ -26,9 +26,9 @@ spec:
             - name: "ldap-bind-secret"
               secret:
                 secretName: "ldap-bind-secret"
-            - name: "ldap-ca"
+            {{ if eq .Values.insecure "false" }}- name: "ldap-ca"
               configMap:
-                name: "ldap-ca"
+                name: "ldap-ca"{{ end }}
           containers:
             - name: ldap-sync
               resources:
@@ -46,8 +46,8 @@ spec:
                   name: "ldap-sync-volume"
                 - mountPath: "/etc/secrets"
                   name: "ldap-bind-secret"
-                - mountPath: "/etc/ldap-ca"
-                  name: "ldap-ca"
+                {{ if eq .Values.insecure "false" }}- mountPath: "/etc/ldap-ca"
+                  name: "ldap-ca"{{ end }}
               securityContext:
                 allowPrivilegeEscalation: false
                 capabilities:

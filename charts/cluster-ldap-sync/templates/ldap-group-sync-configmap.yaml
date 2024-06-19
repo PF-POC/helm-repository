@@ -12,8 +12,8 @@ data:
     bindDN: "cn=Directory Manager"
     bindPassword:
       file: /etc/secrets/bindPassword
-    insecure: false
-    ca: /etc/ldap-ca/ca.crt
+    insecure: {{ .Values.insecure }}
+    {{ if eq .Values.insecure "false" }}ca: /etc/ldap-ca/ca.crt{{ end }}
     rfc2307:
         groupsQuery:
             baseDN: "ou=Groups,{{ .Values.searchDN }}"

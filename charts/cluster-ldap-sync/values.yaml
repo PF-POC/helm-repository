@@ -1,8 +1,9 @@
-namespace: placeholer-namespace # ldap-sync
-ldapUrl: placeholder-ldapUrl # ldaps://ldapserver.example.com:636
-ldapCert: placeholder-ldapCert # PEM Encoded certificate(s)
-bindDN: placeholder-bindDN # cn=Directory Manager
-searchDN: placeholder-searchDN # dc=dev,dc=anz,dc=example,dc=com
-groupFilter: placeholder-groupFilter # (objectClass=groupOfUniqueNames)
-bindPassword: placeholder-bindPassword # string
+namespace: ldap-sync # ldap-sync
+ldapUrl: ldap.slapd-ldap.svc.cluster.local:389 # ldaps://ldapserver.example.com:636
+insecure: true
+#ldapCert: placeholder-ldapCert # PEM Encoded certificate(s)
+bindDN: cn=Directory Manager # cn=Directory Manager
+searchDN: dc=ldap,dc=example,dc=com # dc=dev,dc=anz,dc=example,dc=com
+groupFilter: (objectClass=groupOfUniqueNames) # (objectClass=groupOfUniqueNames)
+bindPassword: p@55w0rd # string
 cronSchedule: placeholder-cronSchedule # */30 * * * *
