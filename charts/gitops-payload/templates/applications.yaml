@@ -41,8 +41,8 @@ spec:
         {{- if $app.values }}
       - name: HELM_VALUES
         value: |
-          {{ toYaml $app.values | nindent 10 }}
           namespace: '{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}'
+          {{ toYaml $app.values | nindent 10 }}
        {{- end }}
     {{ else }}
     helm:
