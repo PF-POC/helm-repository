@@ -1,4 +1,4 @@
-ldapUrl: ldap://ldap.ldap-slapd.svc.cluster.local:389
+ldapUrl: ldap://ldap.d1-ldap-slapd.svc.cluster.local:389
 insecure: "true"
 #ldapCert: placeholder-ldapCert # PEM Encoded certificate(s)
 bindDN: cn=Directory Manager
