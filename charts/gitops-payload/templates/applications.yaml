@@ -42,14 +42,14 @@ spec:
       - name: HELM_VALUES
         value: |
           {{ toYaml $app.values | nindent 10 }}
-          namespace: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}"
+          namespace: '{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}'
        {{- end }}
     {{ else }}
     helm:
       {{- if $app.values }}
       values: |
         {{- toYaml $app.values | nindent 8 }}
-        namespace: "{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}"
+        namespace: '{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}'
       {{- end }}
     {{- end }}
     repoURL: {{ $app.helmRepoUrl | default $defaults.helmRepoUrl }}
