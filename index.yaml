@@ -128,6 +128,13 @@ entries:
     version: 0.0.2
   cluster-ldap:
   - apiVersion: v2
+    created: "2024-06-19T22:42:05.380450016Z"
+    digest: 00bcce4eed84c3f3bf736205cf510c254c2c41afb1f5bb9ea5bc5c58026ab730
+    name: cluster-ldap
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-ldap-0.0.8/cluster-ldap-0.0.8.tgz
+    version: 0.0.8
+  - apiVersion: v2
     created: "2024-06-19T05:07:35.750478595Z"
     digest: 8e51fca9bf444928f7097bb02ae7b8f7091dadf19bf376911e6cba910e30b8c2
     name: cluster-ldap
@@ -638,6 +645,14 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-2.1.4/cluster-seed-2.1.4.tgz
     version: 2.1.4
+  cluster-sync:
+  - apiVersion: v2
+    created: "2024-06-19T22:42:05.534497504Z"
+    digest: e96406e188bc15c68ff0314a10ee5b85102beaedd1857852a3c23513374aed2d
+    name: cluster-sync
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-sync-0.0.9/cluster-sync-0.0.9.tgz
+    version: 0.0.9
   compliance-operator-full-stack:
   - annotations:
       artifacthub.io/changes: |
@@ -1661,4 +1676,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-19T05:30:17.890990278Z"
+generated: "2024-06-19T22:42:05.534866325Z"
