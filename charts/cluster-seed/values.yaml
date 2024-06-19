@@ -63,6 +63,7 @@ argocd:
     targetRevision: 1.3.6
     gitRepoUrl: https://github.com/PF-POC/day-1-gitops.git
     adGroup: PFAUTHAD
+    gitPathFile: /infrastructure.yaml
     repositories: 
     - https://github.com/PF-POC/day-1-gitops.git
     - https://github.com/PF-POC/day-2-gitops.git
@@ -74,11 +75,23 @@ argocd:
     targetRevision: 1.3.6
     gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
     adGroup: PFAUTHAD
+    gitPathFile: /infrastructure.yaml
     repositories: 
     - https://github.com/PF-POC/day-1-gitops.git
     - https://github.com/PF-POC/day-2-gitops.git
     - https://pf-poc.github.io/helm-repository
-
+  - name: a1
+    annotations:
+    helmRepoUrl: https://pf-poc.github.io/helm-repository
+    chart: gitops-payload
+    targetRevision: 1.3.6
+    gitRepoUrl: https://github.com/PF-POC/day-2-gitops.git
+    adGroup: PFAUTHAD
+    gitPathFile: /app-team-configuration.yaml
+    repositories: 
+    - https://github.com/PF-POC/day-1-gitops.git
+    - https://github.com/PF-POC/day-2-gitops.git
+    - https://pf-poc.github.io/helm-repository
 # # dependency chart helper-operator
 # helper-operator:
 #   operators:
