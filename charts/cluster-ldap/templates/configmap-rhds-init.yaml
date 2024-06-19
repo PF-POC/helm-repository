@@ -11,41 +11,11 @@ data:
     export PATH=/tmp/rhds/bin:$PATH
     dscreate ds-root /tmp/rhds/bin/dsroot /tmp/rhds/bin
     hash -r dscreate
-    sed \
-      -e s/\${hostname}/${HOSTNAME}/ \
-      -e s/\${ldap_port}/${ldap_port}/ \
-      -e s/\${ldaps_port}/${ldaps_port}/ \
-      -e s/\${ldap_management_password}/${ldap_management_password}/ \
-      -e s/\${ldap_suffix}/${ldap_suffix}/ \
-      /tmp/rhds/config/rhds.ini > /tmp/rhds/rhds.ini
-    dscreate from-file /tmp/rhds/rhds.ini
-    sed \
-      -e s/\${hostname}/${HOSTNAME}/ \
-      -e s/\${ldap_port}/${ldap_port}/ \
-      -e s/\${ldaps_port}/${ldaps_port}/ \
-      -e s/\${ldap_management_password}/${ldap_management_password}/ \
-      -e s/\${ldap_suffix}/${ldap_suffix}/ \
-      /tmp/rhds/ldif/01-OUs.ldif |ldapadd -D {{ .Values.bindDN }} -w {{ .Values.bindPassword }} -p {{ .Values.ldapPort }} -h $(echo ${pod_ip}) -x
-    sed \
-      -e s/\${hostname}/${HOSTNAME}/ \
-      -e s/\${ldap_port}/${ldap_port}/ \
-      -e s/\${ldaps_port}/${ldaps_port}/ \
-      -e s/\${ldap_management_password}/${ldap_management_password}/ \
-      -e s/\${ldap_suffix}/${ldap_suffix}/ \
-      /tmp/rhds/ldif/02-users.ldif |ldapadd -D {{ .Values.bindDN }} -w {{ .Values.bindPassword }} -p {{ .Values.ldapPort }} -h $(echo ${pod_ip}) -x
-    sed \
-      -e s/\${hostname}/${HOSTNAME}/ \
-      -e s/\${ldap_port}/${ldap_port}/ \
-      -e s/\${ldaps_port}/${ldaps_port}/ \
-      -e s/\${ldap_management_password}/${ldap_management_password}/ \
-      -e s/\${ldap_suffix}/${ldap_suffix}/ \
-      /tmp/rhds/ldif/03-groups.ldif |ldapadd -D {{ .Values.bindDN }} -w {{ .Values.bindPassword }} -p {{ .Values.ldapPort }} -h $(echo ${pod_ip}) -x
-    sed \
-      -e s/\${hostname}/${HOSTNAME}/ \
-      -e s/\${ldap_port}/${ldap_port}/ \
-      -e s/\${ldaps_port}/${ldaps_port}/ \
-      -e s/\${ldap_management_password}/${ldap_management_password}/ \
-      -e s/\${ldap_suffix}/${ldap_suffix}/ \
-      /tmp/rhds/ldif/04-passwords.ldif |ldapmodify -D {{ .Values.bindDN }} -w {{ .Values.bindPassword }} -p {{ .Values.ldapPort }} -h $(echo ${pod_ip}) -x
-    while true; do sleep 10;done
+
+    dscreate from-file /tmp/rhds/config/rhds.ini
+    cat /tmp/rhds/ldif/01-OUs.ldif |ldapadd -D "{{ .Values.bindDN }}" -w {{ .Values.ldapBindPassword }} -p {{ .Values.ldapPort }} -h ${pod_ip} -x
+    cat /tmp/rhds/ldif/02-users.ldif |ldapadd -D "{{ .Values.bindDN }}" -w {{ .Values.ldapBindPassword }} -p {{ .Values.ldapPort }} -h ${pod_ip} -x
+    cat /tmp/rhds/ldif/03-groups.ldif |ldapadd -D "{{ .Values.bindDN }}" -w {{ .Values.ldapBindPassword }} -p {{ .Values.ldapPort }} -h ${pod_ip} -x
+    cat /tmp/rhds/ldif/04-passwords.ldif |ldapmodify -D "{{ .Values.bindDN }}" -w {{ .Values.ldapBindPassword }} -p {{ .Values.ldapPort }} -h ${pod_ip} -x
+    tail -f /tmp/rhds/bin/dsroot/var/log/dirsrv/slapd-slapd/security
 immutable: true

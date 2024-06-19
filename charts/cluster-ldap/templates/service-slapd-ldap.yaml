@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ldap
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+    - name: ldap
+      protocol: TCP
+      port: 389
+      targetPort: ldap
+    - name: ldaps
+      protocol: TCP
+      port: 636
+      targetPort: ldaps
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  sessionAffinity: None
+  selector:
+    app: slapd-ldap

@@ -14,6 +14,7 @@ spec:
         app: slapd-ldap
     spec:
       containers:
+
       - name: ldap
         command: ["/bin/bash", "/tmp/rhds/init/entrypoint.sh"]
         envFrom:
@@ -28,7 +29,6 @@ spec:
           [ "while true; do sleep 10;done" ]
         image: ghcr.io/pf-poc/rhds:v0.1
         imagePullPolicy: Always
-        imagePullSecret: ghcr-docker-cfg
         ports:
         - name: ldap
           containerPort: {{ .Values.ldapPort }}
@@ -64,6 +64,8 @@ spec:
         - name: rhds-ldif
           mountPath: /tmp/rhds/ldif
           readOnly: true
+      imagePullSecrets:
+        - name: ghcr
       volumes:
       - name: rhds-ini
         configMap:

@@ -6,12 +6,12 @@ metadata:
 data:
   rhds.ini: |-
     [general]
-    full_machine_name = ${hostname}
+    full_machine_name = slapd
     strict_host_checking = False
-    start = False
+    start = True
 
     [slapd]
-    instance_name = ${hostname}
+    instance_name = slapd
     port = {{ .Values.ldapPort }}
     root_password = {{ .Values.ldapBindPassword }}
     secure_port = {{ .Values.ldapsPort }}
