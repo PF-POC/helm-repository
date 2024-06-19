@@ -118,11 +118,11 @@ data:
     mail: app2-admin2@example.com
 
   03-groups.ldif: |-
-    dn: cn=clusteradmins,ou=Groups,{{ .Values.ldapSuffix }}
+    dn: cn=cluster-admins,ou=Groups,{{ .Values.ldapSuffix }}
     changetype: add
     objectClass: top
     objectClass: groupOfUniqueNames
-    cn: clusteradmins
+    cn: cluster-admins
     description: clusteradmin group
     uniqueMember: uid=clusteradmin,ou=People,{{ .Values.ldapSuffix }}
     

@@ -14,6 +14,8 @@ data:
       file: /etc/secrets/bindPassword
     insecure: {{ .Values.insecure }}
     {{ if eq .Values.insecure "false" }}ca: /etc/ldap-ca/ca.crt{{ end }}
+    groupUIDNameMapping:
+      cn=clusteradmins,ou=Groups,dc=ldap,dc=example,dc=com: cluster-admins
     rfc2307:
         groupsQuery:
             baseDN: "ou=Groups,{{ .Values.searchDN }}"
