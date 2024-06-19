@@ -14,7 +14,6 @@ spec:
         app: slapd-ldap
     spec:
       containers:
-
       - name: ldap
         command: ["/bin/bash", "/tmp/rhds/init/entrypoint.sh"]
         envFrom:
