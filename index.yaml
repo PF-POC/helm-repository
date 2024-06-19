@@ -128,6 +128,13 @@ entries:
     version: 0.0.2
   cluster-ldap:
   - apiVersion: v2
+    created: "2024-06-19T05:07:35.750478595Z"
+    digest: 8e51fca9bf444928f7097bb02ae7b8f7091dadf19bf376911e6cba910e30b8c2
+    name: cluster-ldap
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-ldap-0.0.6/cluster-ldap-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
     created: "2024-06-19T03:13:53.275863502Z"
     digest: f954a19cccad876f9a0fb8ae9f082f6bc89bfd5cba5f57b16f275bdced6c7f54
     name: cluster-ldap
@@ -312,6 +319,13 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/cluster-logging-0.0.3/cluster-logging-0.0.3.tgz
     version: 0.0.3
   cluster-seed:
+  - apiVersion: v2
+    created: "2024-06-19T05:07:35.899590884Z"
+    digest: 7805ef62fac0c50c4119bf00fa72ddd08cd584644abdbb2d6f4a29e1a09c4d3f
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-3.3.1/cluster-seed-3.3.1.tgz
+    version: 3.3.1
   - apiVersion: v2
     created: "2024-06-18T03:13:48.53028118Z"
     digest: 6013362d7a826898050071e01dc331714ba428a4e75dcc8ee57bd43b737c2dec
@@ -1640,4 +1654,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-19T03:13:53.276209983Z"
+generated: "2024-06-19T05:07:35.900348124Z"
