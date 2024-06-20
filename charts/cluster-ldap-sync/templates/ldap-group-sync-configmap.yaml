@@ -32,5 +32,5 @@ data:
             derefAliases: never
             pageSize: 0
         userUIDAttribute: dn
-        userNameAttributes: [ mail ]
+        userNameAttributes: [ cn ]
 ---
