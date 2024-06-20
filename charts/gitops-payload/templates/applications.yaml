@@ -38,19 +38,15 @@ spec:
         value: {{ $app.AVP_AUTH_TYPE | default $defaults.AVP_AUTH_TYPE }}
       - name: VAULT_SKIP_VERIFY
         value: {{ $app.VAULT_SKIP_VERIFY | default $defaults.VAULT_SKIP_VERIFY | quote }}
-        {{- if $app.values }}
       - name: HELM_VALUES
         value: |
           namespace: '{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}'
           {{ toYaml $app.values | nindent 10 }}
-       {{- end }}
     {{ else }}
     helm:
-      {{- if $app.values }}
       values: |
-        {{- toYaml $app.values | nindent 8 }}
         namespace: '{{ $teamName }}-{{ $ns.name }}-{{ $env.name }}'
-      {{- end }}
+        {{- toYaml $app.values | nindent 8 }}
     {{- end }}
     repoURL: {{ $app.helmRepoUrl | default $defaults.helmRepoUrl }}
     targetRevision: {{ $app.targetRevision }}
