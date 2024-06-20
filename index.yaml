@@ -192,6 +192,13 @@ entries:
     version: 0.0.1
   cluster-ldap-sync:
   - apiVersion: v2
+    created: "2024-06-20T00:37:34.549790127Z"
+    digest: 4279f58ae34b3400d61f5ed179ac1276756026c57931173babe2fb32da4b7c8a
+    name: cluster-ldap-sync
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-ldap-sync-1.0.3/cluster-ldap-sync-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     created: "2024-06-20T00:33:55.029772789Z"
     digest: 8cbcaeb3aa790e6bf459b867efc999c73c595e48a134e3a4129dd1c5eb6d956b
     name: cluster-ldap-sync
@@ -1759,4 +1766,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-06-20T00:33:55.03002867Z"
+generated: "2024-06-20T00:37:34.550106148Z"
