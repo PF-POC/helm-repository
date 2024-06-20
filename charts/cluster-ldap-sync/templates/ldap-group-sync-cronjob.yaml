@@ -36,8 +36,10 @@ spec:
               resources:
               limits:
                 memory: 1Gi
+                cpu: 1
               requests:
                 memory: 1Gi
+                cpu: 1
               image: "registry.redhat.io/openshift4/ose-cli:latest"
               command:
                 - "/bin/bash"
