@@ -1,131 +1,131 @@
-#################################################################
-# teamName used for argocd applicaiton names and namespace names.
-#################################################################
-teamName: d1
-#################################################################
-# default Values for gitops-payload helm chart
-#################################################################
-defaults:
-  # argcod application defaults
-  finalizers: resources-finalizer.argocd.argoproj.io
-  gitopsNamespace: openshift-gitops
-  # Helm defaults
-  helmRepoUrl: https://pf-poc.github.io/helm-repository
-  path: charts
-  # namespaces chart defaults
-  namespaceChart: namespaces
-  namespaceChartRevision: 1.0.3
-  # Vault plugin defaults.
-  plugin: true
-  AVP_K8S_ROLE: "argocd"
-  AVP_TYPE: "vault"
-  VAULT_ADDR: "http://vault.vault.svc:8200"
-  AVP_AUTH_TYPE: "k8s"
-  VAULT_SKIP_VERIFY: "true"
-#################################################################
-# NAMESPACE CREATION and APPLICATION deployments within.
-#################################################################
-namespaces:
-  # Dummy app created in namespaces d2-app1-dev and d2-app1-nonprod
-  - name: ldap
-    requests:
-      cpu: 1
-      memory: 1Gi
-    limits:
-      cpu: 1
-      memory: 1Gi
-    environments: 
-      - name: slapd
-        labels:
-        applications:
-          - name: cluster-ldap
-            type: helm
-            plugin: true
-            targetRevision: 1.0.1
-            chart: cluster-ldap
-            values:
-      - name: sync
-        labels:
-        applications:
-          - name: cluster-ldap-sync
-            type: helm
-            plugin: true
-            targetRevision: 1.0.1
-            chart: cluster-ldap-sync
-            values:
-#################################################################
-# INFRASTRUCTURE Charts to be deployed.
-#################################################################
-infrastructure:
-  # Cluster logging chart works with terraform in ROSA cluster standup.
-  - chart: cluster-logging
-    namespace: openshift-logging 
-    targetRevision: 0.1.6
-    values:
-      roleArn: arn:aws:iam::808082629126:role/rosa-pub-1-rosa-cloudwatch-role-iam
-      region: ap-southeast-2
-      rosaClusterName: rosa-pub-1
-  # Compliance operator. 
-  - chart: compliance-operator-full-stack
-    namespace: openshift-compliance
-    targetRevision: 1.0.29
-    mount_path: "kv/data/vplugin/supersecret"
-    syncWave: 10
-    values:
-      helper-operator:
-        operators:
-          compliance-operator:
-            enabled: true
-            syncwave: '10'
-            namespace:
-              name: openshift-compliance
-              create: true
-            subscription:
-              channel: stable
-              approval: Automatic
-              operatorName: compliance-operator
-              source: redhat-operators
-              sourceNamespace: openshift-marketplace
-              config:
-                nodeSelector:
-                  key: "node-role.kubernetes.io/worker"
-                  value: ""
-                env:
-                  - name: PLATFORM
-                    value: "HyperShift"
-            operatorgroup:
-              create: true
-              notownnamespace: true
-      helper-status-checker:
-        enabled: true
-        operatorName: compliance-operator
-        namespace:
-          name: openshift-compliance
-        serviceAccount:
-          create: true
-          name: "sa-compliance"
-      compliance:
-        namespace:
-          name: openshift-compliance
-          syncwave: '0'
-          descr: 'Red Hat Compliance'
-        scansettingbinding:
-          enabled: true
-          syncwave: '3'
-          tailored:
-            enabled: false
-            modified_profiles:
-            - name: tailoredprofile-ocp4-cis
-              description: Modified ocp4-cis profile
-              title: Tailored Profile of ocp4-cis
-              extends: ocp4-cis
-              disableRule:
-              - name: ocp4-scc-limit-container-allowed-capabilities
-                rationale: Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration
-          profiles:
-            - name: ocp4-cis-node
-              kind: Profile
-            - name: ocp4-cis
-              kind: Profile
-          scansetting: default
+# #################################################################
+# # teamName used for argocd applicaiton names and namespace names.
+# #################################################################
+# teamName: d1
+# #################################################################
+# # default Values for gitops-payload helm chart
+# #################################################################
+# defaults:
+#   # argcod application defaults
+#   finalizers: resources-finalizer.argocd.argoproj.io
+#   gitopsNamespace: openshift-gitops
+#   # Helm defaults
+#   helmRepoUrl: https://pf-poc.github.io/helm-repository
+#   path: charts
+#   # namespaces chart defaults
+#   namespaceChart: namespaces
+#   namespaceChartRevision: 1.0.3
+#   # Vault plugin defaults.
+#   plugin: true
+#   AVP_K8S_ROLE: "argocd"
+#   AVP_TYPE: "vault"
+#   VAULT_ADDR: "http://vault.vault.svc:8200"
+#   AVP_AUTH_TYPE: "k8s"
+#   VAULT_SKIP_VERIFY: "true"
+# #################################################################
+# # NAMESPACE CREATION and APPLICATION deployments within.
+# #################################################################
+# namespaces:
+#   # Dummy app created in namespaces d2-app1-dev and d2-app1-nonprod
+#   - name: ldap
+#     requests:
+#       cpu: 1
+#       memory: 1Gi
+#     limits:
+#       cpu: 1
+#       memory: 1Gi
+#     environments: 
+#       - name: slapd
+#         labels:
+#         applications:
+#           - name: cluster-ldap
+#             type: helm
+#             plugin: true
+#             targetRevision: 1.0.1
+#             chart: cluster-ldap
+#             values:
+#       - name: sync
+#         labels:
+#         applications:
+#           - name: cluster-ldap-sync
+#             type: helm
+#             plugin: true
+#             targetRevision: 1.0.1
+#             chart: cluster-ldap-sync
+#             values:
+# #################################################################
+# # INFRASTRUCTURE Charts to be deployed.
+# #################################################################
+# infrastructure:
+#   # Cluster logging chart works with terraform in ROSA cluster standup.
+#   - chart: cluster-logging
+#     namespace: openshift-logging 
+#     targetRevision: 0.1.6
+#     values:
+#       roleArn: arn:aws:iam::808082629126:role/rosa-pub-1-rosa-cloudwatch-role-iam
+#       region: ap-southeast-2
+#       rosaClusterName: rosa-pub-1
+#   # Compliance operator. 
+#   - chart: compliance-operator-full-stack
+#     namespace: openshift-compliance
+#     targetRevision: 1.0.29
+#     mount_path: "kv/data/vplugin/supersecret"
+#     syncWave: 10
+#     values:
+#       helper-operator:
+#         operators:
+#           compliance-operator:
+#             enabled: true
+#             syncwave: '10'
+#             namespace:
+#               name: openshift-compliance
+#               create: true
+#             subscription:
+#               channel: stable
+#               approval: Automatic
+#               operatorName: compliance-operator
+#               source: redhat-operators
+#               sourceNamespace: openshift-marketplace
+#               config:
+#                 nodeSelector:
+#                   key: "node-role.kubernetes.io/worker"
+#                   value: ""
+#                 env:
+#                   - name: PLATFORM
+#                     value: "HyperShift"
+#             operatorgroup:
+#               create: true
+#               notownnamespace: true
+#       helper-status-checker:
+#         enabled: true
+#         operatorName: compliance-operator
+#         namespace:
+#           name: openshift-compliance
+#         serviceAccount:
+#           create: true
+#           name: "sa-compliance"
+#       compliance:
+#         namespace:
+#           name: openshift-compliance
+#           syncwave: '0'
+#           descr: 'Red Hat Compliance'
+#         scansettingbinding:
+#           enabled: true
+#           syncwave: '3'
+#           tailored:
+#             enabled: false
+#             modified_profiles:
+#             - name: tailoredprofile-ocp4-cis
+#               description: Modified ocp4-cis profile
+#               title: Tailored Profile of ocp4-cis
+#               extends: ocp4-cis
+#               disableRule:
+#               - name: ocp4-scc-limit-container-allowed-capabilities
+#                 rationale: Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration
+#           profiles:
+#             - name: ocp4-cis-node
+#               kind: Profile
+#             - name: ocp4-cis
+#               kind: Profile
+#           scansetting: default
 
