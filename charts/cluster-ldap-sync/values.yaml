@@ -5,4 +5,4 @@ bindDN: cn=Directory Manager
 searchDN: dc=ldap,dc=example,dc=com
 groupFilter: (objectClass=groupOfUniqueNames)
 bindPassword: p@55w0rd
-cronSchedule: "*/30 * * * *"
+cronSchedule: "*/1 * * * *"
