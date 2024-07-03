@@ -89,6 +89,22 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/application-gitops-1.0.4/application-gitops-1.0.4.tgz
     version: 1.0.4
+  cluster-cert-manager:
+  - apiVersion: v2
+    created: "2024-07-03T00:19:53.38545429Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    digest: ec93f2b06bc48b8148ecd9c01ef0f09bdfdb72e13447662716c6e4b2a328d9cf
+    name: cluster-cert-manager
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-cert-manager-0.0.1/cluster-cert-manager-0.0.1.tgz
+    version: 0.0.1
   cluster-efs:
   - apiVersion: v2
     created: "2024-06-14T10:17:04.855452719Z"
@@ -1825,4 +1841,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-07-01T10:52:03.0535555Z"
+generated: "2024-07-03T00:19:53.385710791Z"
