@@ -6,7 +6,7 @@ helper-operator:
       syncwave: '0'
       namespace:
         name: cert-manager-operator
-        create: false
+        create: true
       operatorgroup:
         create: true
       subscription:
