@@ -91,6 +91,21 @@ entries:
     version: 1.0.4
   cluster-cert-manager:
   - apiVersion: v2
+    created: "2024-07-03T00:56:36.951930504Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    digest: 6f6f4c5ee28ed0e16a8c223117154edf447b25d5e7d0efd8e3c7c48627648f96
+    name: cluster-cert-manager
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-cert-manager-0.0.3/cluster-cert-manager-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
     created: "2024-07-03T00:22:22.423863343Z"
     dependencies:
     - name: helper-operator
@@ -1856,4 +1871,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-07-03T00:22:22.424474162Z"
+generated: "2024-07-03T00:56:36.952177866Z"
