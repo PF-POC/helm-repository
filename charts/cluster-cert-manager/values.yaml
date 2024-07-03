@@ -1,0 +1,27 @@
+# dependency chart helper-operator
+helper-operator:
+  operators:
+    openshift-cert-manager-operator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: cert-manager-operator
+        create: false
+      operatorgroup:
+        create: true
+      subscription:
+        channel: stable-v1
+        approval: Automatic
+        operatorName: openshift-cert-manager-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+# dependency chart helper-status-checker
+helper-status-checker:
+  enabled: true
+  checks:
+    - operatorName: openshift-cert-manager-operator
+      namespace:
+        name: cert-manager-operator
+      syncwave: 3
+      serviceAccount:
+        name: "openshift-operators-install-check"
