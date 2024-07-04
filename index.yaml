@@ -91,6 +91,21 @@ entries:
     version: 1.0.4
   cluster-cert-manager:
   - apiVersion: v2
+    created: "2024-07-04T02:36:28.947763652Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    digest: 6504b2063d16ac803f1a9cb1acd79e970827977eb0e39d3e5e15d22a174de50d
+    name: cluster-cert-manager
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-cert-manager-0.0.4/cluster-cert-manager-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
     created: "2024-07-03T00:56:36.951930504Z"
     dependencies:
     - name: helper-operator
@@ -429,6 +444,13 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/cluster-logging-0.0.3/cluster-logging-0.0.3.tgz
     version: 0.0.3
   cluster-seed:
+  - apiVersion: v2
+    created: "2024-07-04T02:36:29.098477667Z"
+    digest: aa424acfb2068f817e91b0f93002eccaa84916d3be6a86cc5cfdf60c37168379
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-3.3.6/cluster-seed-3.3.6.tgz
+    version: 3.3.6
   - apiVersion: v2
     created: "2024-07-04T02:02:50.750147606Z"
     digest: 9876aff68eba19cf4f7efbe4351335692ba2645f341e082a9f9be56f742eb80b
@@ -1921,4 +1943,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-07-04T02:11:46.444987895Z"
+generated: "2024-07-04T02:36:29.099029303Z"
