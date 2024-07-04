@@ -59,7 +59,7 @@ spec:
     {{- if $infra.createNamespace}}
     - CreateNamespace=true
     {{ else }}
-     - CreateNamespace=false       
+    - CreateNamespace=false       
     {{- end }}
     retry:
       limit: 5
