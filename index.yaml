@@ -430,6 +430,13 @@ entries:
     version: 0.0.3
   cluster-seed:
   - apiVersion: v2
+    created: "2024-07-04T02:02:50.750147606Z"
+    digest: 9876aff68eba19cf4f7efbe4351335692ba2645f341e082a9f9be56f742eb80b
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-3.3.5/cluster-seed-3.3.5.tgz
+    version: 3.3.5
+  - apiVersion: v2
     created: "2024-07-01T10:52:03.05303635Z"
     digest: 8c00eff77941d129ee003afe474bfde89f83a071d7c41c84a25087016529536d
     name: cluster-seed
@@ -1420,6 +1427,14 @@ entries:
     version: 1.3.5
   gitops-payload:
   - apiVersion: v1
+    created: "2024-07-04T02:02:50.889567357Z"
+    description: Chart to generate argocd apps
+    digest: 905eac3eb8d5a614f913887a031beb2fe0a3c343216792d0b2bde1247c064970
+    name: gitops-payload
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-payload-1.4.5/gitops-payload-1.4.5.tgz
+    version: 1.4.5
+  - apiVersion: v1
     created: "2024-06-20T11:37:02.357418805Z"
     description: Chart to generate argocd apps
     digest: d7118a222d2d376b6dd3fed68d13fd4794ed2c6b55df40b64c9ca3045a6373c9
@@ -1898,4 +1913,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-07-03T23:19:59.781412415Z"
+generated: "2024-07-04T02:02:50.890261999Z"
