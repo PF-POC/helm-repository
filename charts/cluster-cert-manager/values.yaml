@@ -18,7 +18,7 @@ helper-operator:
 helper-status-checker:
   enabled: true
   checks:
-    - operatorName: openshift-cert-manager-operator
+    - operatorName: cert-manager-operator
       namespace:
         name: cert-manager-operator
       syncwave: 3
