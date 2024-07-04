@@ -27,7 +27,7 @@ argocd:
     version: "1.17.0"
     AVP_K8S_ROLE: argocd
     AVP_TYPE: vault
-    VAULT_ADDR: 'http://vault.vault.svc:8200'
+    VAULT_ADDR: "http://d1-vault-dev-vault.d1-vault-dev.svc.cluster.local:8200"
     AVP_AUTH_TYPE: k8s
     VAULT_SKIP_VERIFY: "true"
   initialRepositories: |
