@@ -5,7 +5,7 @@ helper-operator:
       enabled: true
       syncwave: '0'
       namespace:
-        name: d1-cert-manager-operator
+        name: cert-manager-operator
       operatorgroup:
         create: true
       subscription:
