@@ -23,6 +23,7 @@ catalogSources: []
   #   displayName: Community Operators
   #   publisher: OperatorHub.io
 argocd:
+  domain: rosa-pub-1.43o8.p3.openshiftapps.com
   plugin:
     version: "1.17.0"
     AVP_K8S_ROLE: argocd

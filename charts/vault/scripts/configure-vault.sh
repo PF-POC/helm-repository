@@ -35,3 +35,49 @@ vault write auth/kubernetes/role/argocd \
     bound_service_account_namespaces=openshift-gitops \
     policies=vplugin \
     ttl=1h
+
+##########
+# PKI
+##########
+
+cd /tmp
+vault secrets enable pki
+vault secrets tune -max-lease-ttl=87600h pki
+vault write -field=certificate pki/root/generate/internal \
+     common_name="business.com" \
+     issuer_name="root-2024" \
+     ttl=87600h > root_2024_ca.crt
+## list issuers
+issuers=`vault list pki/issuers/|grep -v "\-\-\-\-"|grep -v Keys`
+## read from issuers
+vault read pki/issuer/$issuers
+vault write pki/roles/getCerts allow_any_name=true
+vault write pki/config/urls \
+     issuing_certificates="$VAULT_ADDR/v1/pki/ca" \
+     crl_distribution_points="$VAULT_ADDR/v1/pki/crl"
+vault secrets enable -path=pki_int pki
+vault secrets tune -max-lease-ttl=43800h pki_int
+vault write -format=json pki_int/intermediate/generate/internal \
+     common_name="business.com Intermediate Authority" \
+     issuer_name="business-dot-com-intermediate" |grep -i csr\": |awk -F\" '{print $4}'|awk '{gsub(/\\n/,"\n")}1' > pki_intermediate.csr
+vault write -format=json pki/root/sign-intermediate \
+     issuer_ref="root-2024" \
+     csr=@pki_intermediate.csr \
+     format=pem_bundle ttl="43800h" |grep certificate|awk -F\" '{print $4}'|awk '{gsub(/\\n/,"\n")}1' > intermediate.cert.pem
+vault write pki_int/intermediate/set-signed certificate=@intermediate.cert.pem
+vault write pki_int/roles/business-dot-com \
+     issuer_ref="$(vault read -field=default pki_int/config/issuers)" \
+     allowed_domains="business.com" \
+     allow_subdomains=true \
+     max_ttl="720h"
+vault write auth/kubernetes/role/vault-issuer-role \
+    bound_service_account_names=vault-issuer \
+    bound_service_account_namespaces=cert-test \
+    audience="vault://cert-test/vault-issuer" \
+    policies=pki \
+    ttl=1m
+
+
+
+
+

@@ -1,0 +1,51 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer
+spec:
+  vault:
+    path: pki_int/sign/business-dot-com
+    server: http://d1-vault-dev-vault.d1-vault-dev.svc.cluster.local:8200
+    auth:
+      kubernetes:
+        role: vault-issuer-role
+        mountPath: /v1/auth/kubernetes
+        serviceAccountRef:
+          name: vault-issuer
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: vault-issuer
+rules:
+  - apiGroups: ['']
+    resources: ['serviceaccounts/token']
+    resourceNames: ['vault-issuer']
+    verbs: ['create']
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: vault-issuer
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: vault-issuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mycert
+spec:
+  isCA: false
+  commonName: api.business.com
+  secretName: mycert
+  dnsNames:
+  - api.business.com
+  issuerRef:
+    name: vault-issuer
+    kind: Issuer

@@ -4,9 +4,11 @@ metadata:
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
     helm.sh/hook: post-install
+    argocd.argoproj.io/sync-wave: '3'
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   finalizers:
   - argoproj.io/finalizer
-  name: cluster-gitops
+  name: openshift-gitops
   namespace: openshift-gitops
 spec:
   applicationInstanceLabelKey: argocd.argoproj.io/instance
@@ -43,7 +45,14 @@ spec:
         cpu: 250m
         memory: 128Mi
   initialRepositories:
-  {{ toYaml .Values.argocd.initialRepositories | nindent 4 }}
+  
+    "- name: day-2\n  url: https://github.com/PF-POC/day-1-gitops.git\n  insecure: true\n
+      \ usernameSecret:\n    name: repository-secret\n    key: username\n  passwordSecret:\n
+      \   name: repository-secret\n    key: password\n- name: day-2\n  type: git\n  project:
+      default\n  url: https://github.com/PF-POC/day-2-gitops.git\n  insecure: true\n  usernameSecret:\n
+      \   name: repository-secret\n    key: username\n  passwordSecret:\n    name: repository-secret\n
+      \   key: password   \n- name: helm-charts\n  project: default\n  type: helm\n  url:
+      https://pf-poc.github.io/helm-repository\n"
   initialSSHKnownHosts: {}
   monitoring:
     enabled: false
@@ -71,7 +80,7 @@ spec:
   repo:
     initContainers:
     - args:
-      - curl -Lo /custom-tools/argocd-vault-plugin https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v{{ .Values.argocd.plugin.version }}/argocd-vault-plugin_{{ .Values.argocd.plugin.version }}_linux_amd64
+      - curl -Lo /custom-tools/argocd-vault-plugin https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v1.17.0/argocd-vault-plugin_1.17.0_linux_amd64
         && chmod +x /custom-tools/argocd-vault-plugin
       command:
       - /bin/bash
