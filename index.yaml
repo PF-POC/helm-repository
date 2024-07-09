@@ -1,5 +1,13 @@
 apiVersion: v1
 entries:
+  application-certificates:
+  - apiVersion: v2
+    created: "2024-07-09T04:37:58.567489563Z"
+    digest: f3e6fc190dc2d3eb328ce1897b097c70e931e6c3c931e6392afddf07385df05d
+    name: application-certificates
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/application-certificates-0.0.2/application-certificates-0.0.2.tgz
+    version: 0.0.2
   application-gitops:
   - apiVersion: v1
     created: "2024-06-07T04:51:07.85770687Z"
@@ -474,6 +482,13 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/cluster-logging-0.0.3/cluster-logging-0.0.3.tgz
     version: 0.0.3
   cluster-seed:
+  - apiVersion: v2
+    created: "2024-07-09T04:37:58.740538577Z"
+    digest: ff5dc9d34f9ce185eceae334df1859e393a899bb2cb16f4b558347accaa31d3c
+    name: cluster-seed
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/cluster-seed-3.3.9/cluster-seed-3.3.9.tgz
+    version: 3.3.9
   - apiVersion: v2
     created: "2024-07-04T02:36:29.098477667Z"
     digest: aa424acfb2068f817e91b0f93002eccaa84916d3be6a86cc5cfdf60c37168379
@@ -1091,6 +1106,14 @@ entries:
     - https://github.com/PF-POC/helm-repository/releases/download/gitops-app-team-config-1.0.2/gitops-app-team-config-1.0.2.tgz
     version: 1.0.2
   gitops-application-argocd:
+  - apiVersion: v1
+    created: "2024-07-09T04:37:58.930048185Z"
+    description: Chart to generate argocd apps
+    digest: 1ecbad5cda550132b15b47343df9bb56d808f76ea9f1a214720e2a58dc8be917
+    name: gitops-application-argocd
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/gitops-application-argocd-1.3.7/gitops-application-argocd-1.3.7.tgz
+    version: 1.3.7
   - apiVersion: v1
     created: "2024-06-20T11:37:02.065496826Z"
     description: Chart to generate argocd apps
@@ -2005,6 +2028,33 @@ entries:
       charts.openshift.io/name: HashiCorp Vault
     apiVersion: v2
     appVersion: 1.16.1
+    created: "2024-07-09T04:37:59.116799809Z"
+    description: Official HashiCorp Vault Chart
+    digest: 9082c06d2cb3febb772ad4ebd8903e3ae55367383f8844147fc834fd175fad49
+    home: https://www.vaultproject.io
+    icon: https://github.com/hashicorp/vault/raw/f22d202cde2018f9455dec755118a9b84586e082/Vault_PrimaryLogo_Black.png
+    keywords:
+    - vault
+    - security
+    - encryption
+    - secrets
+    - management
+    - automation
+    - infrastructure
+    kubeVersion: '>= 1.20.0-0'
+    name: vault
+    sources:
+    - https://github.com/hashicorp/vault
+    - https://github.com/hashicorp/vault-helm
+    - https://github.com/hashicorp/vault-k8s
+    - https://github.com/hashicorp/vault-csi-provider
+    urls:
+    - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.4/vault-0.28.4.tgz
+    version: 0.28.4
+  - annotations:
+      charts.openshift.io/name: HashiCorp Vault
+    apiVersion: v2
+    appVersion: 1.16.1
     created: "2024-07-03T23:19:59.781163511Z"
     description: Official HashiCorp Vault Chart
     digest: c177e7f7ef26bf64aec401dc7d431e4c7cf0089d2baf990b61902a3474927b66
@@ -2055,4 +2105,4 @@ entries:
     urls:
     - https://github.com/PF-POC/helm-repository/releases/download/vault-0.28.0/vault-0.28.0.tgz
     version: 0.28.0
-generated: "2024-07-04T04:52:15.277332632Z"
+generated: "2024-07-09T04:37:59.117809496Z"
