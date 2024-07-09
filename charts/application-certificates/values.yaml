@@ -1,0 +1,13 @@
+# path: pki_int/sign/business-dot-com
+# server: http://d1-vault-dev-vault.d1-vault-dev.svc.cluster.local:8200
+# certificates:
+# - name: mycert
+#   commonName: api.business.com
+#   secretName: mycert
+#   dnsNames:
+#   - api.business.com
+# - name: mycert2
+#   commonName: api.business.com2
+#   secretName: mycert2
+#   dnsNames:
+#   - api.business.com2

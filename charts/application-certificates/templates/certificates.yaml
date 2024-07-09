@@ -1,13 +1,18 @@
+---
+{{ range $certificates := .Values.certificates -}}
+---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: mycert
+  name: {{ $certificates.name }}
 spec:
   isCA: false
-  commonName: api.business.com
-  secretName: mycert
+  commonName: {{ $certificates.commonName }}
+  secretName: {{ $certificates.secretName }}
   dnsNames:
-  - api.business.com
+  {{ toYaml $certificates.dnsNames | nindent 2 }}
   issuerRef:
     name: vault-issuer
     kind: Issuer
+---
+{{- end }}
