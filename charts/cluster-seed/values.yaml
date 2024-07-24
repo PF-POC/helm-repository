@@ -1,7 +1,9 @@
+ecrAwsAccount: "808082629126"
 nameOverride: ""
 fullnameOverride: ""
 namespaces:
   - name: openshift-gitops
+  - name: ecr-secret-operator
 subscriptions:
   - name: openshift-gitops-operator
     namespace: openshift-operators
@@ -14,6 +16,12 @@ subscriptions:
         value: d2-application-gitops,openshift-gitops
     installPlanApproval: Automatic
     source: redhat-operators
+    sourceNamespace: openshift-marketplace
+  - name: ecr-secret-operator
+    namespace: ecr-secret-operator
+    channel: v0.4
+    installPlanApproval: Automatic
+    source: community-operators
     sourceNamespace: openshift-marketplace
 operatorGroups:
 catalogSources: []

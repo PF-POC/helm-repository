@@ -15,6 +15,6 @@ roleRef:
   name: openshift-gitops-argocd-application-controller-custom
 subjects:
 - kind: ServiceAccount
-  name: openshift-gitops-argocd-application-controller
+  name: cluster-gitops-argocd-application-controller
   namespace: openshift-gitops
 ---

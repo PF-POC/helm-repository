@@ -1,5 +1,5 @@
 name: cluster-seed
-version: 3.3.9
+version: 3.4.1
 apiVersion: v2
 # dependencies:
 #   - name: helper-operator
