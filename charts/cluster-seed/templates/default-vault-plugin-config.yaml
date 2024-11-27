@@ -30,3 +30,4 @@ metadata:
   name: regcred
   namespace: openshift-gitops
 type: kubernetes.io/dockerconfigjson
+---

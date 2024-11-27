@@ -1,0 +1,25 @@
+---
+{{- range $k, $v := .Values.egress }}
+    {{- if eq (split "|" $v)._0 "allow-ns-to-cidr" }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-local-allow-ns-to-ns-{{ (split "|" $v)._1 }}
+spec:
+  podSelector:
+    matchLabels: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+  {{- range (split "&" (split "|" $v)._2) }}
+    - ipBlock:
+        cidr: {{ . }}
+  {{- end }}
+    ports:
+    - protocol:
+      port: {{ (split "|" $v)._3 }}
+
+---
+    {{- end }}
+  {{- end }}

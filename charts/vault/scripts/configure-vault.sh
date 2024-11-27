@@ -70,13 +70,20 @@ vault write pki_int/roles/business-dot-com \
      allowed_domains="business.com" \
      allow_subdomains=true \
      max_ttl="720h"
+
+# Create policy for secret access
+vault policy write pki - <<EOF
+path "*" {
+  capabilities = [ "create", "read", "update", "list" ]
+}
+EOF
+
 vault write auth/kubernetes/role/vault-issuer-role \
     bound_service_account_names=vault-issuer \
     bound_service_account_namespaces=cert-test \
     audience="vault://cert-test/vault-issuer" \
     policies=pki \
     ttl=1m
-
 
 
 

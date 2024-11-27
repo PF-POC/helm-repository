@@ -1,0 +1,12 @@
+{
+  "Comment": "CREATE/DELETE/UPSERT a record ",
+  "Changes": [{
+  "Action": "CREATE",
+    "ResourceRecordSet": {
+        "Name": "*.apps.dev.example.com",
+        "Type": "CNAME",
+        "TTL": 300,
+      "ResourceRecords": [{ "Value": "a8c2bfc7c3a1e49598f3d939a17af52c-d65e33372ec4927a.elb.ap-southeast-2.amazonaws.com"}]
+    }
+  }]
+}

@@ -1,0 +1,21 @@
+---
+{{- range $k, $v := .Values.ingress }}
+    {{- if eq (split "|" $v)._0 "allow-to-a-port" }}
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: ingress-local-allow-to-a-port-{{ (split "|" $v)._1 }}
+spec:
+  policyTypes:
+  - Ingress
+  podSelector:
+    matchLabels: {}
+  ingress:
+  - ports:
+    {{- range (split "&" (split "|" $v)._2) }}
+    - protocol: TCP
+      port: {{ . }}
+    {{- end }}
+---
+  {{- end }}
+{{- end }}

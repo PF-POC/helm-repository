@@ -1,0 +1,39 @@
+---
+{{- range $k, $v := .Values.egress }}
+    {{- if eq (split "|" $v)._0 "deny" }}
+      {{- if eq (split "|" $v)._1 "true" }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-local-deny-default
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-local-allow-dns
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: TCP
+      port:  53
+    - protocol: UDP
+      port:  53
+---
+      {{- end }}
+    {{- end }}
+  {{- end }}
+

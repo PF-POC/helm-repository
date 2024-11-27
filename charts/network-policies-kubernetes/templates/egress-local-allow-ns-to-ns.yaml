@@ -1,0 +1,29 @@
+---
+{{- range $k, $v := .Values.egress }}
+    {{- if eq (split "|" $v)._0 "allow-ns-to-ns" }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-local-allow-ns-to-ns-{{ (split "|" $v)._1 }}
+spec:
+  podSelector:
+    matchLabels: {}
+  policyTypes:
+  - Egress
+  egress:
+  - ports:
+  {{- range (split "&" (split "|" $v)._6) }}
+    - protocol: TCP
+      port: {{ . }}
+  {{- end }}
+    to:
+    - namespaceSelector:
+        matchLabels:
+          {{ (split "|" $v)._2 }}: {{ (split "|" $v)._3 }}
+      podSelector:
+        matchLabels:
+          {{ (split "|" $v)._4 }}: {{ (split "|" $v)._5 }}
+---
+    {{- end }}
+  {{- end }}
+

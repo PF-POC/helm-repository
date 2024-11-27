@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: argocd-ecr-credentials
+spec:
+  schedule: '*/1 * * * *' # every 6 hours, since credentials expire every 12 hours
+  jobTemplate:
+    metadata:
+      name: argocd-ecr-credentials
+    spec:
+      template:
+        spec:
+          serviceAccountName: ecr-secret-operator-controller-manager
+          restartPolicy: OnFailure
+          containers:
+            - name: update-secret
+              image: amazon/aws-cli
+              command:
+                - /bin/bash
+                - "-c"
+                - |
+                  PASSWORD=$(aws ecr get-login-password --region ap-southeast-2 | base64 -w 0)
+                  echo $PASSWORD

@@ -24,6 +24,8 @@ subscriptions:
     source: community-operators
     sourceNamespace: openshift-marketplace
 operatorGroups:
+  - name: ecr-secret-operator
+    namespace: ecr-secret-operator
 catalogSources: []
   # - name: operatorhubio
   #   sourceType: grpc

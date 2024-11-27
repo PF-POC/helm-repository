@@ -1,0 +1,14 @@
+ingress:
+  - deny|true
+  - allow-ns-to-ns|same-namespace|name|'ob-dev'|security.istio.io/tlsMode|'istio'|5050&8080&3550&7070&7000&50051&6379&9555&5000&80
+  - allow-ns-to-ns|istio-gateway|name|'ob-sm-cp'|app|'istio-ingressgateway'|80&8080
+  # - deny|true
+  # - allow-ns-to-ns|same-namespace|name|'kong-ext-cp'|app.kubernetes.io/name|'kong'|8005&8006&8444&8445&8446&8447
+  # - allow-ns-to-ns|kong-cluster|name|'kong-ext-dp'|app.kubernetes.io/name|'kong'|8005&8006
+  # - allow-ns-to-ns|nginx-ingress|name|'ingress-nginx-internal'|app.kubernetes.io/name|'ingress-nginx-internal'|8444&8445&8446&8447
+  # - allow-ns-to-ns|admin-api|name|'kong-int-dp'|app.kubernetes.io/name|'kong'|8444
+  # - allow-to-a-port|ingress|10888&11443&10443&12443&11255
+egress:
+  # - deny|true|true
+  # - allow-ns-to-ns|kong-cluster|name|'kong-ext-cp'|app.kubernetes.io/name|'kong'|8005&8006
+  # - allow-ns-to-cidr|bastian-host-ssh|10.250.133.37/32&10.250.133.38/32|

@@ -1,0 +1,19 @@
+apiVersion: ecr.mobb.redhat.com/v1alpha1
+kind: Secret
+metadata:
+  name: ecr-secret
+spec:
+  generated_secret_name: ecr-docker-secret
+  ecr_registry: "808082629126.dkr.ap-southeast-2.amazonaws.com"
+  frequency: 4h
+  region: ap-southeast-2
+---
+apiVersion: ecr.mobb.redhat.com/v1alpha1
+kind: ArgoHelmRepoSecret
+metadata:
+  name: helm-repo
+spec:
+  generated_secret_name: ecr-argo-helm-secret
+  url: "808082629126.dkr.ap-southeast-2.amazonaws.com"
+  frequency: 4h
+  region: ap-southeast-2

@@ -1,0 +1,17 @@
+---
+{{- range $k, $v := .Values.ingress }}
+    {{- if eq (split "|" $v)._0 "deny" }}
+      {{- if eq (split "|" $v)._1 "true" }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-local-deny-default
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+---
+    {{- end }}
+  {{- end }}
+{{- end }}
+

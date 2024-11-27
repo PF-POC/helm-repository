@@ -23,7 +23,7 @@ spec:
           networkLoadBalancer: {}
           type: NLB
         type: AWS
-      scope: Internal
+      scope: Internal 
     type: LoadBalancerService
   httpCompression: {}
   httpEmptyRequestsPolicy: Respond
